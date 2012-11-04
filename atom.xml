@@ -4,7 +4,7 @@
   <title><![CDATA[Shirohida]]></title>
   <link href="http://claymore.github.com/atom.xml" rel="self"/>
   <link href="http://claymore.github.com/"/>
-  <updated>2012-11-04T22:45:16+04:00</updated>
+  <updated>2012-11-04T23:24:08+04:00</updated>
   <id>http://claymore.github.com/</id>
   <author>
     <name><![CDATA[Alexey Bobyakov]]></name>
@@ -53,6 +53,9 @@
     <updated>2008-07-13T16:53:00+04:00</updated>
     <id>http://claymore.github.com/blog/2008/07/13/context-menu-for-column-headers-of-net-listview</id>
     <content type="html"><![CDATA[<p><code>ListView</code> doesn&#8217;t provide <code>ColumnHeaderMouseClick</code> event so I had to find a workaround to display context menu for column headers. There is a <a href="http://www.codeproject.com/Articles/23330/Handling-Right-Click-Events-in-ListView-Column-Hea" title="Handling Right-Click Events in ListView Column Headers">way</a> to do this by resorting to Windows API but my solution is easier.</p>
+
+<!-- more -->
+
 
 <p>Let&#8217;s say we&#8217;ve got a <code>ListView</code> control called <code>contentsListView</code> and two menus: <code>generalContextMenu</code> and <code>headerContextMenu</code>. <code>generalContextMenu</code> should be displayed when user right-clicks on an item and headerContextMenu should be displayed when he clicks on a column header.</p>
 

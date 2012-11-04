@@ -195,66 +195,12 @@
 
   <div class="entry-content"><p><code>ListView</code> doesn&#8217;t provide <code>ColumnHeaderMouseClick</code> event so I had to find a workaround to display context menu for column headers. There is a <a href="http://www.codeproject.com/Articles/23330/Handling-Right-Click-Events-in-ListView-Column-Hea" title="Handling Right-Click Events in ListView Column Headers">way</a> to do this by resorting to Windows API but my solution is easier.</p>
 
-<p>Let&#8217;s say we&#8217;ve got a <code>ListView</code> control called <code>contentsListView</code> and two menus: <code>generalContextMenu</code> and <code>headerContextMenu</code>. <code>generalContextMenu</code> should be displayed when user right-clicks on an item and headerContextMenu should be displayed when he clicks on a column header.</p>
-
-<p>Set the list view&#8217;s property <code>ContextMenuStrip</code> to <code>generalContextMenu</code>:</p>
-
-<pre><code>contentListView.ContextMenuStrip = generalContextMenu;
-</code></pre>
-
-<p>Add handler for <code>Opening</code> event of <code>generalContextMenu</code>:</p>
-
-<pre><code>generalContextMenuStrip.Opening += generalContextMenu_Opening;
-</code></pre>
-
-<p>I have played with debugger a bit and found out that <code>contentListView.GetItemAt</code> returns first visible item of the list even when we actually click on a column header. So, when we get some value this means we either clicked on an item or on a column header. Any list item is located below the header, so if the item <code>Position.Y</code> is less than <code>MousePosition.Y</code> then user clicked on a column header.</p>
-
-<p>Here is the code for the handler:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">private</span> <span class="k">void</span> <span class="nf">generalContextMenu_Opening</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">CancelEventArgs</span> <span class="n">e</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="n">Point</span> <span class="n">pt</span> <span class="p">=</span> <span class="n">contentListView</span><span class="p">.</span><span class="n">PointToClient</span><span class="p">(</span><span class="k">new</span> <span class="n">Point</span><span class="p">(</span><span class="n">MousePosition</span><span class="p">.</span><span class="n">X</span><span class="p">,</span> <span class="n">MousePosition</span><span class="p">.</span><span class="n">Y</span><span class="p">));</span>
-</span><span class='line'>  <span class="n">ListViewItem</span> <span class="n">item</span> <span class="p">=</span> <span class="n">contentListView</span><span class="p">.</span><span class="n">GetItemAt</span><span class="p">(</span><span class="n">pt</span><span class="p">.</span><span class="n">X</span><span class="p">,</span> <span class="n">pt</span><span class="p">.</span><span class="n">Y</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// Not an item or a column header</span>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">item</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">e</span><span class="p">.</span><span class="n">Cancel</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
-</span><span class='line'>      <span class="k">return</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// Is it a column header?</span>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">item</span><span class="p">.</span><span class="n">Position</span><span class="p">.</span><span class="n">Y</span> <span class="p">&gt;</span> <span class="n">pt</span><span class="p">.</span><span class="n">Y</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">e</span><span class="p">.</span><span class="n">Cancel</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
-</span><span class='line'>      <span class="n">headerContextMenu</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">MousePosition</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/07/13/context-menu-for-column-headers-of-net-listview/">Read on &rarr;</a>
+    </footer>
   
 
 
