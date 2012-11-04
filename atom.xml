@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
-  <link href="http://Claymore.github.com/atom.xml" rel="self"/>
-  <link href="http://Claymore.github.com/"/>
-  <updated>2012-11-04T12:59:03+04:00</updated>
-  <id>http://Claymore.github.com/</id>
+  <title><![CDATA[Shirohida]]></title>
+  <link href="http://claymore.github.com/atom.xml" rel="self"/>
+  <link href="http://claymore.github.com/"/>
+  <updated>2012-11-04T13:06:16+04:00</updated>
+  <id>http://claymore.github.com/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Alexey Bobyakov]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
