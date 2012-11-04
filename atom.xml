@@ -4,7 +4,7 @@
   <title><![CDATA[Shirohida]]></title>
   <link href="http://claymore.github.com/atom.xml" rel="self"/>
   <link href="http://claymore.github.com/"/>
-  <updated>2012-11-04T23:24:08+04:00</updated>
+  <updated>2012-11-05T00:09:23+04:00</updated>
   <id>http://claymore.github.com/</id>
   <author>
     <name><![CDATA[Alexey Bobyakov]]></name>
@@ -12,6 +12,59 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Git Configuration Tips]]></title>
+    <link href="http://claymore.github.com/blog/2012/11/05/git-configuration-tips/"/>
+    <updated>2012-11-05T00:07:00+04:00</updated>
+    <id>http://claymore.github.com/blog/2012/11/05/git-configuration-tips</id>
+    <content type="html"><![CDATA[<p>Probably the first thing you want to do after providing git with your name and email is to color its output. Open <code>~/.gitconfig</code> in your favorite editor and add following lines:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[color]
+</span><span class='line'>  branch = auto
+</span><span class='line'>  diff = auto
+</span><span class='line'>  interactive = auto
+</span><span class='line'>  status = auto</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you want to cut down on typing you can also use git aliases. Here is list of mine:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[alias]
+</span><span class='line'>  st = status -s
+</span><span class='line'>  ci = commit
+</span><span class='line'>  cim = commit -m
+</span><span class='line'>  ciam = commit -a -m
+</span><span class='line'>  br = branch
+</span><span class='line'>  co = checkout
+</span><span class='line'>  df = diff
+</span><span class='line'>  lg = log -p
+</span><span class='line'>  au = add -u
+</span><span class='line'>  history = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset' --abbrev-commit --date=relative
+</span><span class='line'>  # git svn related commands
+</span><span class='line'>  sup = !git svn fetch && git svn rebase -l
+</span><span class='line'>  sci = svn dcommit</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[From Blogspot to Octopress/Github]]></title>

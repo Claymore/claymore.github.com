@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: git | Shirohida]]></title>
+  <link href="http://claymore.github.com/blog/categories/git/atom.xml" rel="self"/>
+  <link href="http://claymore.github.com/"/>
+  <updated>2012-11-05T00:09:23+04:00</updated>
+  <id>http://claymore.github.com/</id>
+  <author>
+    <name><![CDATA[Alexey Bobyakov]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Git Configuration Tips]]></title>
+    <link href="http://claymore.github.com/blog/2012/11/05/git-configuration-tips/"/>
+    <updated>2012-11-05T00:07:00+04:00</updated>
+    <id>http://claymore.github.com/blog/2012/11/05/git-configuration-tips</id>
+    <content type="html"><![CDATA[<p>Probably the first thing you want to do after providing git with your name and email is to color its output. Open <code>~/.gitconfig</code> in your favorite editor and add following lines:</p>
+
+<p>```
+[color]</p>
+
+<pre><code>branch = auto
+diff = auto
+interactive = auto
+status = auto
+</code></pre>
+
+<p>```</p>
+
+<p>If you want to cut down on typing you can also use git aliases. Here is list of mine:</p>
+
+<p>```
+[alias]</p>
+
+<pre><code>st = status -s
+ci = commit
+cim = commit -m
+ciam = commit -a -m
+br = branch
+co = checkout
+df = diff
+lg = log -p
+au = add -u
+history = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset' --abbrev-commit --date=relative
+# git svn related commands
+sup = !git svn fetch &amp;&amp; git svn rebase -l
+sci = svn dcommit
+</code></pre>
+
+<p>```</p>
+]]></content>
+  </entry>
+  
+</feed>

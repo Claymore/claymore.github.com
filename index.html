@@ -9,7 +9,7 @@
   <meta name="author" content="Alexey Bobyakov">
 
   
-  <meta name="description" content="I&#8217;ve finally moved my blog from Blogspot to Github pages. The blog is now powered by Octopress. Blogspot was convient but for a developer there &hellip;">
+  <meta name="description" content="Probably the first thing you want to do after providing git with your name and email is to color its output. Open ~/.gitconfig in your favorite &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,86 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/05/git-configuration-tips/">Git Configuration Tips</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-05T00:07:00+04:00" pubdate data-updated="true">Nov 5<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Probably the first thing you want to do after providing git with your name and email is to color its output. Open <code>~/.gitconfig</code> in your favorite editor and add following lines:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[color]
+</span><span class='line'>  branch = auto
+</span><span class='line'>  diff = auto
+</span><span class='line'>  interactive = auto
+</span><span class='line'>  status = auto</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you want to cut down on typing you can also use git aliases. Here is list of mine:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[alias]
+</span><span class='line'>  st = status -s
+</span><span class='line'>  ci = commit
+</span><span class='line'>  cim = commit -m
+</span><span class='line'>  ciam = commit -a -m
+</span><span class='line'>  br = branch
+</span><span class='line'>  co = checkout
+</span><span class='line'>  df = diff
+</span><span class='line'>  lg = log -p
+</span><span class='line'>  au = add -u
+</span><span class='line'>  history = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset' --abbrev-commit --date=relative
+</span><span class='line'>  # git svn related commands
+</span><span class='line'>  sup = !git svn fetch && git svn rebase -l
+</span><span class='line'>  sci = svn dcommit</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -253,6 +333,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/11/05/git-configuration-tips/">Git Configuration Tips</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/11/04/from-blogspot-to-octopress-slash-github/">From Blogspot to Octopress/Github</a>
