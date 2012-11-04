@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: blog | Shirohida]]></title>
+  <link href="http://claymore.github.com/blog/categories/blog/atom.xml" rel="self"/>
+  <link href="http://claymore.github.com/"/>
+  <updated>2012-11-04T22:45:16+04:00</updated>
+  <id>http://claymore.github.com/</id>
+  <author>
+    <name><![CDATA[Alexey Bobyakov]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[From Blogspot to Octopress/Github]]></title>
+    <link href="http://claymore.github.com/blog/2012/11/04/from-blogspot-to-octopress-slash-github/"/>
+    <updated>2012-11-04T21:53:00+04:00</updated>
+    <id>http://claymore.github.com/blog/2012/11/04/from-blogspot-to-octopress-slash-github</id>
+    <content type="html"><![CDATA[<p>I've finally moved my blog from Blogspot to Github pages. The blog is now powered by <a href="http://octopress.org/" title="Octopress">Octopress</a>. Blogspot was convient but for a developer there are several reasons to switch. Octopress generates a static website that can be deployed anywhere so you gain independence from a service provider. Your posts are Markdown files that can be authored in your favorite editor. The blog source is under version control. Another great feature: code syntax highlighting works out of the box.</p>
+]]></content>
+  </entry>
+  
+</feed>
