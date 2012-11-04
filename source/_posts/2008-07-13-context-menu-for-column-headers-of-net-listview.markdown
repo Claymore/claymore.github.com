@@ -8,6 +8,8 @@ categories: .NET
 
 `ListView` doesn't provide `ColumnHeaderMouseClick` event so I had to find a workaround to display context menu for column headers. There is a [way] [1] to do this by resorting to Windows API but my solution is easier.
 
+<!-- more -->
+
 Let's say we've got a `ListView` control called `contentsListView` and two menus: `generalContextMenu` and `headerContextMenu`. `generalContextMenu` should be displayed when user right-clicks on an item and headerContextMenu should be displayed when he clicks on a column header.
 
 Set the list view's property `ContextMenuStrip` to `generalContextMenu`:
