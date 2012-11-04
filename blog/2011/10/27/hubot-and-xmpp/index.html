@@ -5,13 +5,14 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Blog Archive - Shirohida</title>
+  <title>Hubot &amp; XMPP - Shirohida</title>
   <meta name="author" content="Alexey Bobyakov">
 
   
-  <meta name="description" content="Blog Archive 2011 Hubot &amp; XMPP
-Oct 27 2011 2008 Context menu for column headers of .NET ListView
-Jul 13 2008 posted in .NET 2007 Windows Vista &hellip;">
+  <meta name="description" content="Running Hubot on a Jabber server is fairly simple: Install node.js;
+Install npm;
+Install redis;
+Set up environment variables: export &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +21,7 @@ Jul 13 2008 posted in .NET 2007 Windows Vista &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://claymore.github.com/blog/archives/">
+  <link rel="canonical" href="http://claymore.github.com/blog/2011/10/27/hubot-and-xmpp/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -65,65 +66,94 @@ Jul 13 2008 posted in .NET 2007 Windows Vista &hellip;">
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Blog Archive</h1>
+    
+      <h1 class="entry-title">Hubot &amp; XMPP</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-27T00:43:00+04:00" pubdate data-updated="true">Oct 27<span>th</span>, 2011</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives">
 
 
+<div class="entry-content"><p>Running Hubot on a Jabber server is fairly simple:</p>
 
-  
-  <h2>2011</h2>
+<ol>
+<li>Install node.js;</li>
+<li>Install npm;</li>
+<li>Install redis;</li>
+<li>Set up environment variables:
 
-<article>
-  
-<h1><a href="/blog/2011/10/27/hubot-and-xmpp/">Hubot &amp; XMPP</a></h1>
-<time datetime="2011-10-27T00:43:00+04:00" pubdate><span class='month'>Oct</span> <span class='day'>27</span> <span class='year'>2011</span></time>
-
-
-</article>
-
-
-
-  
-  <h2>2008</h2>
-
-<article>
-  
-<h1><a href="/blog/2008/07/13/context-menu-for-column-headers-of-net-listview/">Context menu for column headers of .NET ListView</a></h1>
-<time datetime="2008-07-13T16:53:00+04:00" pubdate><span class='month'>Jul</span> <span class='day'>13</span> <span class='year'>2008</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/-net/'>.NET</a></span>
-</footer>
-
-
-</article>
-
-
-
-  
-  <h2>2007</h2>
-
-<article>
-  
-<h1><a href="/blog/2007/07/30/windows-vista-credential-providers/">Windows Vista Credential Providers</a></h1>
-<time datetime="2007-07-30T13:31:00+04:00" pubdate><span class='month'>Jul</span> <span class='day'>30</span> <span class='year'>2007</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/windows/'>Windows</a></span>
-</footer>
-
-
-</article>
+<ul>
+<li><code>export HUBOT_XMPP_USERNAME=[JID]</code></li>
+<li><code>export HUBOT_XMPP_PASSWORD=[Password]</code></li>
+<li><code>export HUBOT_XMPP_ROOMS=[Room]</code></li>
+</ul>
+</li>
+<li>Run Hubot: <code>bin/hubot -a xmpp</code></li>
+</ol>
 
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Alexey Bobyakov</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-27T00:43:00+04:00" pubdate data-updated="true">Oct 27<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://claymore.github.com/blog/2011/10/27/hubot-and-xmpp/" data-via="kureimoru" data-counturl="http://claymore.github.com/blog/2011/10/27/hubot-and-xmpp/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2008/07/13/context-menu-for-column-headers-of-net-listview/" title="Previous Post: Context menu for column headers of .NET ListView">&laquo; Context menu for column headers of .NET ListView</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
 </div>

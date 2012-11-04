@@ -5,13 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Blog Archive - Shirohida</title>
+  <title>Windows Vista Credential Providers - Shirohida</title>
   <meta name="author" content="Alexey Bobyakov">
 
   
-  <meta name="description" content="Blog Archive 2011 Hubot &amp; XMPP
-Oct 27 2011 2008 Context menu for column headers of .NET ListView
-Jul 13 2008 posted in .NET 2007 Windows Vista &hellip;">
+  <meta name="description" content="In Windows Vista Microsoft has adopted so called credential providers as a way to log into the system. Your custom GINA library won&#8217;t work in &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +18,7 @@ Jul 13 2008 posted in .NET 2007 Windows Vista &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://claymore.github.com/blog/archives/">
+  <link rel="canonical" href="http://claymore.github.com/blog/2007/07/30/windows-vista-credential-providers/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -65,65 +63,84 @@ Jul 13 2008 posted in .NET 2007 Windows Vista &hellip;">
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Blog Archive</h1>
+    
+      <h1 class="entry-title">Windows Vista Credential Providers</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-07-30T13:31:00+04:00" pubdate data-updated="true">Jul 30<span>th</span>, 2007</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives">
 
 
-
-  
-  <h2>2011</h2>
-
-<article>
-  
-<h1><a href="/blog/2011/10/27/hubot-and-xmpp/">Hubot &amp; XMPP</a></h1>
-<time datetime="2011-10-27T00:43:00+04:00" pubdate><span class='month'>Oct</span> <span class='day'>27</span> <span class='year'>2011</span></time>
-
-
-</article>
-
-
-
-  
-  <h2>2008</h2>
-
-<article>
-  
-<h1><a href="/blog/2008/07/13/context-menu-for-column-headers-of-net-listview/">Context menu for column headers of .NET ListView</a></h1>
-<time datetime="2008-07-13T16:53:00+04:00" pubdate><span class='month'>Jul</span> <span class='day'>13</span> <span class='year'>2008</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/-net/'>.NET</a></span>
-</footer>
-
-
-</article>
-
-
-
-  
-  <h2>2007</h2>
-
-<article>
-  
-<h1><a href="/blog/2007/07/30/windows-vista-credential-providers/">Windows Vista Credential Providers</a></h1>
-<time datetime="2007-07-30T13:31:00+04:00" pubdate><span class='month'>Jul</span> <span class='day'>30</span> <span class='year'>2007</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/windows/'>Windows</a></span>
-</footer>
-
-
-</article>
-
+<div class="entry-content"><p>In Windows Vista Microsoft has adopted so called credential providers as a way to log into the system. Your custom <a href="http://en.wikipedia.org/wiki/Graphical_identification_and_authentication">GINA</a> library <a href="http://support.microsoft.com/kb/925520">won&#8217;t work</a> in Vista so you will have to write a COM component that implements <code>ICredentialProvider</code> and <code>ICredentialProviderCredential</code> interfaces. I found it pretty easy to write a custom credential provider (the one that works with electronic keys). There are a <a href="http://msdn.microsoft.com/en-us/magazine/cc163489.aspx">good introduction</a> into the new model, <a href="http://www.microsoft.com/en-us/download/details.aspx?id=4057">samples</a> and <a href="http://shellrevealed.com/files/folders/code_samples/entry1019.aspx">technical reference</a>.</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Alexey Bobyakov</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-07-30T13:31:00+04:00" pubdate data-updated="true">Jul 30<span>th</span>, 2007</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/windows/'>Windows</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://claymore.github.com/blog/2007/07/30/windows-vista-credential-providers/" data-via="kureimoru" data-counturl="http://claymore.github.com/blog/2007/07/30/windows-vista-credential-providers/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+      
+        <a class="basic-alignment right" href="/blog/2008/07/13/context-menu-for-column-headers-of-net-listview/" title="Next Post: Context menu for column headers of .NET ListView">Context menu for column headers of .NET ListView &raquo;</a>
+      
+    </p>
+  </footer>
 </article>
 
 </div>
