@@ -4,7 +4,7 @@
   <title><![CDATA[Shirohida]]></title>
   <link href="http://claymore.github.com/atom.xml" rel="self"/>
   <link href="http://claymore.github.com/"/>
-  <updated>2012-11-05T01:03:08+04:00</updated>
+  <updated>2012-11-05T14:53:04+04:00</updated>
   <id>http://claymore.github.com/</id>
   <author>
     <name><![CDATA[Alexey Bobyakov]]></name>
@@ -12,6 +12,90 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[First Days with Go]]></title>
+    <link href="http://claymore.github.com/blog/2012/11/05/first-days-with-go/"/>
+    <updated>2012-11-05T13:34:00+04:00</updated>
+    <id>http://claymore.github.com/blog/2012/11/05/first-days-with-go</id>
+    <content type="html"><![CDATA[<p>I&#8217;ve seen articles about <a href="http://golang.org" title="The Go Programming Language">Go</a> programming language appearing on Hacker News
+a few times but I didn&#8217;t pay much attention to them. Yet another language with
+nothing special about it or so it looked. It&#8217;s changed with Rob Pike&#8217;s <a href="http://talks.golang.org/2012/splash.slide#1" title="Go at Google">recent talk</a>.</p>
+
+<!-- more -->
+
+
+<p>I decided to try it out in a simple program that I originally wrote in Python.
+The program takes CSV files with <a href="https://github.com/Claymore/wiki-japan-stat/tree/golang/data">data</a> about Japanese population fetched
+from official sites and produces a template for Russian Wikipedia. The program
+also uses an INI-like configuration file. You can see the original source <a href="https://github.com/Claymore/wiki-japan-stat/blob/master/generator.py">here</a>.
+It&#8217;s fairly straightforward, the only thing I had to do is to make CSV reader
+handle UTF-8 files by introducing <code>unicode_csv_reader</code> function.</p>
+
+<p>I wanted the same functionality in a Go program. Reading CSV files seemed the easiest
+task to me so I started with it. Go standard library has a package to deal with
+such files, it&#8217;s called <code>encoding/csv</code>. Here is an example of how to use it:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="n">file</span><span class="p">,</span> <span class="n">err</span> <span class="p">:=</span> <span class="n">os</span><span class="p">.</span><span class="n">Open</span><span class="p">(</span><span class="s">&quot;example.csv&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">if</span> <span class="n">err</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">log</span><span class="p">.</span><span class="n">Fatalln</span><span class="p">(</span><span class="s">&quot;Error:&quot;</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">defer</span> <span class="n">file</span><span class="p">.</span><span class="n">Close</span><span class="p">()</span>
+</span><span class='line'><span class="n">reader</span> <span class="p">:=</span> <span class="n">csv</span><span class="p">.</span><span class="n">NewReader</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+</span><span class='line'><span class="k">for</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">record</span><span class="p">,</span> <span class="n">err</span> <span class="p">:=</span> <span class="n">reader</span><span class="p">.</span><span class="n">Read</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">err</span> <span class="p">==</span> <span class="n">io</span><span class="p">.</span><span class="n">EOF</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">break</span>
+</span><span class='line'>  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="n">err</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">log</span><span class="p">.</span><span class="n">Fatalln</span><span class="p">(</span><span class="s">&quot;Error:&quot;</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We open the file, command Go to close it when noone uses it anymore, create a
+<code>csv.Reader</code> object then read and print records line by line until we encounter
+end of file. Things to note: Go functions can return multiple values; you can defer
+execution of a function until the end of the block; Go has basic type inference
+(for example, <code>reader := csv.NewReader(file)</code> is a shortcut for <code>var reader
+csv.Reader = csv.NewReader(file)</code>). Go doesn&#8217;t have exceptions and it&#8217;s common
+idiom to return errors alongside function values. It makes code somewhat more
+verbose but it also makes clear when error will be handled.</p>
+
+<p>The next stop was to read an INI-like configuration file. The standard library
+doesn&#8217;t have a package to read them but it was really easy to implement one
+myself. I took <code>encoding/csv</code> package <a href="http://golang.org/src/pkg/encoding/csv/reader.go">source code</a> and created my own package
+based on it. You can look at the result here: <a href="https://github.com/Claymore/go-config">go-config</a> at GitHub. Later
+I found out there are three third-party packages that do the same but all of
+them introduce Python&#8217;s <code>ConfigParser</code> API that doesn&#8217;t suit Go very well, in my
+opinion.</p>
+
+<p>It was indeed fun, easy and straightforward as Rob&#8217;d claimed in his talk. Go promotes
+writing, documenting, testing and sharing packages: it has tools to automatically
+reformat your source code (<code>go fmt</code>), builtin testing library (<code>testing</code> package
+and <code>go test</code>), document extraction (<code>go doc</code>) and even to get, build and install
+third-party packages (<code>go get</code>) out of the box.</p>
+
+<p>With all pieces in place I&#8217;d finished the <a href="https://github.com/Claymore/wiki-japan-stat/blob/golang/generator.go">program</a> and it&#8217;s almost as easy to
+read it as Python version.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Git Configuration Tips]]></title>
