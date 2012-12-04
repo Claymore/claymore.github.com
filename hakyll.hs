@@ -11,7 +11,7 @@ import Text.Blaze ((!), toValue)
 import qualified Text.Blaze.Html5 as H
 import qualified Text.Blaze.Html5.Attributes as A
 import qualified Data.ByteString.Char8 as B
-import System.FilePath (joinPath, splitDirectories, takeDirectory)
+import System.FilePath (joinPath, splitDirectories, takeDirectory, dropFileName, takeBaseName)
 import Data.Ord (comparing)
 import Data.List (isInfixOf, sortBy)
 
@@ -20,10 +20,15 @@ import Hakyll hiding (chronological)
 articlesPerIndexPage :: Int
 articlesPerIndexPage = 6
 
+authorName :: String
+authorName = "Alexey Bobyakov"
+
+host = "http://claymore.github.com"
+
 main :: IO ()
 main = hakyll $ do
     -- Compress CSS
-    match "css/*" $ do
+    match "stylesheets/*" $ do
         route   idRoute
         compile compressCssCompiler
 
@@ -32,9 +37,48 @@ main = hakyll $ do
       route idRoute
       compile copyFileCompiler
 
-    match "javascripts/*" $ do
+    match "javascripts/**" $ do
         route   idRoute
         compile copyFileCompiler
+
+    match "assets/**" $ do
+        route   idRoute
+        compile copyFileCompiler
+
+    match "favicon.png" $ do
+        route   idRoute
+        compile copyFileCompiler
+
+    -- Tags
+    create "categories" $
+        requireAll "posts/*" (\_ ps -> readTags ps :: Tags String)
+
+    -- Add a tag list compiler for every tag
+    match "categories/*" $ route $ customRoute (\f -> "blog/" ++ show(f) ++ "/index.html")
+    metaCompile $ require_ "categories"
+        >>> arr tagsMap
+        >>> arr (map (\(t, p) -> (tagIdentifier t, makeTagList t p)))
+
+    -- Render RSS feed
+    match "atom.xml" $ route idRoute
+    create "atom.xml" $ requireAll_ "posts/*"
+        >>> arr (reverse . chronological)
+        >>> renderAtom feedConfiguration
+
+    match "archives.html" $ do
+        route   $ customRoute (\f -> "blog/" ++ takeBaseName(show(f)) ++ "/index.html")
+        create "archives.html" $ constA mempty
+            >>> arr (setField "author" authorName)
+            >>> requireAllA "posts/*" (id *** arr (reverse . chronological) >>> (addPostList "templates/archiveitem.html"))
+            >>> applyTemplateCompiler "templates/archive.html"
+            >>> applyTemplateCompiler "templates/default.html"
+            >>> wordpressUrlsCompiler
+
+    -- Sitemap
+    match  "sitemap.xml" $ route idRoute
+    create "sitemap.xml" $ constA mempty
+        >>> requireAllA "posts/*" postListSitemap
+        >>> applyTemplateCompiler "templates/sitemap.xml"
 
     -- Render posts
     match "posts/*" $ do
@@ -42,6 +86,13 @@ main = hakyll $ do
         compile $ pageCompiler
             >>> arr (renderDateField "date" "%B %e, %Y" "Date unknown")
             >>> arr (renderDateField "published" "%Y-%m-%dT%H:%M:%S%z" "Date unknown")
+	    >>> arr (renderDateField "shortdate" "%b %e" "Date unknown")
+            >>> arr (renderDateField "year" "%Y" "Date unknown")
+            >>> renderModificationTime "lastmod" "%Y-%m-%dT%H:%M:%S%z"
+            >>> arr (setField "author" authorName)
+            >>> arr (copyBodyToField "description")
+            >>> arr (setField "host" host)
+            >>> renderTagsField "prettytags" (fromCapture "categories/*")
             >>> addTeaser
             >>> applyTemplateCompiler "templates/post.html"
             >>> applyTemplateCompiler "templates/default.html"
@@ -55,6 +106,33 @@ main = hakyll $ do
 
     -- Read templates
     match "templates/*" $ compile templateCompiler
+
+feedConfiguration :: FeedConfiguration
+feedConfiguration = FeedConfiguration
+    { feedTitle = "Shirohida"
+    , feedDescription = "Programming tips, how-to, thoughts and rants"
+    , feedAuthorName = authorName
+    , feedAuthorEmail = "claymore.ws@gmail.com"
+    , feedRoot = "http://claymore.github.com"
+    }
+
+tagIdentifier :: String -> Identifier (Page String)
+tagIdentifier = fromCapture "categories/*"
+
+makeTagList :: String
+            -> [Page String]
+            -> Compiler () (Page String)
+makeTagList tag posts =
+    constA posts
+        >>> arr (map stripIndexLink)
+        >>> pageListCompiler recentFirst "templates/archiveitem.html"
+        >>> arr (copyBodyToField "posts" . fromBody)
+        >>> arr (setField "title" ("Category: " ++ tag))
+        >>> applyTemplateCompiler "templates/tag.html"
+        >>> applyTemplateCompiler "templates/default.html"
+
+postListSitemap :: Compiler (Page String, [Page String]) (Page String)
+postListSitemap = buildList "posts" "templates/postsitemap.xml"
 
 postsPattern :: Pattern (Page String)
 postsPattern = predicate (\i -> matches "posts/*.markdown" i)
@@ -115,11 +193,12 @@ makeIndexPage n maxn posts =
     >>> addPostList "templates/postitem.html"
     >>> arr (setField "navlinkolder" (indexNavLink n 1 maxn))
     >>> arr (setField "navlinknewer" (indexNavLink n (-1) maxn))
+    >>> arr (setField "title" "Main")
+    >>> arr (setField "author" authorName)
     >>> applyTemplateCompiler "templates/post.html"
     >>> applyTemplateCompiler "templates/index.html"
     >>> applyTemplateCompiler "templates/default.html"
     >>> wordpressUrlsCompiler
-
 
 -- Generate navigation link HTML for stepping between index pages.
 indexNavLink :: Int -> Int -> Int -> String
@@ -166,17 +245,14 @@ addTeaser = arr (copyBodyToField "teaser")
           where fixResourceUrls' url p =
                   changeField "teaser" (fixResourceUrls'' (takeDirectory url)) p
 
-
 fixResourceUrls'' :: String -> String -> String
 fixResourceUrls'' path = withUrls (\x -> if '/' `elem` x then x else path ++ "/" ++ x)
-
 
 -- | Sort pages chronologically. This function assumes that the pages have a
 -- @year/month/day/title[.extension]@ naming scheme.
 --
 chronological :: [Page String] -> [Page String]
 chronological = reverse . (sortBy $ comparing pageSortKey)
-
 
 -- | Generate a sort key for ordering entries on the index page.
 --
@@ -190,3 +266,14 @@ chunk :: Int -> [a] -> [[a]]
 chunk n [] = []
 chunk n xs = ys : chunk n zs
     where (ys,zs) = splitAt n xs
+
+stripIndexLink :: Page a -> Page a
+stripIndexLink = changeField "url" dropFileName
+
+buildList :: String -> Identifier Template -> Compiler (Page String, [Page String]) (Page String)
+buildList field template = setFieldA field $
+    arr (reverse . chronological)
+        >>> arr (map stripIndexLink)
+        >>> require template (\p t -> map (applyTemplate t) p)
+        >>> arr mconcat
+        >>> arr pageBody
