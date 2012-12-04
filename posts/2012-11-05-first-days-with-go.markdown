@@ -3,8 +3,7 @@ layout: post
 title: First Days with Go
 date: 2012-11-05 13:34
 comments: true
-categories: golang
-author: Alexey Bobyakov
+tags: golang
 ---
 
 I've seen articles about [Go] [1] programming language appearing on Hacker News

@@ -3,7 +3,6 @@ layout: post
 title: Hubot &amp; XMPP
 date: 2011-10-27 00:43
 comments: true
-categories: 
 ---
 
 Running Hubot on a Jabber server is fairly simple:

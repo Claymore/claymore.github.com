@@ -3,8 +3,7 @@ layout: post
 title: Git Configuration Tips
 date: 2012-11-05 00:07
 comments: true
-categories: git
-author: Alexey Bobyakov
+tags: git
 ---
 
 Probably the first thing you want to do after providing git with your name and email is to color its output. Open `~/.gitconfig` in your favorite editor and add following lines:
