@@ -130,13 +130,16 @@ main = hakyll $ do
             >>> wordpressUrlsCompiler
 
     -- Generate index pages
-    match "index*.html" $ route idRoute
+    match "index.html" $ route idRoute
+    match "index*.html" $ route indexRoute
     metaCompile $ requireAll_ postsPattern
       >>> arr (chunk (paginate blogConfiguration) . chronological)
       >>^ makeIndexPages
 
     -- Read templates
     match "templates/**" $ compile templateCompiler
+
+indexRoute = customRoute (\f -> "blog/page/" ++ (reverse . (drop 5) . reverse . (drop 5 . show) $ f) ++ "/index.html")
 
 feedConfiguration :: FeedConfiguration
 feedConfiguration = FeedConfiguration
@@ -248,11 +251,11 @@ indexNavLink n d maxn = renderHtml ref
   where ref = if (refPage == "") then ""
               else H.a ! A.href (toValue $ toUrl $ refPage) $
                    (preEscapedString lab)
-        lab = if (d > 0) then "&laquo; Older Posts" else "Newer Posts &raquo;"
+        lab = if (d > 0) then "&laquo; Older" else "Newer &raquo;"
         refPage = if (n + d < 1 || n + d > maxn) then ""
                   else case (n + d) of
                     1 -> "index.html"
-                    _ -> "index" ++ (show $ n + d) ++ ".html"
+                    _ -> "blog/page/" ++ (show $ n + d) ++ "/index.html"
 
 -- | Turns body of the page into the teaser: anything up to the
 -- <!--MORE--> mark is the teaser, except for text between the
