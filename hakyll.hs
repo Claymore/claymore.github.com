@@ -99,7 +99,7 @@ main = hakyll $ do
         create "archives.html" $ constA mempty
             >>> arr (setField "title" "Blog Archives")
             >>> setBlogFields
-            >>> requireAllA "posts/*" (id *** arr (reverse . chronological) >>> (addPostList "templates/archiveitem.html"))
+            >>> setFieldPageList chronological "templates/archiveitem.html" "posts" "posts/*"
             >>> applyTemplateCompiler "templates/archive.html"
             >>> applyTemplateCompiler "templates/default.html"
             >>> wordpressUrlsCompiler
@@ -107,7 +107,7 @@ main = hakyll $ do
     -- Sitemap
     match  "sitemap.xml" $ route idRoute
     create "sitemap.xml" $ constA mempty
-        >>> requireAllA "posts/*" postListSitemap
+        >>> setFieldPageList chronological "templates/postsitemap.xml" "posts" "posts/*"
         >>> applyTemplateCompiler "templates/sitemap.xml"
 
     -- Render posts
@@ -174,9 +174,6 @@ makeTagList tag posts =
     >>> setBlogFields
     >>> applyTemplateCompiler "templates/tag.html"
     >>> applyTemplateCompiler "templates/default.html"
-
-postListSitemap :: Compiler (Page String, [Page String]) (Page String)
-postListSitemap = buildList "posts" "templates/postsitemap.xml"
 
 -- | Compiler form of 'wordpressUrls' which automatically turns index.html
 -- links into just the directory name
@@ -301,11 +298,3 @@ chunk n xs = ys : chunk n zs
 
 stripIndexLink :: Page a -> Page a
 stripIndexLink = changeField "url" dropFileName
-
-buildList :: String -> Identifier Template -> Compiler (Page String, [Page String]) (Page String)
-buildList field template = setFieldA field $
-    arr (reverse . chronological)
-        >>> arr (map stripIndexLink)
-        >>> require template (\p t -> map (applyTemplate t) p)
-        >>> arr mconcat
-        >>> arr pageBody
