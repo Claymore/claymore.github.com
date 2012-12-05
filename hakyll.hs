@@ -17,13 +17,33 @@ import Data.List (isInfixOf, sortBy)
 
 import Hakyll hiding (chronological)
 
-articlesPerIndexPage :: Int
-articlesPerIndexPage = 6
+data BlogConfiguration = BlogConfiguration
+    { paginate :: Int
+    , authorName :: String
+    , authorEmail :: String
+    , blogTitle :: String
+    , blogSubtitle :: String
+    , rootUrl :: String
+    , excerptLink :: String
+    , dateFormat :: String
+    , githubUser :: String
+    , googlePlusId :: String
+    , disqusShortName :: String
+    } deriving (Show, Eq)
 
-authorName :: String
-authorName = "Alexey Bobyakov"
-
-host = "http://claymore.github.com"
+blogConfiguration = BlogConfiguration
+    { paginate = 2
+    , authorName = "Alexey Bobyakov"
+    , authorEmail = "claymore.ws@gmail.com"
+    , blogTitle = "Shirohida"
+    , blogSubtitle = "Programming tips, how-to, thoughts and rants"
+    , rootUrl = "http://claymore.github.com"
+    , excerptLink = "Read on &rarr;"
+    , dateFormat = "%B %e, %Y"
+    , githubUser = "Claymore"
+    , googlePlusId = "102481707573568225620"
+    , disqusShortName = "shirohida"
+    }
 
 main :: IO ()
 main = hakyll $ do
@@ -68,7 +88,8 @@ main = hakyll $ do
     match "archives.html" $ do
         route   $ customRoute (\f -> "blog/" ++ takeBaseName(show(f)) ++ "/index.html")
         create "archives.html" $ constA mempty
-            >>> arr (setField "author" authorName)
+            >>> arr (setField "author" (authorName blogConfiguration))
+            >>> arr (setField "title" "Blog Archives")
             >>> requireAllA "posts/*" (id *** arr (reverse . chronological) >>> (addPostList "templates/archiveitem.html"))
             >>> applyTemplateCompiler "templates/archive.html"
             >>> applyTemplateCompiler "templates/default.html"
@@ -84,14 +105,14 @@ main = hakyll $ do
     match "posts/*" $ do
         route   $ wordpressRoute
         compile $ pageCompiler
-            >>> arr (renderDateField "date" "%B %e, %Y" "Date unknown")
+            >>> arr (renderDateField "date" (dateFormat blogConfiguration) "Date unknown")
             >>> arr (renderDateField "published" "%Y-%m-%dT%H:%M:%S%z" "Date unknown")
-	    >>> arr (renderDateField "shortdate" "%b %e" "Date unknown")
+            >>> arr (renderDateField "shortdate" "%b %e" "Date unknown")
             >>> arr (renderDateField "year" "%Y" "Date unknown")
             >>> renderModificationTime "lastmod" "%Y-%m-%dT%H:%M:%S%z"
-            >>> arr (setField "author" authorName)
+            >>> arr (setField "author" (authorName blogConfiguration))
             >>> arr (copyBodyToField "description")
-            >>> arr (setField "host" host)
+            >>> arr (setField "host" (rootUrl blogConfiguration))
             >>> renderTagsField "prettytags" (fromCapture "categories/*")
             >>> addTeaser
             >>> applyTemplateCompiler "templates/post.html"
@@ -101,19 +122,19 @@ main = hakyll $ do
     -- Generate index pages
     match "index*.html" $ route idRoute
     metaCompile $ requireAll_ postsPattern
-      >>> arr (chunk articlesPerIndexPage . chronological)
+      >>> arr (chunk (paginate blogConfiguration) . chronological)
       >>^ makeIndexPages
 
     -- Read templates
-    match "templates/*" $ compile templateCompiler
+    match "templates/**" $ compile templateCompiler
 
 feedConfiguration :: FeedConfiguration
 feedConfiguration = FeedConfiguration
-    { feedTitle = "Shirohida"
-    , feedDescription = "Programming tips, how-to, thoughts and rants"
-    , feedAuthorName = authorName
-    , feedAuthorEmail = "claymore.ws@gmail.com"
-    , feedRoot = "http://claymore.github.com"
+    { feedTitle = (blogTitle blogConfiguration)
+    , feedDescription = (blogSubtitle blogConfiguration)
+    , feedAuthorName = (authorName blogConfiguration)
+    , feedAuthorEmail = (authorEmail blogConfiguration)
+    , feedRoot = (rootUrl blogConfiguration)
     }
 
 tagIdentifier :: String -> Identifier (Page String)
@@ -179,8 +200,8 @@ makeIndexPages :: [[Page String]] ->
                   [(Identifier (Page String), Compiler () (Page String))]
 makeIndexPages ps = map doOne (zip [1..] ps)
   where doOne (n, ps) = (indexIdentifier n, makeIndexPage n maxn ps)
-        maxn = nposts `div` articlesPerIndexPage +
-               if (nposts `mod` articlesPerIndexPage /= 0) then 1 else 0
+        maxn = nposts `div` (paginate blogConfiguration) +
+               if (nposts `mod` (paginate blogConfiguration) /= 0) then 1 else 0
         nposts = sum $ map length ps
         indexIdentifier n = parseIdentifier url
           where url = "index" ++ (if (n == 1) then "" else show n) ++ ".html"
@@ -194,7 +215,12 @@ makeIndexPage n maxn posts =
     >>> arr (setField "navlinkolder" (indexNavLink n 1 maxn))
     >>> arr (setField "navlinknewer" (indexNavLink n (-1) maxn))
     >>> arr (setField "title" "Main")
-    >>> arr (setField "author" authorName)
+    >>> arr (setField "author" (authorName blogConfiguration))
+    >>> arr (setField "blogtitle" (blogTitle blogConfiguration))
+    >>> arr (setField "blogsubtitle" (blogSubtitle blogConfiguration))
+    >>> arr (setField "githubuser" (githubUser blogConfiguration))
+    >>> arr (setField "googleplusid" (googlePlusId blogConfiguration))
+    >>> arr (setField "disqusshortname" (disqusShortName blogConfiguration))
     >>> applyTemplateCompiler "templates/post.html"
     >>> applyTemplateCompiler "templates/index.html"
     >>> applyTemplateCompiler "templates/default.html"
@@ -238,7 +264,7 @@ addTeaser = arr (copyBodyToField "teaser")
         readMoreLink :: Page String -> String
         readMoreLink p = renderHtml $ H.footer $
                          H.a ! A.rel "full-article" ! A.href (toValue $ getField "url" p) $
-                         preEscapedString "Read on &rarr;"
+                         preEscapedString (excerptLink blogConfiguration)
 
         fixTeaserResourceUrls :: Compiler (String, (Page String)) (Page String)
         fixTeaserResourceUrls = arr $ (\(url, p) -> fixResourceUrls' url p)
