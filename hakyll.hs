@@ -88,8 +88,13 @@ main = hakyll $ do
     match "archives.html" $ do
         route   $ customRoute (\f -> "blog/" ++ takeBaseName(show(f)) ++ "/index.html")
         create "archives.html" $ constA mempty
-            >>> arr (setField "author" (authorName blogConfiguration))
             >>> arr (setField "title" "Blog Archives")
+	    >>> arr (setField "author" (authorName blogConfiguration))
+	    >>> arr (setField "blogtitle" (blogTitle blogConfiguration))
+	    >>> arr (setField "blogsubtitle" (blogSubtitle blogConfiguration))
+	    >>> arr (setField "githubuser" (githubUser blogConfiguration))
+	    >>> arr (setField "googleplusid" (googlePlusId blogConfiguration))
+	    >>> arr (setField "disqusshortname" (disqusShortName blogConfiguration))
             >>> requireAllA "posts/*" (id *** arr (reverse . chronological) >>> (addPostList "templates/archiveitem.html"))
             >>> applyTemplateCompiler "templates/archive.html"
             >>> applyTemplateCompiler "templates/default.html"
@@ -111,6 +116,11 @@ main = hakyll $ do
             >>> arr (renderDateField "year" "%Y" "Date unknown")
             >>> renderModificationTime "lastmod" "%Y-%m-%dT%H:%M:%S%z"
             >>> arr (setField "author" (authorName blogConfiguration))
+            >>> arr (setField "blogtitle" (blogTitle blogConfiguration))
+            >>> arr (setField "blogsubtitle" (blogSubtitle blogConfiguration))
+            >>> arr (setField "githubuser" (githubUser blogConfiguration))
+            >>> arr (setField "googleplusid" (googlePlusId blogConfiguration))
+            >>> arr (setField "disqusshortname" (disqusShortName blogConfiguration))
             >>> arr (copyBodyToField "description")
             >>> arr (setField "host" (rootUrl blogConfiguration))
             >>> renderTagsField "prettytags" (fromCapture "categories/*")
@@ -149,6 +159,12 @@ makeTagList tag posts =
         >>> pageListCompiler recentFirst "templates/archiveitem.html"
         >>> arr (copyBodyToField "posts" . fromBody)
         >>> arr (setField "title" ("Category: " ++ tag))
+	>>> arr (setField "author" (authorName blogConfiguration))
+	>>> arr (setField "blogtitle" (blogTitle blogConfiguration))
+	>>> arr (setField "blogsubtitle" (blogSubtitle blogConfiguration))
+	>>> arr (setField "githubuser" (githubUser blogConfiguration))
+	>>> arr (setField "googleplusid" (googlePlusId blogConfiguration))
+	>>> arr (setField "disqusshortname" (disqusShortName blogConfiguration))
         >>> applyTemplateCompiler "templates/tag.html"
         >>> applyTemplateCompiler "templates/default.html"
 
