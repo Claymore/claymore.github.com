@@ -29,6 +29,7 @@ data BlogConfiguration = BlogConfiguration
     , githubUser :: String
     , googlePlusId :: String
     , disqusShortName :: String
+    , defaultAsides :: [String]
     } deriving (Show, Eq)
 
 blogConfiguration = BlogConfiguration
@@ -43,6 +44,7 @@ blogConfiguration = BlogConfiguration
     , githubUser = "Claymore"
     , googlePlusId = "102481707573568225620"
     , disqusShortName = "shirohida"
+    , defaultAsides = ["templates/asides/about.html", "templates/asides/github.html", "templates/asides/googleplus.html"]
     }
 
 feedConfiguration :: FeedConfiguration
@@ -94,12 +96,19 @@ main = hakyll $ do
         >>> arr (reverse . chronological)
         >>> renderAtom feedConfiguration
 
+    match "templates/asides/*" $ do
+        compile $ readPageCompiler
+            >>> addDefaultFields
+            >>> setBlogFields
+            >>> arr applySelf
+
     match "archives.html" $ do
         route   $ customRoute (\f -> "blog/" ++ takeBaseName(show(f)) ++ "/index.html")
         create "archives.html" $ constA mempty
             >>> arr (setField "title" "Blog Archives")
             >>> setBlogFields
             >>> setFieldPageList chronological "templates/archiveitem.html" "posts" "posts/*"
+            >>> setFieldPageList id "templates/aside.html" "asides" (list (map parseIdentifier (defaultAsides blogConfiguration)))
             >>> applyTemplateCompiler "templates/archive.html"
             >>> applyTemplateCompiler "templates/default.html"
             >>> wordpressUrlsCompiler
@@ -122,6 +131,7 @@ main = hakyll $ do
             >>> arr (copyBodyToField "description")
             >>> setBlogFields
             >>> renderTagsField "prettytags" (fromCapture "categories/*")
+            >>> setFieldPageList id "templates/aside.html" "asides" (list (map parseIdentifier (defaultAsides blogConfiguration)))
             >>> addTeaser
             >>> applyTemplateCompiler "templates/post.html"
             >>> applyTemplateCompiler "templates/default.html"
@@ -135,7 +145,7 @@ main = hakyll $ do
       >>^ makeIndexPages
 
     -- Read templates
-    match "templates/**" $ compile templateCompiler
+    match "templates/*" $ compile templateCompiler
 
 indexRoute :: Routes
 indexRoute = customRoute (\f -> "blog/page/" ++ (reverse . (drop 5) . reverse . (drop 5 . show) $ f) ++ "/index.html")
@@ -172,6 +182,7 @@ makeTagList tag posts =
     >>> arr (copyBodyToField "posts" . fromBody)
     >>> arr (setField "title" ("Category: " ++ tag))
     >>> setBlogFields
+    >>> setFieldPageList id "templates/aside.html" "asides" (list (map parseIdentifier (defaultAsides blogConfiguration)))
     >>> applyTemplateCompiler "templates/tag.html"
     >>> applyTemplateCompiler "templates/default.html"
 
@@ -224,6 +235,7 @@ makeIndexPage n maxn posts =
     >>> arr (setField "navlinknewer" (indexNavLink n (-1) maxn))
     >>> arr (setField "title" "Main")
     >>> setBlogFields
+    >>> setFieldPageList id "templates/aside.html" "asides" (list (map parseIdentifier (defaultAsides blogConfiguration)))
     >>> applyTemplateCompiler "templates/post.html"
     >>> applyTemplateCompiler "templates/index.html"
     >>> applyTemplateCompiler "templates/default.html"
