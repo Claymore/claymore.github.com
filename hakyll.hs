@@ -45,6 +45,15 @@ blogConfiguration = BlogConfiguration
     , disqusShortName = "shirohida"
     }
 
+feedConfiguration :: FeedConfiguration
+feedConfiguration = FeedConfiguration
+    { feedTitle = (blogTitle blogConfiguration)
+    , feedDescription = (blogSubtitle blogConfiguration)
+    , feedAuthorName = (authorName blogConfiguration)
+    , feedAuthorEmail = (authorEmail blogConfiguration)
+    , feedRoot = (rootUrl blogConfiguration)
+    }
+
 main :: IO ()
 main = hakyll $ do
     -- Compress CSS
@@ -89,12 +98,7 @@ main = hakyll $ do
         route   $ customRoute (\f -> "blog/" ++ takeBaseName(show(f)) ++ "/index.html")
         create "archives.html" $ constA mempty
             >>> arr (setField "title" "Blog Archives")
-	    >>> arr (setField "author" (authorName blogConfiguration))
-	    >>> arr (setField "blogtitle" (blogTitle blogConfiguration))
-	    >>> arr (setField "blogsubtitle" (blogSubtitle blogConfiguration))
-	    >>> arr (setField "githubuser" (githubUser blogConfiguration))
-	    >>> arr (setField "googleplusid" (googlePlusId blogConfiguration))
-	    >>> arr (setField "disqusshortname" (disqusShortName blogConfiguration))
+            >>> setBlogFields
             >>> requireAllA "posts/*" (id *** arr (reverse . chronological) >>> (addPostList "templates/archiveitem.html"))
             >>> applyTemplateCompiler "templates/archive.html"
             >>> applyTemplateCompiler "templates/default.html"
@@ -108,21 +112,15 @@ main = hakyll $ do
 
     -- Render posts
     match "posts/*" $ do
-        route   $ wordpressRoute
+        route   $ postsRoute
         compile $ pageCompiler
             >>> arr (renderDateField "date" (dateFormat blogConfiguration) "Date unknown")
             >>> arr (renderDateField "published" "%Y-%m-%dT%H:%M:%S%z" "Date unknown")
             >>> arr (renderDateField "shortdate" "%b %e" "Date unknown")
             >>> arr (renderDateField "year" "%Y" "Date unknown")
             >>> renderModificationTime "lastmod" "%Y-%m-%dT%H:%M:%S%z"
-            >>> arr (setField "author" (authorName blogConfiguration))
-            >>> arr (setField "blogtitle" (blogTitle blogConfiguration))
-            >>> arr (setField "blogsubtitle" (blogSubtitle blogConfiguration))
-            >>> arr (setField "githubuser" (githubUser blogConfiguration))
-            >>> arr (setField "googleplusid" (googlePlusId blogConfiguration))
-            >>> arr (setField "disqusshortname" (disqusShortName blogConfiguration))
             >>> arr (copyBodyToField "description")
-            >>> arr (setField "host" (rootUrl blogConfiguration))
+            >>> setBlogFields
             >>> renderTagsField "prettytags" (fromCapture "categories/*")
             >>> addTeaser
             >>> applyTemplateCompiler "templates/post.html"
@@ -132,23 +130,34 @@ main = hakyll $ do
     -- Generate index pages
     match "index.html" $ route idRoute
     match "index*.html" $ route indexRoute
-    metaCompile $ requireAll_ postsPattern
+    metaCompile $ requireAll_ "posts/*"
       >>> arr (chunk (paginate blogConfiguration) . chronological)
       >>^ makeIndexPages
 
     -- Read templates
     match "templates/**" $ compile templateCompiler
 
+indexRoute :: Routes
 indexRoute = customRoute (\f -> "blog/page/" ++ (reverse . (drop 5) . reverse . (drop 5 . show) $ f) ++ "/index.html")
 
-feedConfiguration :: FeedConfiguration
-feedConfiguration = FeedConfiguration
-    { feedTitle = (blogTitle blogConfiguration)
-    , feedDescription = (blogSubtitle blogConfiguration)
-    , feedAuthorName = (authorName blogConfiguration)
-    , feedAuthorEmail = (authorEmail blogConfiguration)
-    , feedRoot = (rootUrl blogConfiguration)
-    }
+postsRoute :: Routes
+postsRoute =
+    gsubRoute "posts/" (const "blog/") `composeRoutes`
+        gsubRoute "^blog/[0-9]{4}-[0-9]{2}-[0-9]{2}-" (map replaceWithSlash) `composeRoutes`
+            gsubRoute ".markdown" (const "/index.html")
+    where replaceWithSlash c = if c == '-' || c == '_'
+                                   then '/'
+                                   else c
+
+setBlogFields :: Compiler (Page String) (Page String)
+setBlogFields =
+    arr (setField "author" (authorName blogConfiguration))
+    >>> arr (setField "blogtitle" (blogTitle blogConfiguration))
+    >>> arr (setField "blogsubtitle" (blogSubtitle blogConfiguration))
+    >>> arr (setField "githubuser" (githubUser blogConfiguration))
+    >>> arr (setField "googleplusid" (googlePlusId blogConfiguration))
+    >>> arr (setField "disqusshortname" (disqusShortName blogConfiguration))
+    >>> arr (setField "host" (rootUrl blogConfiguration))
 
 tagIdentifier :: String -> Identifier (Page String)
 tagIdentifier = fromCapture "categories/*"
@@ -158,33 +167,16 @@ makeTagList :: String
             -> Compiler () (Page String)
 makeTagList tag posts =
     constA posts
-        >>> arr (map stripIndexLink)
-        >>> pageListCompiler recentFirst "templates/archiveitem.html"
-        >>> arr (copyBodyToField "posts" . fromBody)
-        >>> arr (setField "title" ("Category: " ++ tag))
-	>>> arr (setField "author" (authorName blogConfiguration))
-	>>> arr (setField "blogtitle" (blogTitle blogConfiguration))
-	>>> arr (setField "blogsubtitle" (blogSubtitle blogConfiguration))
-	>>> arr (setField "githubuser" (githubUser blogConfiguration))
-	>>> arr (setField "googleplusid" (googlePlusId blogConfiguration))
-	>>> arr (setField "disqusshortname" (disqusShortName blogConfiguration))
-        >>> applyTemplateCompiler "templates/tag.html"
-        >>> applyTemplateCompiler "templates/default.html"
+    >>> arr (map stripIndexLink)
+    >>> pageListCompiler recentFirst "templates/archiveitem.html"
+    >>> arr (copyBodyToField "posts" . fromBody)
+    >>> arr (setField "title" ("Category: " ++ tag))
+    >>> setBlogFields
+    >>> applyTemplateCompiler "templates/tag.html"
+    >>> applyTemplateCompiler "templates/default.html"
 
 postListSitemap :: Compiler (Page String, [Page String]) (Page String)
 postListSitemap = buildList "posts" "templates/postsitemap.xml"
-
-postsPattern :: Pattern (Page String)
-postsPattern = predicate (\i -> matches "posts/*.markdown" i)
-
-wordpressRoute :: Routes
-wordpressRoute =
-    gsubRoute "posts/" (const "blog/") `composeRoutes`
-        gsubRoute "^blog/[0-9]{4}-[0-9]{2}-[0-9]{2}-" (map replaceWithSlash) `composeRoutes`
-            gsubRoute ".markdown" (const "/index.html")
-    where replaceWithSlash c = if c == '-' || c == '_'
-                                   then '/'
-                                   else c
 
 -- | Compiler form of 'wordpressUrls' which automatically turns index.html
 -- links into just the directory name
@@ -234,12 +226,7 @@ makeIndexPage n maxn posts =
     >>> arr (setField "navlinkolder" (indexNavLink n 1 maxn))
     >>> arr (setField "navlinknewer" (indexNavLink n (-1) maxn))
     >>> arr (setField "title" "Main")
-    >>> arr (setField "author" (authorName blogConfiguration))
-    >>> arr (setField "blogtitle" (blogTitle blogConfiguration))
-    >>> arr (setField "blogsubtitle" (blogSubtitle blogConfiguration))
-    >>> arr (setField "githubuser" (githubUser blogConfiguration))
-    >>> arr (setField "googleplusid" (googlePlusId blogConfiguration))
-    >>> arr (setField "disqusshortname" (disqusShortName blogConfiguration))
+    >>> setBlogFields
     >>> applyTemplateCompiler "templates/post.html"
     >>> applyTemplateCompiler "templates/index.html"
     >>> applyTemplateCompiler "templates/default.html"
