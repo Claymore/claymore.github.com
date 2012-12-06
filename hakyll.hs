@@ -4,7 +4,7 @@ module Main where
 import Prelude hiding (id)
 import Control.Category (id)
 import Control.Arrow ((>>>), arr, (&&&), (>>^), (***))
-import Data.Monoid (mempty, mconcat)
+import Data.Monoid (mempty, mconcat, mappend)
 import Text.Blaze.Html.Renderer.String (renderHtml)
 import Text.Blaze.Internal (preEscapedString)
 import Text.Blaze ((!), toValue)
@@ -13,7 +13,8 @@ import qualified Text.Blaze.Html5.Attributes as A
 import qualified Data.ByteString.Char8 as B
 import System.FilePath (joinPath, splitDirectories, takeDirectory, dropFileName, takeBaseName)
 import Data.Ord (comparing)
-import Data.List (isInfixOf, sortBy)
+import Data.List (isInfixOf, sortBy, elemIndex)
+import Data.Maybe (fromJust)
 
 import Hakyll hiding (chronological)
 
@@ -30,6 +31,7 @@ data BlogConfiguration = BlogConfiguration
     , googlePlusId :: String
     , disqusShortName :: String
     , defaultAsides :: [String]
+    , recentPosts :: Int
     } deriving (Show, Eq)
 
 blogConfiguration = BlogConfiguration
@@ -44,7 +46,8 @@ blogConfiguration = BlogConfiguration
     , githubUser = "Claymore"
     , googlePlusId = "102481707573568225620"
     , disqusShortName = "shirohida"
-    , defaultAsides = ["templates/asides/about.html", "templates/asides/github.html", "templates/asides/googleplus.html"]
+    , defaultAsides = ["templates/custom/asides/about.html", "templates/asides/recent_posts.html", "templates/asides/github.html", "templates/asides/googleplus.html"]
+    , recentPosts = 5
     }
 
 feedConfiguration :: FeedConfiguration
@@ -82,7 +85,7 @@ main = hakyll $ do
 
     -- Tags
     create "categories" $
-        requireAll "posts/*" (\_ ps -> readTags ps :: Tags String)
+        requireAll ("posts/*" `mappend` inGroup Nothing) (\_ ps -> readTags ps :: Tags String)
 
     -- Add a tag list compiler for every tag
     match "categories/*" $ route $ customRoute (\f -> "blog/" ++ show(f) ++ "/index.html")
@@ -92,11 +95,23 @@ main = hakyll $ do
 
     -- Render RSS feed
     match "atom.xml" $ route idRoute
-    create "atom.xml" $ requireAll_ "posts/*"
+    create "atom.xml" $ requireAll_ ("posts/*" `mappend` inGroup Nothing)
         >>> arr (reverse . chronological)
         >>> renderAtom feedConfiguration
 
+    match "templates/asides/recent_posts.html" $ do
+        compile $ readPageCompiler
+            >>> addDefaultFields
+            >>> setFieldPageList (take (recentPosts blogConfiguration) . chronological) "templates/recent_post_item.html" "recentposts" ("posts/*" `mappend` inGroup (Just "raw"))
+            >>> arr applySelf
+
     match "templates/asides/*" $ do
+        compile $ readPageCompiler
+            >>> addDefaultFields
+            >>> setBlogFields
+            >>> arr applySelf
+
+    match "templates/custom/asides/*" $ do
         compile $ readPageCompiler
             >>> addDefaultFields
             >>> setBlogFields
@@ -107,8 +122,8 @@ main = hakyll $ do
         create "archives.html" $ constA mempty
             >>> arr (setField "title" "Blog Archives")
             >>> setBlogFields
-            >>> setFieldPageList chronological "templates/archiveitem.html" "posts" "posts/*"
-            >>> setFieldPageList id "templates/aside.html" "asides" (list (map parseIdentifier (defaultAsides blogConfiguration)))
+            >>> setFieldPageList chronological "templates/archiveitem.html" "posts" ("posts/*" `mappend` inGroup Nothing)
+            >>> setFieldPageList sortAsidesByIndex "templates/aside.html" "asides" asidesList
             >>> applyTemplateCompiler "templates/archive.html"
             >>> applyTemplateCompiler "templates/default.html"
             >>> wordpressUrlsCompiler
@@ -116,8 +131,14 @@ main = hakyll $ do
     -- Sitemap
     match  "sitemap.xml" $ route idRoute
     create "sitemap.xml" $ constA mempty
-        >>> setFieldPageList chronological "templates/postsitemap.xml" "posts" "posts/*"
+        >>> setFieldPageList chronological "templates/postsitemap.xml" "posts" ("posts/*" `mappend` inGroup Nothing)
         >>> applyTemplateCompiler "templates/sitemap.xml"
+
+    group "raw" $ do
+        match "posts/*" $ do
+            compile $ readPageCompiler
+                >>> addDefaultFields
+                >>> arr (renderField "path" "posturl" pathToUrl)
 
     -- Render posts
     match "posts/*" $ do
@@ -131,7 +152,7 @@ main = hakyll $ do
             >>> arr (copyBodyToField "description")
             >>> setBlogFields
             >>> renderTagsField "prettytags" (fromCapture "categories/*")
-            >>> setFieldPageList id "templates/aside.html" "asides" (list (map parseIdentifier (defaultAsides blogConfiguration)))
+            >>> setFieldPageList sortAsidesByIndex "templates/aside.html" "asides" asidesList
             >>> addTeaser
             >>> applyTemplateCompiler "templates/post.html"
             >>> applyTemplateCompiler "templates/default.html"
@@ -140,7 +161,7 @@ main = hakyll $ do
     -- Generate index pages
     match "index.html" $ route idRoute
     match "index*.html" $ route indexRoute
-    metaCompile $ requireAll_ "posts/*"
+    metaCompile $ requireAll_ ("posts/*" `mappend` inGroup Nothing)
       >>> arr (chunk (paginate blogConfiguration) . chronological)
       >>^ makeIndexPages
 
@@ -150,14 +171,17 @@ main = hakyll $ do
 indexRoute :: Routes
 indexRoute = customRoute (\f -> "blog/page/" ++ (reverse . (drop 5) . reverse . (drop 5 . show) $ f) ++ "/index.html")
 
+pathToUrl :: String -> String
+pathToUrl path = "/blog/" ++ year ++ "/" ++ month ++ "/" ++ day ++ "/" ++ title ++ "/"
+    where name = takeBaseName path
+          date = take 11 name
+          year = take 4 date
+          month = take 2 . drop 5 $ date
+          day = take 2 . drop 8 $ date
+          title = drop 11 name
+
 postsRoute :: Routes
-postsRoute =
-    gsubRoute "posts/" (const "blog/") `composeRoutes`
-        gsubRoute "^blog/[0-9]{4}-[0-9]{2}-[0-9]{2}-" (map replaceWithSlash) `composeRoutes`
-            gsubRoute ".markdown" (const "/index.html")
-    where replaceWithSlash c = if c == '-' || c == '_'
-                                   then '/'
-                                   else c
+postsRoute = customRoute (\f -> (drop 1 . pathToUrl . show $ f) ++ "index.html")
 
 setBlogFields :: Compiler (Page String) (Page String)
 setBlogFields =
@@ -182,7 +206,7 @@ makeTagList tag posts =
     >>> arr (copyBodyToField "posts" . fromBody)
     >>> arr (setField "title" ("Category: " ++ tag))
     >>> setBlogFields
-    >>> setFieldPageList id "templates/aside.html" "asides" (list (map parseIdentifier (defaultAsides blogConfiguration)))
+    >>> setFieldPageList sortAsidesByIndex "templates/aside.html" "asides" asidesList
     >>> applyTemplateCompiler "templates/tag.html"
     >>> applyTemplateCompiler "templates/default.html"
 
@@ -235,7 +259,7 @@ makeIndexPage n maxn posts =
     >>> arr (setField "navlinknewer" (indexNavLink n (-1) maxn))
     >>> arr (setField "title" "Main")
     >>> setBlogFields
-    >>> setFieldPageList id "templates/aside.html" "asides" (list (map parseIdentifier (defaultAsides blogConfiguration)))
+    >>> setFieldPageList sortAsidesByIndex "templates/aside.html" "asides" asidesList
     >>> applyTemplateCompiler "templates/post.html"
     >>> applyTemplateCompiler "templates/index.html"
     >>> applyTemplateCompiler "templates/default.html"
@@ -310,3 +334,7 @@ chunk n xs = ys : chunk n zs
 
 stripIndexLink :: Page a -> Page a
 stripIndexLink = changeField "url" dropFileName
+
+asidesList = list $ map parseIdentifier $ (defaultAsides blogConfiguration)
+
+sortAsidesByIndex = sortBy $ comparing $ fromJust . (flip elemIndex $ (defaultAsides blogConfiguration)) . getField "path"
