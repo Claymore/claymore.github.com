@@ -335,6 +335,6 @@ chunk n xs = ys : chunk n zs
 stripIndexLink :: Page a -> Page a
 stripIndexLink = changeField "url" dropFileName
 
-asidesList = list $ map parseIdentifier $ (defaultAsides blogConfiguration)
+asidesList = list . (map parseIdentifier) . defaultAsides $ blogConfiguration
 
 sortAsidesByIndex = sortBy $ comparing $ fromJust . (flip elemIndex $ (defaultAsides blogConfiguration)) . getField "path"
