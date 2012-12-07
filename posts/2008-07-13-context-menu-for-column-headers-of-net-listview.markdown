@@ -3,7 +3,7 @@ layout: post
 title: Context menu for column headers of .NET ListView
 date: 2008-07-13 16:53
 comments: true
-tags: csharp
+categories: .NET
 ---
 
 `ListView` doesn't provide `ColumnHeaderMouseClick` event so I had to find a workaround to display context menu for column headers. There is a [way] [1] to do this by resorting to Windows API but my solution is easier.

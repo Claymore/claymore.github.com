@@ -89,7 +89,7 @@ main = hakyll $ do
 
     -- Tags
     create "categories" $
-        requireAll ("posts/*" `mappend` inGroup Nothing) (\_ ps -> readTags ps :: Tags String)
+        requireAll ("posts/*" `mappend` inGroup Nothing) (\_ ps -> readCategories ps :: Tags String)
 
     -- Add a tag list compiler for every tag
     match "categories/*" $ route categoryRoute
@@ -155,7 +155,7 @@ main = hakyll $ do
             >>> renderModificationTime "lastmod" "%Y-%m-%dT%H:%M:%S%z"
             >>> arr (copyBodyToField "description")
             >>> setBlogFields
-            >>> renderTagsField "prettytags" (fromCapture "categories/*")
+            >>> renderTagsFieldWith getCategories "prettycategories" (fromCapture "categories/*")
             >>> setFieldPageList sortAsidesByIndex "templates/aside.html" "asides" asidesList
             >>> requireAllA ("posts/*" `mappend` inGroup (Just "raw")) addNearbyPosts
             >>> addTeaser
@@ -203,6 +203,9 @@ setBlogFields =
     >>> arr (setField "googleplusid" (googlePlusId blogConfiguration))
     >>> arr (setField "disqusshortname" (disqusShortName blogConfiguration))
     >>> arr (setField "host" (rootUrl blogConfiguration))
+
+getCategories = map trim . splitAll "," . getField "categories"
+readCategories = readTagsWith getCategories
 
 tagIdentifier :: String -> Identifier (Page String)
 tagIdentifier = fromCapture "categories/*"
