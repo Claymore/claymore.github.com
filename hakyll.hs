@@ -15,8 +15,11 @@ import System.FilePath (joinPath, splitDirectories, takeDirectory, dropFileName,
 import Data.Ord (comparing)
 import Data.List (isInfixOf, sortBy, elemIndex)
 import Data.Maybe (fromJust)
+import Data.Map (findWithDefault)
 
 import Hakyll hiding (chronological)
+
+type SPage = Page String
 
 data BlogConfiguration = BlogConfiguration
     { paginate :: Int
@@ -153,6 +156,7 @@ main = hakyll $ do
             >>> setBlogFields
             >>> renderTagsField "prettytags" (fromCapture "categories/*")
             >>> setFieldPageList sortAsidesByIndex "templates/aside.html" "asides" asidesList
+            >>> requireAllA ("posts/*" `mappend` inGroup (Just "raw")) addNearbyPosts
             >>> addTeaser
             >>> applyTemplateCompiler "templates/post.html"
             >>> applyTemplateCompiler "templates/default.html"
@@ -338,3 +342,37 @@ stripIndexLink = changeField "url" dropFileName
 asidesList = list . (map parseIdentifier) . defaultAsides $ blogConfiguration
 
 sortAsidesByIndex = sortBy $ comparing $ fromJust . (flip elemIndex $ (defaultAsides blogConfiguration)) . getField "path"
+
+get0 :: [a] -> [a]
+get0 (a:_) = [a]
+get0 _     = []
+
+get1 :: [a] -> [a]
+get1 (_:a:_) = [a]
+get1 _       = []
+
+getPageField key page = findWithDefault [] key (toMap page)
+
+equalPath a b = (getPageField "path" a) == (getPageField "path" b)
+
+-- | Given a post and a list of all posts, return the
+--   preceeding and following posts, if they exist.
+--
+findNeighbours :: Compiler (SPage, [SPage]) (SPage, ([SPage], [SPage]))
+findNeighbours =
+    arr $ \(cpage, plist) ->
+        let slist = (reverse . chronological) plist
+            (earlier, later) = break (equalPath cpage) slist
+        in (cpage, (get0 (reverse earlier), get1 later))
+
+-- | Add in the previous and next links for a post
+--
+addNearbyPosts :: Compiler (SPage, [SPage]) SPage
+addNearbyPosts =
+    arr (id *** recentFirst)
+    >>> findNeighbours
+    >>> setFieldA "neighbours"
+      ((mapCompiler (applyTemplateCompiler "templates/post-previous.html")
+        ***
+        mapCompiler (applyTemplateCompiler "templates/post-next.html"))
+       >>> arr (uncurry (++)) >>> arr mconcat >>> arr pageBody)
