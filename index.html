@@ -1,499 +1,190 @@
-
 <!DOCTYPE html>
 <!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
 <!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
-  <meta charset="utf-8">
-  <title>Shirohida</title>
-  <meta name="author" content="Alexey Bobyakov">
-
-  
-  <meta name="description" content="I&#8217;ve seen articles about Go programming language appearing on Hacker News
-a few times but I didn&#8217;t pay much attention to them. Yet &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://claymore.github.com/">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Shirohida" type="application/atom+xml">
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-2129201-2']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
+    <meta charset="utf-8">
+    <title>Main - Shirohida</title>
+    <meta name="author" content="Alexey Bobyakov">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="canonical" href="http://claymore.github.com">
+    <link href="/favicon.png" rel="icon">
+    <link href="/atom.xml" rel="alternate" title="Shirohida" type="application/atom+xml">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <script src="/javascripts/modernizr-2.0.js"></script>
+    <script src="/javascripts/ender.js"></script>
+    <script src="/javascripts/octopress.js" type="text/javascript"></script>
+    <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 </head>
+<body>
+    <header role="banner">
+        <hgroup>
+            <h1><a href="/">Shirohida</a></h1>
+            <h2>Programming tips, how-to, thoughts and rants</h2>
+        </hgroup>
+    </header>
+    <nav role="navigation">
+        <ul class="subscription" data-subscription="rss">
+            <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+        </ul>
 
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Shirohida</a></h1>
-  
-    <h2>Programming tips, how-to, thoughts and rants</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:claymore.github.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/05/first-days-with-go/">First Days With Go</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-05T13:34:00+04:00" pubdate data-updated="true">Nov 5<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&#8217;ve seen articles about <a href="http://golang.org" title="The Go Programming Language">Go</a> programming language appearing on Hacker News
-a few times but I didn&#8217;t pay much attention to them. Yet another language with
-nothing special about it or so it looked. It&#8217;s changed with Rob Pike&#8217;s <a href="http://talks.golang.org/2012/splash.slide#1" title="Go at Google">recent talk</a>.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/11/05/first-days-with-go/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/05/git-configuration-tips/">Git Configuration Tips</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-05T00:07:00+04:00" pubdate data-updated="true">Nov 5<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Probably the first thing you want to do after providing git with your name and email is to color its output. Open <code>~/.gitconfig</code> in your favorite editor and add following lines:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[color]
-</span><span class='line'>  branch = auto
-</span><span class='line'>  diff = auto
-</span><span class='line'>  interactive = auto
-</span><span class='line'>  status = auto</span></code></pre></td></tr></table></div></figure>
-
-
+        <form action="http://google.com/search" method="get">
+            <fieldset role="search">
+                <input type="hidden" name="q" value="site:claymore.github.com"></input>
+                <input class="search" type="text" name="q" results="0" placeholder="Search"></input>
+            </fieldset>
+        </form>
+        <ul class="main-navigation">
+            <li><a href="/">Blog</a></li>
+            <li><a href="/blog/archives">Archives</a></li>
+        </ul>
+    </nav>
+    <div id="main">
+        <div id="content">
+                    <div class="blog-index">
+			<article>
+				<header>
+					<h1 class="entry-title"><a href="/blog/2012/11/05/git-configuration-tips/">Git Configuration Tips</a></h1>
+					<p class="meta"><time datetime="2012-11-05T00:00:00+0000" pubdate data-updated="true">November  5, 2012</time></p>
+				</header>
+				<p>Probably the first thing you want to do after providing git with your name and email is to color its output. Open <code>~/.gitconfig</code> in your favorite editor and add following lines:</p>
+<pre><code>[color]
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto</code></pre>
 <p>If you want to cut down on typing you can also use git aliases. Here is list of mine:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[alias]
-</span><span class='line'>  st = status -s
-</span><span class='line'>  ci = commit
-</span><span class='line'>  cim = commit -m
-</span><span class='line'>  ciam = commit -a -m
-</span><span class='line'>  br = branch
-</span><span class='line'>  co = checkout
-</span><span class='line'>  df = diff
-</span><span class='line'>  lg = log -p
-</span><span class='line'>  au = add -u
-</span><span class='line'>  history = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset' --abbrev-commit --date=relative
-</span><span class='line'>  # git svn related commands
-</span><span class='line'>  sup = !git svn fetch && git svn rebase -l
-</span><span class='line'>  sci = svn dcommit</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
+<pre><code>[alias]
+	st = status -s
+	ci = commit
+	cim = commit -m
+	ciam = commit -a -m
+	br = branch
+	co = checkout
+	df = diff
+	lg = log -p
+	au = add -u
+	history = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset' --abbrev-commit --date=relative
+	# git svn related commands
+	sup = !git svn fetch &amp;&amp; git svn rebase -l
+	sci = svn dcommit</code></pre>
 
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/04/from-blogspot-to-octopress-slash-github/">From Blogspot to Octopress/Github</a></h1>
-    
-    
-      <p class="meta">
-        
+				
+			</article>
+			<article>
+				<header>
+					<h1 class="entry-title"><a href="/blog/2012/11/05/first-days-with-go/">First Days with Go</a></h1>
+					<p class="meta"><time datetime="2012-11-05T00:00:00+0000" pubdate data-updated="true">November  5, 2012</time></p>
+				</header>
+				<p>I’ve seen articles about <a href="http://golang.org" title="The Go Programming Language">Go</a> programming language appearing on Hacker News a few times but I didn’t pay much attention to them. Yet another language with nothing special about it or so it looked. It’s changed with Rob Pike’s <a href="http://talks.golang.org/2012/splash.slide#1" title="Go at Google">recent talk</a>.</p>
 
 
+				<footer><a rel="full-article" href="/blog/2012/11/05/first-days-with-go/">Read on →</a></footer>
+			</article>
 
+                        <div class="pagination">
+                            <a href="/blog/page/2/">« Older</a>
+                            <a href="/blog/archives">Blog Archives</a>
+                            
+                        </div>
+                    </div>
 
+            <aside class="sidebar">
+                <section>
+                    <h1>About Me</h1>
+                    <p>Hi! I strive to create programs and services that make users’ life somewhat easier.</p>
+                    <p>You can reach me on <a href="http://twitter.com/kureimoru">Twitter</a>.</p>
+                </section>
 
-
-
-
-  
-
-
-<time datetime="2012-11-04T21:53:00+04:00" pubdate data-updated="true">Nov 4<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&#8217;ve finally moved my blog from Blogspot to Github pages. The blog is now powered by <a href="http://octopress.org/" title="Octopress">Octopress</a>. Blogspot was convient but for a developer there are several reasons to switch. Octopress generates a static website that can be deployed anywhere so you gain independence from a service provider. Your posts are Markdown files that can be authored in your favorite editor. The blog source is under version control. Another great feature: code syntax highlighting works out of the box.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/10/27/hubot-and-xmpp/">Hubot &amp; XMPP</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-10-27T00:43:00+04:00" pubdate data-updated="true">Oct 27<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Running Hubot on a Jabber server is fairly simple:</p>
-
-<ol>
-<li>Install node.js;</li>
-<li>Install npm;</li>
-<li>Install redis;</li>
-<li>Set up environment variables:
-
-<ul>
-<li><code>export HUBOT_XMPP_USERNAME=[JID]</code></li>
-<li><code>export HUBOT_XMPP_PASSWORD=[Password]</code></li>
-<li><code>export HUBOT_XMPP_ROOMS=[Room]</code></li>
-</ul>
+<section>
+    <h1>Recent Posts</h1>
+    <ul id="recent_posts">
+<li class="post">
+    <a href="/blog/2012/11/05/git-configuration-tips/">Git Configuration Tips</a>
 </li>
-<li>Run Hubot: <code>bin/hubot -a xmpp</code></li>
-</ol>
+<li class="post">
+    <a href="/blog/2012/11/05/first-days-with-go/">First Days with Go</a>
+</li>
+<li class="post">
+    <a href="/blog/2012/11/04/from-blogspot-to-octopress-slash-github/">From Blogspot to Octopress/Github</a>
+</li>
+<li class="post">
+    <a href="/blog/2011/10/27/hubot-and-xmpp/">Hubot &amp; XMPP</a>
+</li>
+<li class="post">
+    <a href="/blog/2008/07/13/context-menu-for-column-headers-of-net-listview/">Context menu for column headers of .NET ListView</a>
+</li>
 
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2008/07/13/context-menu-for-column-headers-of-net-listview/">Context Menu for Column Headers of .NET ListView</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-07-13T16:53:00+04:00" pubdate data-updated="true">Jul 13<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><code>ListView</code> doesn&#8217;t provide <code>ColumnHeaderMouseClick</code> event so I had to find a workaround to display context menu for column headers. There is a <a href="http://www.codeproject.com/Articles/23330/Handling-Right-Click-Events-in-ListView-Column-Hea" title="Handling Right-Click Events in ListView Column Headers">way</a> to do this by resorting to Windows API but my solution is easier.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2008/07/13/context-menu-for-column-headers-of-net-listview/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2007/07/30/windows-vista-credential-providers/">Windows Vista Credential Providers</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-07-30T13:31:00+04:00" pubdate data-updated="true">Jul 30<span>th</span>, 2007</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>In Windows Vista Microsoft has adopted so called credential providers as a way to log into the system. Your custom <a href="http://en.wikipedia.org/wiki/Graphical_identification_and_authentication">GINA</a> library <a href="http://support.microsoft.com/kb/925520">won&#8217;t work</a> in Vista so you will have to write a COM component that implements <code>ICredentialProvider</code> and <code>ICredentialProviderCredential</code> interfaces. I found it pretty easy to write a custom credential provider (the one that works with electronic keys). There are a <a href="http://msdn.microsoft.com/en-us/magazine/cc163489.aspx">good introduction</a> into the new model, <a href="http://www.microsoft.com/en-us/download/details.aspx?id=4057">samples</a> and <a href="http://shellrevealed.com/files/folders/code_samples/entry1019.aspx">technical reference</a>.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>About Me</h1>
-  <p>Hi! I strive to create programs and services that make users&#8217; life somewhat easier.</p>
-  <p>You can reach me on <a href="http://twitter.com/kureimoru">Twitter</a>.</p>
-</section>
-<section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2012/11/05/first-days-with-go/">First Days with Go</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/11/05/git-configuration-tips/">Git Configuration Tips</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/11/04/from-blogspot-to-octopress-slash-github/">From Blogspot to Octopress/Github</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/10/27/hubot-and-xmpp/">Hubot &amp; XMPP</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2008/07/13/context-menu-for-column-headers-of-net-listview/">Context menu for column headers of .NET ListView</a>
-      </li>
-    
-  </ul>
+    </ul>
 </section>
 
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/Claymore">@Claymore</a> on GitHub
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
+                <section>
+                    <h1>GitHub Repos</h1>
+                    <ul id="gh_repos">
+                        <li class="loading">Status updating…</li>
+                    </ul>
+                    <a href="https://github.com/Claymore">@Claymore</a> on GitHub
+                    <script type="text/javascript">
+                    $.domReady(function(){
+                        if (!window.jXHR){
+                            var jxhr = document.createElement('script');
+                            jxhr.type = 'text/javascript';
+                            jxhr.src = '/javascripts/libs/jXHR.js';
+                            var s = document.getElementsByTagName('script')[0];
+                            s.parentNode.insertBefore(jxhr, s);
+                        }
 
-        github.showRepos({
-            user: 'Claymore',
-            count: 3,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
+                        github.showRepos({
+                            user: 'Claymore',
+                            count: 3,
+                            skip_forks: true,
+                            target: '#gh_repos'
+                        });
+                    });
+                    </script>
+                    <script src="/javascripts/github.js" type="text/javascript"> </script>
+                </section>
 
-
-
-
-<section class="googleplus googleplus-hidden">
-  <h1>
-    <a href="https://plus.google.com/102481707573568225620?rel=author">
-      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
-      Google+
-    </a>
-  </h1>
-</section>
+                <section class="googleplus googleplus-hidden">
+                    <h1>
+                        <a href="https://plus.google.com/102481707573568225620?rel=author">
+                          <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+                          Google+
+                        </a>
+                    </h1>
+                </section>
 
 
-
-  
-</aside>
-
+            </aside>
+        </div>
     </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Alexey Bobyakov -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
+    <footer role="contentinfo">
+        <p>Copyright © 2012 - Alexey Bobyakov - <span class="credit">Powered by <a href="http://jaspervdj.be/hakyll/">Hakyll</a></span> - <span class="credit">Design by <a href="http://octopress.org">Octopress</a></span>
+        </p>
+    </footer>
 
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'shirohida';
-      
-        
+    <script type="text/javascript">
+        var disqus_shortname = 'shirohida';
         var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
+        (function () {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
 
-
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
+    <script type="text/javascript">
+        (function(){
+          var twitterWidgets = document.createElement('script');
+          twitterWidgets.type = 'text/javascript';
+          twitterWidgets.async = true;
+          twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+          document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+        })();
+    </script>
 </body>
 </html>

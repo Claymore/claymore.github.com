@@ -1,370 +1,195 @@
-
 <!DOCTYPE html>
 <!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
 <!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
-  <meta charset="utf-8">
-  <title>First Days with Go - Shirohida</title>
-  <meta name="author" content="Alexey Bobyakov">
-
-  
-  <meta name="description" content="I&#8217;ve seen articles about Go programming language appearing on Hacker News
-a few times but I didn&#8217;t pay much attention to them. Yet &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://claymore.github.com/blog/2012/11/05/first-days-with-go/">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Shirohida" type="application/atom+xml">
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-2129201-2']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
+    <meta charset="utf-8">
+    <title>First Days with Go - Shirohida</title>
+    <meta name="author" content="Alexey Bobyakov">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="canonical" href="http://claymore.github.com">
+    <link href="/favicon.png" rel="icon">
+    <link href="/atom.xml" rel="alternate" title="Shirohida" type="application/atom+xml">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <script src="/javascripts/modernizr-2.0.js"></script>
+    <script src="/javascripts/ender.js"></script>
+    <script src="/javascripts/octopress.js" type="text/javascript"></script>
+    <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 </head>
+<body>
+    <header role="banner">
+        <hgroup>
+            <h1><a href="/">Shirohida</a></h1>
+            <h2>Programming tips, how-to, thoughts and rants</h2>
+        </hgroup>
+    </header>
+    <nav role="navigation">
+        <ul class="subscription" data-subscription="rss">
+            <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+        </ul>
 
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Shirohida</a></h1>
-  
-    <h2>Programming tips, how-to, thoughts and rants</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:claymore.github.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
+        <form action="http://google.com/search" method="get">
+            <fieldset role="search">
+                <input type="hidden" name="q" value="site:claymore.github.com"></input>
+                <input class="search" type="text" name="q" results="0" placeholder="Search"></input>
+            </fieldset>
+        </form>
+        <ul class="main-navigation">
+            <li><a href="/">Blog</a></li>
+            <li><a href="/blog/archives">Archives</a></li>
+        </ul>
+    </nav>
+    <div id="main">
+        <div id="content">
+<div>
 <article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">First Days With Go</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-05T13:34:00+04:00" pubdate data-updated="true">Nov 5<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p>I&#8217;ve seen articles about <a href="http://golang.org" title="The Go Programming Language">Go</a> programming language appearing on Hacker News
-a few times but I didn&#8217;t pay much attention to them. Yet another language with
-nothing special about it or so it looked. It&#8217;s changed with Rob Pike&#8217;s <a href="http://talks.golang.org/2012/splash.slide#1" title="Go at Google">recent talk</a>.</p>
-
+	<header>
+		<h1 class="entry-title">First Days with Go</h1>
+		<p class="meta"><time pubdate data-updated="true">November  5, 2012</time></p>
+	</header>
+	<div class="entry-content">
+	<p>I’ve seen articles about <a href="http://golang.org" title="The Go Programming Language">Go</a> programming language appearing on Hacker News a few times but I didn’t pay much attention to them. Yet another language with nothing special about it or so it looked. It’s changed with Rob Pike’s <a href="http://talks.golang.org/2012/splash.slide#1" title="Go at Google">recent talk</a>.</p>
 <!-- more -->
 
+<p>I decided to try it out in a simple program that I originally wrote in Python. The program takes CSV files with <a href="https://github.com/Claymore/wiki-japan-stat/tree/golang/data">data</a> about Japanese population fetched from official sites and produces a template for Russian Wikipedia. The program also uses an INI-like configuration file. You can see the original source <a href="https://github.com/Claymore/wiki-japan-stat/blob/master/generator.py">here</a>. It’s fairly straightforward, the only thing I had to do is to make CSV reader handle UTF-8 files by introducing <code>unicode_csv_reader</code> function.</p>
+<p>I wanted the same functionality in a Go program. Reading CSV files seemed the easiest task to me so I started with it. Go standard library has a package to deal with such files, it’s called <code>encoding/csv</code>. Here is an example of how to use it:</p>
+<pre class="sourceCode go"><code class="sourceCode go">file, err := os.Open(<span class="st">&quot;example.csv&quot;</span>)
+<span class="kw">if</span> err != <span class="ot">nil</span> {
+	log.Fatalln(<span class="st">&quot;Error:&quot;</span>, err)
+}
+<span class="kw">defer</span> file.Close()
+reader := csv.NewReader(file)
+<span class="kw">for</span> {
+	record, err := reader.Read()
+	<span class="kw">if</span> err == io.EOF {
+		<span class="kw">break</span>
+	} <span class="kw">else</span> <span class="kw">if</span> err != <span class="ot">nil</span> {
+		log.Fatalln(<span class="st">&quot;Error:&quot;</span>, err)
+	}
+	fmt.Println(record)
+}</code></pre>
+<p>We open the file, command Go to close it when noone uses it anymore, create a <code>csv.Reader</code> object then read and print records line by line until we encounter end of file. Things to note: Go functions can return multiple values; you can defer execution of a function until the end of the block; Go has basic type inference (for example, <code>reader := csv.NewReader(file)</code> is a shortcut for <code>var reader csv.Reader = csv.NewReader(file)</code>). Go doesn’t have exceptions and it’s common idiom to return errors alongside function values. It makes code somewhat more verbose but it also makes clear when error will be handled.</p>
+<p>The next stop was to read an INI-like configuration file. The standard library doesn’t have a package to read them but it was really easy to implement one myself. I took <code>encoding/csv</code> package <a href="http://golang.org/src/pkg/encoding/csv/reader.go">source code</a> and created my own package based on it. You can look at the result here: <a href="https://github.com/Claymore/go-config">go-config</a> at GitHub. Later I found out there are three third-party packages that do the same but all of them introduce Python’s <code>ConfigParser</code> API that doesn’t suit Go very well, in my opinion.</p>
+<p>It was indeed fun, easy and straightforward as Rob’d claimed in his talk. Go promotes writing, documenting, testing and sharing packages: it has tools to automatically reformat your source code (<code>go fmt</code>), builtin testing library (<code>testing</code> package and <code>go test</code>), document extraction (<code>go doc</code>) and even to get, build and install third-party packages (<code>go get</code>) out of the box.</p>
+<p>With all pieces in place I’d finished the <a href="https://github.com/Claymore/wiki-japan-stat/blob/golang/generator.go">program</a> and it’s almost as easy to read it as Python version.</p>
+	</div>
+	<footer>
+	<p class="meta">
+		<span class="byline author vcard">Posted by <span class="fn">Alexey Bobyakov</span></span>
+                <time datetime="2012-11-05T00:00:00+0000" pubdate data-updated="true">November  5, 2012</time>
+                <span class="categories"><a href="/blog/categories/golang/">golang</a></span>
+	</p>
+        <div class="sharing">
+            <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://claymore.github.com/blog/2012/11/05/first-days-with-go/index.html" data-via data-counturl="http://claymore.github.com/blog/2012/11/05/first-days-with-go/index.html">Tweet</a>
+        </div>
+<p>
+<a class="basic-alignment left" href="/blog/2012/11/04/from-blogspot-to-octopress-slash-github/" title="From Blogspot to Octopress/Github">« From Blogspot to Octopress/Github</a>
+<a class="basic-alignment right" href="/blog/2012/11/05/git-configuration-tips/" title="Git Configuration Tips">Git Configuration Tips »</a>
 
-<p>I decided to try it out in a simple program that I originally wrote in Python.
-The program takes CSV files with <a href="https://github.com/Claymore/wiki-japan-stat/tree/golang/data">data</a> about Japanese population fetched
-from official sites and produces a template for Russian Wikipedia. The program
-also uses an INI-like configuration file. You can see the original source <a href="https://github.com/Claymore/wiki-japan-stat/blob/master/generator.py">here</a>.
-It&#8217;s fairly straightforward, the only thing I had to do is to make CSV reader
-handle UTF-8 files by introducing <code>unicode_csv_reader</code> function.</p>
-
-<p>I wanted the same functionality in a Go program. Reading CSV files seemed the easiest
-task to me so I started with it. Go standard library has a package to deal with
-such files, it&#8217;s called <code>encoding/csv</code>. Here is an example of how to use it:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="n">file</span><span class="p">,</span> <span class="n">err</span> <span class="p">:=</span> <span class="n">os</span><span class="p">.</span><span class="n">Open</span><span class="p">(</span><span class="s">&quot;example.csv&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="k">if</span> <span class="n">err</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
-</span><span class='line'>  <span class="n">log</span><span class="p">.</span><span class="n">Fatalln</span><span class="p">(</span><span class="s">&quot;Error:&quot;</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">defer</span> <span class="n">file</span><span class="p">.</span><span class="n">Close</span><span class="p">()</span>
-</span><span class='line'><span class="n">reader</span> <span class="p">:=</span> <span class="n">csv</span><span class="p">.</span><span class="n">NewReader</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
-</span><span class='line'><span class="k">for</span> <span class="p">{</span>
-</span><span class='line'>  <span class="n">record</span><span class="p">,</span> <span class="n">err</span> <span class="p">:=</span> <span class="n">reader</span><span class="p">.</span><span class="n">Read</span><span class="p">()</span>
-</span><span class='line'>  <span class="k">if</span> <span class="n">err</span> <span class="p">==</span> <span class="n">io</span><span class="p">.</span><span class="n">EOF</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">break</span>
-</span><span class='line'>  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="n">err</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
-</span><span class='line'>      <span class="n">log</span><span class="p">.</span><span class="n">Fatalln</span><span class="p">(</span><span class="s">&quot;Error:&quot;</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>We open the file, command Go to close it when noone uses it anymore, create a
-<code>csv.Reader</code> object then read and print records line by line until we encounter
-end of file. Things to note: Go functions can return multiple values; you can defer
-execution of a function until the end of the block; Go has basic type inference
-(for example, <code>reader := csv.NewReader(file)</code> is a shortcut for <code>var reader
-csv.Reader = csv.NewReader(file)</code>). Go doesn&#8217;t have exceptions and it&#8217;s common
-idiom to return errors alongside function values. It makes code somewhat more
-verbose but it also makes clear when error will be handled.</p>
-
-<p>The next stop was to read an INI-like configuration file. The standard library
-doesn&#8217;t have a package to read them but it was really easy to implement one
-myself. I took <code>encoding/csv</code> package <a href="http://golang.org/src/pkg/encoding/csv/reader.go">source code</a> and created my own package
-based on it. You can look at the result here: <a href="https://github.com/Claymore/go-config">go-config</a> at GitHub. Later
-I found out there are three third-party packages that do the same but all of
-them introduce Python&#8217;s <code>ConfigParser</code> API that doesn&#8217;t suit Go very well, in my
-opinion.</p>
-
-<p>It was indeed fun, easy and straightforward as Rob&#8217;d claimed in his talk. Go promotes
-writing, documenting, testing and sharing packages: it has tools to automatically
-reformat your source code (<code>go fmt</code>), builtin testing library (<code>testing</code> package
-and <code>go test</code>), document extraction (<code>go doc</code>) and even to get, build and install
-third-party packages (<code>go get</code>) out of the box.</p>
-
-<p>With all pieces in place I&#8217;d finished the <a href="https://github.com/Claymore/wiki-japan-stat/blob/golang/generator.go">program</a> and it&#8217;s almost as easy to
-read it as Python version.</p>
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">Alexey Bobyakov</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-05T13:34:00+04:00" pubdate data-updated="true">Nov 5<span>th</span>, 2012</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/golang/'>golang</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://claymore.github.com/blog/2012/11/05/first-days-with-go/" data-via="" data-counturl="http://claymore.github.com/blog/2012/11/05/first-days-with-go/" >Tweet</a>
-  
-  
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/2012/11/05/git-configuration-tips/" title="Previous Post: Git Configuration Tips">&laquo; Git Configuration Tips</a>
-      
-      
-    </p>
-  </footer>
-</article>
-
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>About Me</h1>
-  <p>Hi! I strive to create programs and services that make users' life somewhat easier.</p>
-  <p>You can reach me on <a href="http://twitter.com/kureimoru">Twitter</a>.</p>
-</section>
-<section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2012/11/05/first-days-with-go/">First Days with Go</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/11/05/git-configuration-tips/">Git Configuration Tips</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/11/04/from-blogspot-to-octopress-slash-github/">From Blogspot to Octopress/Github</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/10/27/hubot-and-xmpp/">Hubot &amp; XMPP</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2008/07/13/context-menu-for-column-headers-of-net-listview/">Context menu for column headers of .NET ListView</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/Claymore">@Claymore</a> on GitHub
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'Claymore',
-            count: 3,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-
-
-<section class="googleplus googleplus-hidden">
-  <h1>
-    <a href="https://plus.google.com/102481707573568225620?rel=author">
-      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
-      Google+
-    </a>
-  </h1>
-</section>
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Alexey Bobyakov -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
+	</footer>
+</article>
+<section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div>
+</section>
+</div>
 
-</footer>
-  
+            <aside class="sidebar">
+                <section>
+                    <h1>About Me</h1>
+                    <p>Hi! I strive to create programs and services that make users’ life somewhat easier.</p>
+                    <p>You can reach me on <a href="http://twitter.com/kureimoru">Twitter</a>.</p>
+                </section>
 
-<script type="text/javascript">
-      var disqus_shortname = 'shirohida';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://claymore.github.com/blog/2012/11/05/first-days-with-go/';
-        var disqus_url = 'http://claymore.github.com/blog/2012/11/05/first-days-with-go/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
+<section>
+    <h1>Recent Posts</h1>
+    <ul id="recent_posts">
+<li class="post">
+    <a href="/blog/2012/11/05/git-configuration-tips/">Git Configuration Tips</a>
+</li>
+<li class="post">
+    <a href="/blog/2012/11/05/first-days-with-go/">First Days with Go</a>
+</li>
+<li class="post">
+    <a href="/blog/2012/11/04/from-blogspot-to-octopress-slash-github/">From Blogspot to Octopress/Github</a>
+</li>
+<li class="post">
+    <a href="/blog/2011/10/27/hubot-and-xmpp/">Hubot &amp; XMPP</a>
+</li>
+<li class="post">
+    <a href="/blog/2008/07/13/context-menu-for-column-headers-of-net-listview/">Context menu for column headers of .NET ListView</a>
+</li>
+
+    </ul>
+</section>
+
+                <section>
+                    <h1>GitHub Repos</h1>
+                    <ul id="gh_repos">
+                        <li class="loading">Status updating…</li>
+                    </ul>
+                    <a href="https://github.com/Claymore">@Claymore</a> on GitHub
+                    <script type="text/javascript">
+                    $.domReady(function(){
+                        if (!window.jXHR){
+                            var jxhr = document.createElement('script');
+                            jxhr.type = 'text/javascript';
+                            jxhr.src = '/javascripts/libs/jXHR.js';
+                            var s = document.getElementsByTagName('script')[0];
+                            s.parentNode.insertBefore(jxhr, s);
+                        }
+
+                        github.showRepos({
+                            user: 'Claymore',
+                            count: 3,
+                            skip_forks: true,
+                            target: '#gh_repos'
+                        });
+                    });
+                    </script>
+                    <script src="/javascripts/github.js" type="text/javascript"> </script>
+                </section>
+
+                <section class="googleplus googleplus-hidden">
+                    <h1>
+                        <a href="https://plus.google.com/102481707573568225620?rel=author">
+                          <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+                          Google+
+                        </a>
+                    </h1>
+                </section>
 
 
+            </aside>
+        </div>
+    </div>
+    <footer role="contentinfo">
+        <p>Copyright © 2012 - Alexey Bobyakov - <span class="credit">Powered by <a href="http://jaspervdj.be/hakyll/">Hakyll</a></span> - <span class="credit">Design by <a href="http://octopress.org">Octopress</a></span>
+        </p>
+    </footer>
 
+    <script type="text/javascript">
+        var disqus_shortname = 'shirohida';
+        var disqus_script = 'count.js';
+        (function () {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
 
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
+    <script type="text/javascript">
+        (function(){
+          var twitterWidgets = document.createElement('script');
+          twitterWidgets.type = 'text/javascript';
+          twitterWidgets.async = true;
+          twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+          document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+        })();
+    </script>
 </body>
 </html>

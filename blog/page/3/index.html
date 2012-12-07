@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
     <meta charset="utf-8">
-    <title>Hubot &amp; XMPP - Shirohida</title>
+    <title>Main - Shirohida</title>
     <meta name="author" content="Alexey Bobyakov">
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
@@ -44,48 +44,34 @@
     </nav>
     <div id="main">
         <div id="content">
-<div>
-<article class="hentry" role="article">
-	<header>
-		<h1 class="entry-title">Hubot &amp; XMPP</h1>
-		<p class="meta"><time pubdate data-updated="true">October 27, 2011</time></p>
-	</header>
-	<div class="entry-content">
-	<p>Running Hubot on a Jabber server is fairly simple:</p>
-<ol style="list-style-type: decimal">
-<li>Install node.js;</li>
-<li>Install npm;</li>
-<li>Install redis;</li>
-<li>Set up environment variables:
-<ul>
-<li><code>export HUBOT_XMPP_USERNAME=[JID]</code></li>
-<li><code>export HUBOT_XMPP_PASSWORD=[Password]</code></li>
-<li><code>export HUBOT_XMPP_ROOMS=[Room]</code></li>
-</ul></li>
-<li>Run Hubot: <code>bin/hubot -a xmpp</code></li>
-</ol>
-	</div>
-	<footer>
-	<p class="meta">
-		<span class="byline author vcard">Posted by <span class="fn">Alexey Bobyakov</span></span>
-                <time datetime="2011-10-27T00:00:00+0000" pubdate data-updated="true">October 27, 2011</time>
-                <span class="categories"></span>
-	</p>
-        <div class="sharing">
-            <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://claymore.github.com/blog/2011/10/27/hubot-and-xmpp/index.html" data-via data-counturl="http://claymore.github.com/blog/2011/10/27/hubot-and-xmpp/index.html">Tweet</a>
-        </div>
-<p>
-<a class="basic-alignment left" href="/blog/2008/07/13/context-menu-for-column-headers-of-net-listview/" title="Context menu for column headers of .NET ListView">« Context menu for column headers of .NET ListView</a>
-<a class="basic-alignment right" href="/blog/2012/11/04/from-blogspot-to-octopress-slash-github/" title="From Blogspot to Octopress/Github">From Blogspot to Octopress/Github »</a>
+                    <div class="blog-index">
+			<article>
+				<header>
+					<h1 class="entry-title"><a href="/blog/2008/07/13/context-menu-for-column-headers-of-net-listview/">Context menu for column headers of .NET ListView</a></h1>
+					<p class="meta"><time datetime="2008-07-13T00:00:00+0000" pubdate data-updated="true">July 13, 2008</time></p>
+				</header>
+				<p><code>ListView</code> doesn’t provide <code>ColumnHeaderMouseClick</code> event so I had to find a workaround to display context menu for column headers. There is a <a href="http://www.codeproject.com/Articles/23330/Handling-Right-Click-Events-in-ListView-Column-Hea" title="Handling Right-Click Events in ListView Column Headers">way</a> to do this by resorting to Windows API but my solution is easier.</p>
 
-</p>
-	</footer>
-</article>
-<section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div>
-</section>
-</div>
+
+				<footer><a rel="full-article" href="/blog/2008/07/13/context-menu-for-column-headers-of-net-listview/">Read on →</a></footer>
+			</article>
+			<article>
+				<header>
+					<h1 class="entry-title"><a href="/blog/2007/07/30/windows-vista-credential-providers/">Windows Vista Credential Providers</a></h1>
+					<p class="meta"><time datetime="2007-07-30T00:00:00+0000" pubdate data-updated="true">July 30, 2007</time></p>
+				</header>
+				<p>In Windows Vista Microsoft has adopted so called credential providers as a way to log into the system. Your custom <a href="http://en.wikipedia.org/wiki/Graphical_identification_and_authentication">GINA</a> library <a href="http://support.microsoft.com/kb/925520">won’t work</a> in Vista so you will have to write a COM component that implements <code>ICredentialProvider</code> and <code>ICredentialProviderCredential</code> interfaces. I found it pretty easy to write a custom credential provider (the one that works with electronic keys). There are a <a href="http://msdn.microsoft.com/en-us/magazine/cc163489.aspx">good introduction</a> into the new model, <a href="http://www.microsoft.com/en-us/download/details.aspx?id=4057">samples</a> and <a href="http://shellrevealed.com/files/folders/code_samples/entry1019.aspx">technical reference</a>.</p>
+
+
+				
+			</article>
+
+                        <div class="pagination">
+                            
+                            <a href="/blog/archives">Blog Archives</a>
+                            <a href="/blog/page/2/">Newer »</a>
+                        </div>
+                    </div>
 
             <aside class="sidebar">
                 <section>
