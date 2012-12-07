@@ -17,8 +17,10 @@ import Data.List (isInfixOf, sortBy, elemIndex)
 import Data.Maybe (fromJust)
 import Data.Map (findWithDefault)
 import Data.Char (toLower)
+import qualified Data.Set as S
+import qualified Text.HTML.TagSoup as TS
 
-import Hakyll hiding (chronological)
+import Hakyll hiding (chronological, withUrls)
 
 type SPage = Page String
 
@@ -386,3 +388,16 @@ addNearbyPosts =
         ***
         mapCompiler (applyTemplateCompiler "templates/post-next.html"))
        >>> arr (uncurry (++)) >>> arr mconcat >>> arr pageBody)
+
+-- | Apply a function to each URL on a webpage
+--
+withUrls :: (String -> String) -> String -> String
+withUrls f = renderTags' . map tag . TS.parseTags
+  where
+    tag (TS.TagOpen s a) = TS.TagOpen s $ map attr a
+    tag x                = x
+    attr (k, v)          = (k, if k `S.member` refs then f v else v)
+    refs                 = S.fromList ["src", "href", "data-url", "data-counturl"]
+    renderTags' = TS.renderTagsOptions TS.renderOptions
+        { TS.optRawTag = (`elem` ["script", "style"]) . map toLower
+        }
