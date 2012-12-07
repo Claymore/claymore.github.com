@@ -155,7 +155,7 @@ main = hakyll $ do
             >>> renderModificationTime "lastmod" "%Y-%m-%dT%H:%M:%S%z"
             >>> arr (copyBodyToField "description")
             >>> setBlogFields
-            >>> renderTagsFieldWith getCategories "prettycategories" (fromCapture "categories/*")
+            >>> renderTagsFieldWith getCategories "prettycats" (fromCapture "categories/*")
             >>> setFieldPageList sortAsidesByIndex "templates/aside.html" "asides" asidesList
             >>> requireAllA ("posts/*" `mappend` inGroup (Just "raw")) addNearbyPosts
             >>> addTeaser
