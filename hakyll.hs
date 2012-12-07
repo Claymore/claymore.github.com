@@ -16,6 +16,7 @@ import Data.Ord (comparing)
 import Data.List (isInfixOf, sortBy, elemIndex)
 import Data.Maybe (fromJust)
 import Data.Map (findWithDefault)
+import Data.Char (toLower)
 
 import Hakyll hiding (chronological)
 
@@ -91,7 +92,7 @@ main = hakyll $ do
         requireAll ("posts/*" `mappend` inGroup Nothing) (\_ ps -> readTags ps :: Tags String)
 
     -- Add a tag list compiler for every tag
-    match "categories/*" $ route $ customRoute (\f -> "blog/" ++ show(f) ++ "/index.html")
+    match "categories/*" $ route categoryRoute
     metaCompile $ require_ "categories"
         >>> arr tagsMap
         >>> arr (map (\(t, p) -> (tagIdentifier t, makeTagList t p)))
@@ -174,6 +175,12 @@ main = hakyll $ do
 
 indexRoute :: Routes
 indexRoute = customRoute (\f -> "blog/page/" ++ (reverse . (drop 5) . reverse . (drop 5 . show) $ f) ++ "/index.html")
+
+categoryRoute :: Routes
+categoryRoute = customRoute (\f -> "blog/" ++ (map (toLower . replace '.' '-') $ show f) ++ "/index.html")
+    where replace s r c
+           | c == s = r
+           | otherwise = c
 
 pathToUrl :: String -> String
 pathToUrl path = "/blog/" ++ year ++ "/" ++ month ++ "/" ++ day ++ "/" ++ title ++ "/"
