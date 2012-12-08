@@ -3,7 +3,7 @@ module Main where
 
 import Prelude hiding (id)
 import Control.Category (id)
-import Control.Arrow ((>>>), arr, (&&&), (>>^), (***))
+import Control.Arrow ((>>>), arr, (&&&), (>>^), (***), (|||))
 import Data.Monoid (mempty, mconcat, mappend)
 import Text.Blaze.Html.Renderer.String (renderHtml)
 import Text.Blaze.Internal (preEscapedString)
@@ -35,9 +35,22 @@ data BlogConfiguration = BlogConfiguration
     , dateFormat :: String
     , githubUser :: String
     , googlePlusId :: String
+    , googlePlusHidden :: Bool
     , disqusShortName :: String
     , defaultAsides :: [String]
     , recentPosts :: Int
+    , googleAnalyticsId :: String
+    , facebookLike :: Bool
+    , twitterButton :: Bool
+    , twitterUser :: String
+    , tweetCount :: String
+    , twitterShowReplies :: String
+    , pinboardUser :: String
+    , pinboardCount :: String
+    , deliciousUser :: String
+    , deliciousCount :: String
+    , googlePlusOne :: Bool
+    , googlePlusOneSize :: String
     } deriving (Show, Eq)
 
 blogConfiguration = BlogConfiguration
@@ -51,9 +64,22 @@ blogConfiguration = BlogConfiguration
     , dateFormat = "%B %e, %Y"
     , githubUser = "Claymore"
     , googlePlusId = "102481707573568225620"
+    , googlePlusHidden = True
     , disqusShortName = "shirohida"
-    , defaultAsides = ["templates/custom/asides/about.html", "templates/asides/recent_posts.html", "templates/asides/github.html", "templates/asides/googleplus.html"]
+    , defaultAsides = ["templates/includes/custom/asides/about.html", "templates/includes/asides/recent_posts.html", "templates/includes/asides/github.html", "templates/includes/asides/googleplus.html"]
     , recentPosts = 5
+    , googleAnalyticsId = "UA-2129201-2"
+    , facebookLike = False
+    , twitterButton = True
+    , twitterUser = ""
+    , tweetCount = ""
+    , twitterShowReplies = ""
+    , googlePlusOne = False
+    , googlePlusOneSize = "medium"
+    , pinboardUser = ""
+    , pinboardCount = ""
+    , deliciousUser = ""
+    , deliciousCount = ""
     }
 
 feedConfiguration :: FeedConfiguration
@@ -105,19 +131,19 @@ main = hakyll $ do
         >>> arr (reverse . chronological)
         >>> renderAtom feedConfiguration
 
-    match "templates/asides/recent_posts.html" $ do
+    match "templates/includes/asides/recent_posts.html" $ do
         compile $ readPageCompiler
             >>> addDefaultFields
-            >>> setFieldPageList (take (recentPosts blogConfiguration) . chronological) "templates/recent_post_item.html" "recentposts" ("posts/*" `mappend` inGroup (Just "raw"))
+            >>> setFieldPageList (take (recentPosts blogConfiguration) . chronological) "templates/includes/recent_post.html" "recentposts" ("posts/*" `mappend` inGroup (Just "raw"))
             >>> arr applySelf
 
-    match "templates/asides/*" $ do
+    match "templates/includes/asides/*" $ do
         compile $ readPageCompiler
             >>> addDefaultFields
             >>> setBlogFields
             >>> arr applySelf
 
-    match "templates/custom/asides/*" $ do
+    match "templates/includes/custom/asides/*" $ do
         compile $ readPageCompiler
             >>> addDefaultFields
             >>> setBlogFields
@@ -126,12 +152,12 @@ main = hakyll $ do
     match "archives.html" $ do
         route   $ customRoute (\f -> "blog/" ++ takeBaseName(show(f)) ++ "/index.html")
         create "archives.html" $ constA mempty
+            >>> addDefaultFields
             >>> arr (setField "title" "Blog Archives")
-            >>> setBlogFields
-            >>> setFieldPageList chronological "templates/archiveitem.html" "posts" ("posts/*" `mappend` inGroup Nothing)
-            >>> setFieldPageList sortAsidesByIndex "templates/aside.html" "asides" asidesList
-            >>> applyTemplateCompiler "templates/archive.html"
-            >>> applyTemplateCompiler "templates/default.html"
+            >>> addDefaultTemplateFields
+            >>> setFieldPageList chronological "templates/includes/archive_post.html" "posts" ("posts/*" `mappend` inGroup Nothing)
+            >>> applyTemplateCompiler "templates/layouts/archive.html"
+            >>> applyTemplateCompiler "templates/layouts/default.html"
             >>> wordpressUrlsCompiler
 
     -- Sitemap
@@ -156,13 +182,12 @@ main = hakyll $ do
             >>> arr (renderDateField "year" "%Y" "Date unknown")
             >>> renderModificationTime "lastmod" "%Y-%m-%dT%H:%M:%S%z"
             >>> arr (copyBodyToField "description")
-            >>> setBlogFields
+            >>> addDefaultTemplateFields
             >>> renderTagsFieldWith getCategories "prettycats" (fromCapture "categories/*")
-            >>> setFieldPageList sortAsidesByIndex "templates/aside.html" "asides" asidesList
             >>> requireAllA ("posts/*" `mappend` inGroup (Just "raw")) addNearbyPosts
             >>> addTeaser
-            >>> applyTemplateCompiler "templates/post.html"
-            >>> applyTemplateCompiler "templates/default.html"
+            >>> applyTemplateCompiler "templates/layouts/post.html"
+            >>> applyTemplateCompiler "templates/layouts/default.html"
             >>> wordpressUrlsCompiler
 
     -- Generate index pages
@@ -174,6 +199,9 @@ main = hakyll $ do
 
     -- Read templates
     match "templates/*" $ compile templateCompiler
+    match "templates/layouts/*" $ compile templateCompiler
+    match "templates/includes/*" $ compile templateCompiler
+    match "templates/includes/post/*" $ compile templateCompiler
 
 indexRoute :: Routes
 indexRoute = customRoute (\f -> "blog/page/" ++ (reverse . (drop 5) . reverse . (drop 5 . show) $ f) ++ "/index.html")
@@ -205,6 +233,15 @@ setBlogFields =
     >>> arr (setField "googleplusid" (googlePlusId blogConfiguration))
     >>> arr (setField "disqusshortname" (disqusShortName blogConfiguration))
     >>> arr (setField "host" (rootUrl blogConfiguration))
+    >>> arr (setField "googleanalyticsid" (googleAnalyticsId blogConfiguration))
+    >>> arr (setField "googleplusonesize" (googlePlusOneSize blogConfiguration))
+    >>> arr (setField "twitteruser" (twitterUser blogConfiguration))
+    >>> arr (setField "tweetcount" (tweetCount blogConfiguration))
+    >>> arr (setField "twittershowreplies" (twitterShowReplies blogConfiguration))
+    >>> arr (setField "pinboarduser" (pinboardUser blogConfiguration))
+    >>> arr (setField "pinboardcount" (pinboardCount blogConfiguration))
+    >>> arr (setField "delicioususer" (deliciousUser blogConfiguration))
+    >>> arr (setField "deliciouscount" (deliciousCount blogConfiguration))
 
 getCategories = map trim . splitAll "," . getField "categories"
 readCategories = readTagsWith getCategories
@@ -218,13 +255,12 @@ makeTagList :: String
 makeTagList tag posts =
     constA posts
     >>> arr (map stripIndexLink)
-    >>> pageListCompiler recentFirst "templates/archiveitem.html"
+    >>> pageListCompiler recentFirst "templates/includes/archive_post.html"
     >>> arr (copyBodyToField "posts" . fromBody)
     >>> arr (setField "title" ("Category: " ++ tag))
-    >>> setBlogFields
-    >>> setFieldPageList sortAsidesByIndex "templates/aside.html" "asides" asidesList
-    >>> applyTemplateCompiler "templates/tag.html"
-    >>> applyTemplateCompiler "templates/default.html"
+    >>> addDefaultTemplateFields
+    >>> applyTemplateCompiler "templates/layouts/category.html"
+    >>> applyTemplateCompiler "templates/layouts/default.html"
 
 -- | Compiler form of 'wordpressUrls' which automatically turns index.html
 -- links into just the directory name
@@ -265,21 +301,70 @@ makeIndexPages ps = map doOne (zip [1..] ps)
         indexIdentifier n = parseIdentifier url
           where url = "index" ++ (if (n == 1) then "" else show n) ++ ".html"
 
+addDefaultTemplateFields = addDefaultFields
+    >>> setBlogFields
+    >>> setFieldPageList sortAsidesByIndex "templates/includes/aside.html" "asides" asidesList
+    >>> isGooglePlusHidden
+    >>> (arr (setField "googleplushidden" "") ||| arr (setField "googleplushidden" "googleplus-hidden"))
+    >>> isGoogleAnalyticsEnabled
+    >>> (arr (setField "googleanalytics" "") |||
+        addFieldTemplate "googleanalytics" "templates/includes/google_analytics.html")
+    >>> isTwitterButtonEnabled
+    >>> ((arr (setField "twittersharing" "") >>> arr (setField "posttwittersharing" "")) |||
+        (addFieldTemplate "twittersharing" "templates/includes/twitter_sharing.html"
+        >>> addFieldTemplate "posttwittersharing" "templates/includes/post/twitter_sharing.html"))
+    >>> isFacebookLikeEnabled
+    >>> ((arr (setField "facebooklike" "") >>> arr (setField "postfacebooklike" "")) |||
+        (addFieldTemplate "facebooklike" "templates/includes/facebook_like.html"
+        >>> addFieldTemplate "postfacebooklike" "templates/includes/post/facebook_like.html"))
+    >>> isGooglePlusOneEnabled
+    >>> ((arr (setField "googleplusone" "") >>> arr (setField "postgoogleplusone" "")) |||
+        (addFieldTemplate "googleplusone" "templates/includes/google_plus_one.html"
+        >>> addFieldTemplate "postgoogleplusone" "templates/includes/post/google_plus_one.html"))
+    >>> isDisqusEnabled
+    >>> (arr (setField "disqus" "") |||
+        addFieldTemplate "disqus" "templates/includes/disqus.html")
+    >>> addFieldTemplate "head" "templates/includes/head.html"
+    >>> addFieldTemplate "header" "templates/includes/header.html"
+    >>> addFieldTemplate "navigation" "templates/includes/navigation.html"
+    >>> addFieldTemplate "footer" "templates/includes/footer.html"
+    >>> addFieldTemplate "afterfooter" "templates/includes/after_footer.html"
+
+addFieldTemplate :: String -> Identifier Template -> Compiler (Page String) (Page String)
+addFieldTemplate key template = (id &&& id) >>> setFieldA key (applyTemplateCompiler template >>> arr pageBody)
+
 -- Make a single index page: inserts posts, sets up navigation links
 -- to older and newer article index pages, applies templates.
 makeIndexPage :: Int -> Int -> [Page String] -> Compiler () (Page String)
 makeIndexPage n maxn posts =
     constA (mempty, posts)
-    >>> addPostList "templates/postitem.html"
+    >>> addPostList "templates/includes/index_post.html"
     >>> arr (setField "navlinkolder" (indexNavLink n 1 maxn))
     >>> arr (setField "navlinknewer" (indexNavLink n (-1) maxn))
     >>> arr (setField "title" "Main")
-    >>> setBlogFields
-    >>> setFieldPageList sortAsidesByIndex "templates/aside.html" "asides" asidesList
-    >>> applyTemplateCompiler "templates/post.html"
-    >>> applyTemplateCompiler "templates/index.html"
-    >>> applyTemplateCompiler "templates/default.html"
+    >>> addDefaultTemplateFields
+    >>> applyTemplateCompiler "templates/layouts/post.html"
+    >>> applyTemplateCompiler "templates/layouts/index.html"
+    >>> applyTemplateCompiler "templates/layouts/default.html"
     >>> wordpressUrlsCompiler
+
+isGoogleAnalyticsEnabled = arr (\p -> if enabled p then Right p else Left p)
+    where enabled = (/= "") . getField "googleanalyticsid"
+
+isDisqusEnabled = arr (\p -> if enabled p then Right p else Left p)
+    where enabled = (/= "") . getField "disqusshortname"
+
+isGooglePlusHidden = arr (\p -> if h then Right p else Left p)
+    where h = googlePlusHidden blogConfiguration
+
+isTwitterButtonEnabled = arr (\p -> if enabled then Right p else Left p)
+    where enabled = twitterButton blogConfiguration
+
+isFacebookLikeEnabled = arr (\p -> if enabled then Right p else Left p)
+    where enabled = facebookLike blogConfiguration
+
+isGooglePlusOneEnabled = arr (\p -> if enabled then Right p else Left p)
+    where enabled = googlePlusOne blogConfiguration
 
 -- Generate navigation link HTML for stepping between index pages.
 indexNavLink :: Int -> Int -> Int -> String
@@ -384,9 +469,9 @@ addNearbyPosts =
     arr (id *** recentFirst)
     >>> findNeighbours
     >>> setFieldA "neighbours"
-      ((mapCompiler (applyTemplateCompiler "templates/post-previous.html")
+      ((mapCompiler (applyTemplateCompiler "templates/includes/post_previous.html")
         ***
-        mapCompiler (applyTemplateCompiler "templates/post-next.html"))
+        mapCompiler (applyTemplateCompiler "templates/includes/post_next.html"))
        >>> arr (uncurry (++)) >>> arr mconcat >>> arr pageBody)
 
 -- | Apply a function to each URL on a webpage
