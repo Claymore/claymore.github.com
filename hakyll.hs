@@ -91,8 +91,13 @@ feedConfiguration = FeedConfiguration
     , feedRoot = (rootUrl blogConfiguration)
     }
 
+config :: HakyllConfiguration
+config = defaultHakyllConfiguration
+    { deployCommand = "./deploy.sh"
+    }
+
 main :: IO ()
-main = hakyll $ do
+main = hakyllWith config $ do
     -- Compress CSS
     match "stylesheets/*" $ do
         route   idRoute
