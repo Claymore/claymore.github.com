@@ -102,11 +102,11 @@ main :: IO ()
 main = hakyllWith config $ do
     ["assets/**", "images/*", "javascripts/**", "favicon.png"] --> [dostatic]
     ["stylesheets/*"] --> [docss]
+    dorawposts
     ["templates/*", "templates/layouts/*", "templates/includes/*", "templates/includes/post/*"] --> [dotemplates]
+    ["posts/*" `mappend` inGroup (Just "raw")] --> [dorecentposts]
     ["templates/includes/asides/*", "templates/includes/custom/asides/*"] --> [doasides]
     ["posts/*" `mappend` inGroup Nothing] --> [doposts, doindexes, docategories, doarchive, dofeed, dositemap]
-    dorawposts
-    ["posts/*" `mappend` inGroup (Just "raw")] --> [dorecentposts]
 
     where xs --> fs = sequence (xs <**> fs)
 
