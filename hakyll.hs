@@ -239,6 +239,8 @@ setBlogFields =
     >>> arr (setField "disqusshortname" (disqusShortName blogConfiguration))
     >>> arr (setField "host" (rootUrl blogConfiguration))
     >>> arr (setField "googleanalyticsid" (googleAnalyticsId blogConfiguration))
+    >>> isGooglePlusHidden
+    >>> (arr (setField "googleplushidden" "") ||| arr (setField "googleplushidden" "googleplus-hidden"))
     >>> arr (setField "googleplusonesize" (googlePlusOneSize blogConfiguration))
     >>> arr (setField "twitteruser" (twitterUser blogConfiguration))
     >>> arr (setField "tweetcount" (tweetCount blogConfiguration))
@@ -308,9 +310,7 @@ makeIndexPages ps = map doOne (zip [1..] ps)
 
 addDefaultTemplateFields = addDefaultFields
     >>> setBlogFields
-    >>> setFieldPageList sortAsidesByIndex "templates/includes/aside.html" "asides" asidesList
-    >>> isGooglePlusHidden
-    >>> (arr (setField "googleplushidden" "") ||| arr (setField "googleplushidden" "googleplus-hidden"))
+
     >>> isGoogleAnalyticsEnabled
     >>> (arr (setField "googleanalytics" "") |||
         addFieldTemplate "googleanalytics" "templates/includes/google_analytics.html")
@@ -334,6 +334,7 @@ addDefaultTemplateFields = addDefaultFields
     >>> addFieldTemplate "navigation" "templates/includes/navigation.html"
     >>> addFieldTemplate "footer" "templates/includes/footer.html"
     >>> addFieldTemplate "afterfooter" "templates/includes/after_footer.html"
+    >>> setFieldPageList sortAsidesByIndex "templates/includes/aside.html" "asides" asidesList
 
 addFieldTemplate :: String -> Identifier Template -> Compiler (Page String) (Page String)
 addFieldTemplate key template = (id &&& id) >>> setFieldA key (applyTemplateCompiler template >>> arr pageBody)
