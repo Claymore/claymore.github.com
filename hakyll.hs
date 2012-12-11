@@ -324,6 +324,14 @@ addNearbyPosts =
         mapCompiler (applyTemplateCompiler "templates/includes/post_next.html"))
        >>> arr (uncurry (++)) >>> arr mconcat >>> arr pageBody)
 
+asidesList :: Pattern a
+asidesList = list . (map parseIdentifier) . defaultAsides $ blogConfiguration
+
+-- | Sort pages in the exact order of their appearance in defaultAsides
+--
+sortAsidesByIndex :: [Page a] -> [Page a]
+sortAsidesByIndex = sortBy $ comparing $ fromJust . (flip elemIndex $ (defaultAsides blogConfiguration)) . getField "path"
+
 doarchive :: Pattern (Page String) -> RulesM ()
 doarchive pattern = void $ match "archives.html" $ do
     route   $ customRoute (\f -> "blog/" ++ takeBaseName(show(f)) ++ "/index.html")
@@ -455,10 +463,6 @@ doasides = void . flip match (compile $ readPageCompiler
     >>> addDefaultFields
     >>> setBlogFields
     >>> arr applySelf)
-
-asidesList = list . (map parseIdentifier) . defaultAsides $ blogConfiguration
-
-sortAsidesByIndex = sortBy $ comparing $ fromJust . (flip elemIndex $ (defaultAsides blogConfiguration)) . getField "path"
 
 -- | Sort pages chronologically. This function assumes that the pages have a
 -- @year/month/day/title[.extension]@ naming scheme.
