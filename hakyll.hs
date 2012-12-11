@@ -290,39 +290,33 @@ addTeaser = arr (copyBodyToField "teaser")
                 fixResourceUrls' url p = changeField "teaser" (fixResourceUrls'' (takeDirectory url)) p
                 fixResourceUrls'' path = withUrls (\x -> if '/' `elem` x then x else path ++ "/" ++ x)
 
-get0 :: [a] -> [a]
-get0 (a:_) = [a]
-get0 _     = []
-
-get1 :: [a] -> [a]
-get1 (_:a:_) = [a]
-get1 _       = []
-
-getPageField key page = findWithDefault [] key (toMap page)
-
-equalPath a b = (getPageField "path" a) == (getPageField "path" b)
-
 -- | Given a post and a list of all posts, return the
 --   preceeding and following posts, if they exist.
 --
 findNeighbours :: Compiler (Page String, [Page String]) (Page String, ([Page String], [Page String]))
-findNeighbours =
-    arr $ \(cpage, plist) ->
-        let slist = recentFirst plist
-            (earlier, later) = break (equalPath cpage) slist
-        in (cpage, (get0 (reverse earlier), get1 later))
+findNeighbours = arr $ \(cpage, plist) ->
+    let slist = recentFirst plist
+        (earlier, later) = break (equalPath cpage) slist
+        equalPath a b = (getPageField "path" a) == (getPageField "path" b)
+        getPageField key page = findWithDefault [] key (toMap page)
+        get0 (a:_) = [a]
+        get0 _     = []
+        get1 (_:a:_) = [a]
+        get1 _       = []
+    in (cpage, (get0 (reverse earlier), get1 later))
 
 -- | Add in the previous and next links for a post
 --
 addNearbyPosts :: Compiler (Page String, [Page String]) (Page String)
-addNearbyPosts =
-    arr (id *** recentFirst)
+addNearbyPosts = arr (id *** recentFirst)
     >>> findNeighbours
     >>> setFieldA "neighbours"
-      ((mapCompiler (applyTemplateCompiler "templates/includes/post_previous.html")
+        ((mapCompiler (applyTemplateCompiler "templates/includes/post_previous.html")
         ***
         mapCompiler (applyTemplateCompiler "templates/includes/post_next.html"))
-       >>> arr (uncurry (++)) >>> arr mconcat >>> arr pageBody)
+        >>> arr (uncurry (++))
+        >>> arr mconcat
+        >>> arr pageBody)
 
 asidesList :: Pattern a
 asidesList = list . (map parseIdentifier) . defaultAsides $ blogConfiguration
