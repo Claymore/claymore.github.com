@@ -24,7 +24,7 @@ import qualified Text.HTML.TagSoup as TS
 import qualified Data.ByteString.Char8 as B
 import System.FilePath (joinPath, splitDirectories, takeDirectory, dropFileName, takeBaseName)
 
-import Hakyll hiding (chronological, withUrls)
+import Hakyll hiding (chronological, recentFirst, withUrls)
 
 data BlogConfiguration = BlogConfiguration
     { paginate :: Int
@@ -308,7 +308,7 @@ equalPath a b = (getPageField "path" a) == (getPageField "path" b)
 findNeighbours :: Compiler (Page String, [Page String]) (Page String, ([Page String], [Page String]))
 findNeighbours =
     arr $ \(cpage, plist) ->
-        let slist = (reverse . chronological) plist
+        let slist = recentFirst plist
             (earlier, later) = break (equalPath cpage) slist
         in (cpage, (get0 (reverse earlier), get1 later))
 
@@ -330,7 +330,7 @@ doarchive pattern = void $ match "archives.html" $ do
     create "archives.html" $ constA mempty
         >>> arr (setField "title" "Blog Archives")
         >>> addDefaultTemplateFields
-        >>> setFieldPageList chronological "templates/includes/archive_post.html" "posts" pattern
+        >>> setFieldPageList recentFirst "templates/includes/archive_post.html" "posts" pattern
         >>> applyTemplateCompiler "templates/layouts/archive.html"
         >>> applyTemplateCompiler "templates/layouts/default.html"
         >>> wordpressUrlsCompiler
@@ -340,7 +340,7 @@ doindexes pattern = void $ do
     match "index.html" $ route idRoute
     match "index*.html" $ route indexRoute
     metaCompile $ requireAll_ pattern
-        >>> arr (chunk (paginate blogConfiguration) . chronological)
+        >>> arr (chunk (paginate blogConfiguration) . recentFirst)
         >>^ makeIndexPages
 
 indexRoute :: Routes
@@ -356,7 +356,7 @@ chunk n xs = ys : chunk n zs
 -- add it to the current page under @$posts@.
 addPostList :: String -> Compiler (Page String, [Page String]) (Page String)
 addPostList tmp = setFieldA "posts" $
-    arr chronological
+    arr recentFirst
         >>> require (parseIdentifier tmp) (\p t -> map (applyTemplate t) p)
         >>> arr mconcat >>> arr pageBody
 
@@ -447,7 +447,7 @@ dorecentposts :: Pattern (Page String) -> RulesM ()
 dorecentposts pattern = void $ match "templates/includes/asides/recent_posts.html" $ do
     compile $ readPageCompiler
         >>> addDefaultFields
-        >>> setFieldPageList (take (recentPosts blogConfiguration) . chronological) "templates/includes/recent_post.html" "recentposts" pattern
+        >>> setFieldPageList (take (recentPosts blogConfiguration) . recentFirst) "templates/includes/recent_post.html" "recentposts" pattern
         >>> arr applySelf
 
 doasides :: Pattern (Page String) -> RulesM ()
@@ -463,15 +463,13 @@ sortAsidesByIndex = sortBy $ comparing $ fromJust . (flip elemIndex $ (defaultAs
 -- | Sort pages chronologically. This function assumes that the pages have a
 -- @year/month/day/title[.extension]@ naming scheme.
 --
-chronological :: [Page String] -> [Page String]
-chronological = reverse . (sortBy $ comparing pageSortKey)
+chronological :: [Page a] -> [Page a]
+chronological = sortBy $ comparing $ joinPath . take 3 . drop 1 . splitDirectories . getField "path"
 
--- | Generate a sort key for ordering entries on the index page.
+-- | The reverse of 'chronological'
 --
-pageSortKey :: Page String -> String
-pageSortKey pg =  datePart
-  where path = getField "path" pg
-        datePart = joinPath $ take 3 $ drop 1 $ splitDirectories path
+recentFirst :: [Page a] -> [Page a]
+recentFirst = reverse . chronological
 
 -- | Apply a function to each URL on a webpage
 --
