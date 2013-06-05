@@ -1,15 +1,15 @@
 body > nav {
   position: relative;
   background-color: $nav-bg;
-  @include background($nav-bg-front, $nav-bg-back);
-  border: {
-    top: 1px solid $nav-border-top;
-    bottom: 1px solid $nav-border-bottom; }
-  padding-top: .35em;
-  padding-bottom: .35em;
+  //@include background($nav-bg-front, $nav-bg-back);
+  //border: {
+  //  top: 1px solid $nav-border-top;
+  //  bottom: 1px solid $nav-border-bottom; }
+  //padding-top: .35em;
+  //padding-bottom: .35em;
   form {
     @include background-clip(padding-box);
-    margin: 0; padding: 0;
+    margin: 0; padding: .95em 0 0;
     .search {
       padding: .3em .5em 0;
       font-size: .85em;
@@ -42,7 +42,7 @@ body > nav {
       @include horizontal-list(0);
       float: left;
       display: block;
-      padding-top: .15em;
+      padding-top: .95em;
     }
     ul.subscription {
       margin-left: .8em;
@@ -53,12 +53,14 @@ body > nav {
       margin: 0;
     }
     a {
-      @include link-colors($nav-color, $nav-color-hover, $visited: $nav-color);
+      //@include link-colors($nav-color, $nav-color-hover, $visited: $nav-color);
+      @include link-colors($link-color, $hover: $link-color-hover, $focus: $link-color-hover, $visited: $link-color-visited, $active: $link-color-active);
+      @include transition(color .3s);
       font-family: $sans;
       text-shadow: lighten($nav-bg, 12) 0 1px;
       float: left;
       text-decoration: none;
-      font-size: 1.1em;
+      font-size: 1.15em;
       padding: .1em 0;
       line-height: 1.5em;
     }
