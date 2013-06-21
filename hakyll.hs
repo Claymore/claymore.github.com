@@ -61,7 +61,7 @@ blogConfiguration = BlogConfiguration
     , authorEmail = "claymore.ws@gmail.com"
     , blogTitle = "Shirohida"
     , blogSubtitle = "Programming tips, how-to, thoughts and rants"
-    , rootUrl = "http://claymore.github.io"
+    , rootUrl = "http://bobyakov.org"
     , excerptLink = "Read on &rarr;"
     , dateFormat = "%B %e, %Y"
     , githubUser = "Claymore"
@@ -107,8 +107,18 @@ main = hakyllWith config $ do
     ["posts/*" `mappend` inGroup (Just "raw")] --> [dorecentposts]
     ["templates/includes/asides/*", "templates/includes/custom/asides/*"] --> [doasides]
     ["posts/*" `mappend` inGroup Nothing] --> [doposts, doindexes, docategories, doarchive, dofeed, dositemap]
+    ["pages/*"] --> [dopages]
 
     where xs --> fs = sequence (xs <**> fs)
+
+dopages :: Pattern (Page String) -> RulesM ()
+dopages pattern = void $ match pattern $ do
+    route   $ pagesRoute
+    compile $ pageCompiler
+        >>> addDefaultTemplateFields
+        >>> applyTemplateCompiler "templates/layouts/page.html"
+        >>> applyTemplateCompiler "templates/layouts/default.html"
+        >>> wordpressUrlsCompiler
 
 dostatic :: Pattern (Page String) -> RulesM ()
 dostatic pattern = void $ match pattern $ do
@@ -242,7 +252,7 @@ wordpressUrls :: String  -- ^ Path to the site root
 wordpressUrls root = withUrls $ replaceAll "/index.html" (const "/")
 
 pathToUrl :: String -> String
-pathToUrl path = "/blog/" ++ year ++ "/" ++ month ++ "/" ++ day ++ "/" ++ title ++ "/"
+pathToUrl path = "/" ++ year ++ "/" ++ month ++ "/" ++ day ++ "/" ++ title ++ "/"
     where name = takeBaseName path
           date = take 11 name
           year = take 4 date
@@ -252,6 +262,9 @@ pathToUrl path = "/blog/" ++ year ++ "/" ++ month ++ "/" ++ day ++ "/" ++ title 
 
 postsRoute :: Routes
 postsRoute = customRoute (\f -> (drop 1 . pathToUrl . show $ f) ++ "index.html")
+
+pagesRoute :: Routes
+pagesRoute = customRoute (\f -> (takeBaseName . show $ f) ++ "/index.html")
 
 getCategories :: Page a -> [String]
 getCategories = map trim . splitAll "," . getField "categories"
@@ -311,9 +324,9 @@ addNearbyPosts :: Compiler (Page String, [Page String]) (Page String)
 addNearbyPosts = arr (id *** recentFirst)
     >>> findNeighbours
     >>> setFieldA "neighbours"
-        ((mapCompiler (applyTemplateCompiler "templates/includes/post_previous.html")
+        ((mapCompiler (applyTemplateCompiler "templates/includes/post_next.html")
         ***
-        mapCompiler (applyTemplateCompiler "templates/includes/post_next.html"))
+        mapCompiler (applyTemplateCompiler "templates/includes/post_previous.html"))
         >>> arr (uncurry (++))
         >>> arr mconcat
         >>> arr pageBody)
@@ -327,10 +340,10 @@ sortAsidesByIndex :: [Page a] -> [Page a]
 sortAsidesByIndex = sortBy $ comparing $ fromJust . (flip elemIndex $ (defaultAsides blogConfiguration)) . getField "path"
 
 doarchive :: Pattern (Page String) -> RulesM ()
-doarchive pattern = void $ match "archives.html" $ do
-    route   $ customRoute (\f -> "blog/" ++ takeBaseName(show(f)) ++ "/index.html")
-    create "archives.html" $ constA mempty
-        >>> arr (setField "title" "Blog Archives")
+doarchive pattern = void $ match "archive.html" $ do
+    route   $ customRoute (\f -> takeBaseName(show(f)) ++ "/index.html")
+    create "archive.html" $ constA mempty
+        >>> arr (setField "title" "Archive")
         >>> addDefaultTemplateFields
         >>> setFieldPageList recentFirst "templates/includes/archive_post.html" "posts" pattern
         >>> applyTemplateCompiler "templates/layouts/archive.html"
@@ -346,7 +359,7 @@ doindexes pattern = void $ do
         >>^ makeIndexPages
 
 indexRoute :: Routes
-indexRoute = customRoute (\f -> "blog/page/" ++ (reverse . (drop 5) . reverse . (drop 5 . show) $ f) ++ "/index.html")
+indexRoute = customRoute (\f -> "page/" ++ (reverse . (drop 5) . reverse . (drop 5 . show) $ f) ++ "/index.html")
 
 -- Split list into equal sized sublists.
 chunk :: Int -> [a] -> [[a]]
@@ -396,11 +409,11 @@ indexNavLink n d maxn = renderHtml ref
   where ref = if (refPage == "") then ""
               else H.a ! A.href (toValue $ toUrl $ refPage) $
                    (preEscapedString lab)
-        lab = if (d > 0) then "&laquo; Older" else "Newer &raquo;"
+        lab = if (d > 0) then "&larr; Older" else "Newer &rarr;"
         refPage = if (n + d < 1 || n + d > maxn) then ""
                   else case (n + d) of
                     1 -> "index.html"
-                    _ -> "blog/page/" ++ (show $ n + d) ++ "/index.html"
+                    _ -> "page/" ++ (show $ n + d) ++ "/index.html"
 
 docategories :: Pattern (Page String) -> RulesM ()
 docategories pattern = void $ do
@@ -412,7 +425,7 @@ docategories pattern = void $ do
         >>> arr (map (\(t, p) -> (tagIdentifier t, makeTagList t p)))
 
 categoryRoute :: Routes
-categoryRoute = customRoute (\f -> "blog/" ++ (map (toLower . replace '.' '-') $ show f) ++ "/index.html")
+categoryRoute = customRoute (\f -> (map (toLower . replace '.' '-') $ show f) ++ "/index.html")
     where replace s r c
            | c == s = r
            | otherwise = c
