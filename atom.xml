@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>Shirohida</title>
-    <link href="http://claymore.github.io/atom.xml" rel="self" />
-    <link href="http://claymore.github.io" />
-    <id>http://claymore.github.io/atom.xml</id>
+    <link href="http://bobyakov.org/atom.xml" rel="self" />
+    <link href="http://bobyakov.org" />
+    <id>http://bobyakov.org/atom.xml</id>
     <author>
         <name>Alexey Bobyakov</name>
         <email>claymore.ws@gmail.com</email>
@@ -11,16 +11,16 @@
     <updated>2007-07-30T00:00:00Z</updated>
     <entry>
     <title>Windows Vista Credential Providers</title>
-    <link href="http://claymore.github.io/blog/2007/07/30/windows-vista-credential-providers/index.html" />
-    <id>http://claymore.github.io/blog/2007/07/30/windows-vista-credential-providers/index.html</id>
+    <link href="http://bobyakov.org/2007/07/30/windows-vista-credential-providers/index.html" />
+    <id>http://bobyakov.org/2007/07/30/windows-vista-credential-providers/index.html</id>
     <published>2007-07-30T00:00:00Z</published>
     <updated>2007-07-30T00:00:00Z</updated>
     <summary type="html"><![CDATA[<p>In Windows Vista Microsoft has adopted so called credential providers as a way to log into the system. Your custom <a href="http://en.wikipedia.org/wiki/Graphical_identification_and_authentication">GINA</a> library <a href="http://support.microsoft.com/kb/925520">won’t work</a> in Vista so you will have to write a COM component that implements <code>ICredentialProvider</code> and <code>ICredentialProviderCredential</code> interfaces. I found it pretty easy to write a custom credential provider (the one that works with electronic keys). There are a <a href="http://msdn.microsoft.com/en-us/magazine/cc163489.aspx">good introduction</a> into the new model, <a href="http://www.microsoft.com/en-us/download/details.aspx?id=4057">samples</a> and <a href="http://shellrevealed.com/files/folders/code_samples/entry1019.aspx">technical reference</a>.</p>]]></summary>
 </entry>
 <entry>
     <title>Context menu for column headers of .NET ListView</title>
-    <link href="http://claymore.github.io/blog/2008/07/13/context-menu-for-column-headers-of-net-listview/index.html" />
-    <id>http://claymore.github.io/blog/2008/07/13/context-menu-for-column-headers-of-net-listview/index.html</id>
+    <link href="http://bobyakov.org/2008/07/13/context-menu-for-column-headers-of-net-listview/index.html" />
+    <id>http://bobyakov.org/2008/07/13/context-menu-for-column-headers-of-net-listview/index.html</id>
     <published>2008-07-13T00:00:00Z</published>
     <updated>2008-07-13T00:00:00Z</updated>
     <summary type="html"><![CDATA[<p><code>ListView</code> doesn’t provide <code>ColumnHeaderMouseClick</code> event so I had to find a workaround to display context menu for column headers. There is a <a href="http://www.codeproject.com/Articles/23330/Handling-Right-Click-Events-in-ListView-Column-Hea" title="Handling Right-Click Events in ListView Column Headers">way</a> to do this by resorting to Windows API but my solution is easier.</p>
@@ -55,8 +55,8 @@
 </entry>
 <entry>
     <title>Hubot &amp; XMPP</title>
-    <link href="http://claymore.github.io/blog/2011/10/27/hubot-and-xmpp/index.html" />
-    <id>http://claymore.github.io/blog/2011/10/27/hubot-and-xmpp/index.html</id>
+    <link href="http://bobyakov.org/2011/10/27/hubot-and-xmpp/index.html" />
+    <id>http://bobyakov.org/2011/10/27/hubot-and-xmpp/index.html</id>
     <published>2011-10-27T00:00:00Z</published>
     <updated>2011-10-27T00:00:00Z</updated>
     <summary type="html"><![CDATA[<p>Running Hubot on a Jabber server is fairly simple:</p>
@@ -75,16 +75,16 @@
 </entry>
 <entry>
     <title>From Blogspot to Octopress/Github</title>
-    <link href="http://claymore.github.io/blog/2012/11/04/from-blogspot-to-octopress-slash-github/index.html" />
-    <id>http://claymore.github.io/blog/2012/11/04/from-blogspot-to-octopress-slash-github/index.html</id>
+    <link href="http://bobyakov.org/2012/11/04/from-blogspot-to-octopress-slash-github/index.html" />
+    <id>http://bobyakov.org/2012/11/04/from-blogspot-to-octopress-slash-github/index.html</id>
     <published>2012-11-04T00:00:00Z</published>
     <updated>2012-11-04T00:00:00Z</updated>
     <summary type="html"><![CDATA[<p>I’ve finally moved my blog from Blogspot to Github pages. The blog is now powered by <a href="http://octopress.org/" title="Octopress">Octopress</a>. Blogspot was convient but for a developer there are several reasons to switch. Octopress generates a static website that can be deployed anywhere so you gain independence from a service provider. Your posts are Markdown files that can be authored in your favorite editor. The blog source is under version control. Another great feature: code syntax highlighting works out of the box.</p>]]></summary>
 </entry>
 <entry>
     <title>First Days with Go</title>
-    <link href="http://claymore.github.io/blog/2012/11/05/first-days-with-go/index.html" />
-    <id>http://claymore.github.io/blog/2012/11/05/first-days-with-go/index.html</id>
+    <link href="http://bobyakov.org/2012/11/05/first-days-with-go/index.html" />
+    <id>http://bobyakov.org/2012/11/05/first-days-with-go/index.html</id>
     <published>2012-11-05T00:00:00Z</published>
     <updated>2012-11-05T00:00:00Z</updated>
     <summary type="html"><![CDATA[<p>I’ve seen articles about <a href="http://golang.org" title="The Go Programming Language">Go</a> programming language appearing on Hacker News a few times but I didn’t pay much attention to them. Yet another language with nothing special about it or so it looked. It’s changed with Rob Pike’s <a href="http://talks.golang.org/2012/splash.slide#1" title="Go at Google">recent talk</a>.</p>
@@ -114,8 +114,8 @@ reader := csv.NewReader(file)
 </entry>
 <entry>
     <title>Git Configuration Tips</title>
-    <link href="http://claymore.github.io/blog/2012/11/05/git-configuration-tips/index.html" />
-    <id>http://claymore.github.io/blog/2012/11/05/git-configuration-tips/index.html</id>
+    <link href="http://bobyakov.org/2012/11/05/git-configuration-tips/index.html" />
+    <id>http://bobyakov.org/2012/11/05/git-configuration-tips/index.html</id>
     <published>2012-11-05T00:00:00Z</published>
     <updated>2012-11-05T00:00:00Z</updated>
     <summary type="html"><![CDATA[<p>Probably the first thing you want to do after providing git with your name and email is to color its output. Open <code>~/.gitconfig</code> in your favorite editor and add following lines:</p>

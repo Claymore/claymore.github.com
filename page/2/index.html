@@ -9,7 +9,7 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="canonical" href="http://bobyakov.org/">
+    <link rel="canonical" href="http://bobyakov.org/page/2/">
     <link href="/favicon.png" rel="icon">
     <link href="/atom.xml" rel="alternate" title="Shirohida" type="application/atom+xml">
     <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -54,49 +54,41 @@
                                 <div class="blog-index">
 			<article>
 				<header>
-					<h1 class="entry-title"><a href="/2012/11/05/git-configuration-tips/">Git Configuration Tips</a></h1>
-					<p class="meta"><time datetime="2012-11-05T00:00:00+0000" pubdate data-updated="true">November  5, 2012</time></p>
+					<h1 class="entry-title"><a href="/2012/11/04/from-blogspot-to-octopress-slash-github/">From Blogspot to Octopress/Github</a></h1>
+					<p class="meta"><time datetime="2012-11-04T00:00:00+0000" pubdate data-updated="true">November  4, 2012</time></p>
 				</header>
-				<p>Probably the first thing you want to do after providing git with your name and email is to color its output. Open <code>~/.gitconfig</code> in your favorite editor and add following lines:</p>
-<pre><code>[color]
-	branch = auto
-	diff = auto
-	interactive = auto
-	status = auto</code></pre>
-<p>If you want to cut down on typing you can also use git aliases. Here is list of mine:</p>
-<pre><code>[alias]
-	st = status -s
-	ci = commit
-	cim = commit -m
-	ciam = commit -a -m
-	br = branch
-	co = checkout
-	df = diff
-	lg = log -p
-	au = add -u
-	history = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset' --abbrev-commit --date=relative
-	# git svn related commands
-	sup = !git svn fetch &amp;&amp; git svn rebase -l
-	sci = svn dcommit</code></pre>
+				<p>I’ve finally moved my blog from Blogspot to Github pages. The blog is now powered by <a href="http://octopress.org/" title="Octopress">Octopress</a>. Blogspot was convient but for a developer there are several reasons to switch. Octopress generates a static website that can be deployed anywhere so you gain independence from a service provider. Your posts are Markdown files that can be authored in your favorite editor. The blog source is under version control. Another great feature: code syntax highlighting works out of the box.</p>
 
 
 				
 			</article>
 			<article>
 				<header>
-					<h1 class="entry-title"><a href="/2012/11/05/first-days-with-go/">First Days with Go</a></h1>
-					<p class="meta"><time datetime="2012-11-05T00:00:00+0000" pubdate data-updated="true">November  5, 2012</time></p>
+					<h1 class="entry-title"><a href="/2011/10/27/hubot-and-xmpp/">Hubot &amp; XMPP</a></h1>
+					<p class="meta"><time datetime="2011-10-27T00:00:00+0000" pubdate data-updated="true">October 27, 2011</time></p>
 				</header>
-				<p>I’ve seen articles about <a href="http://golang.org" title="The Go Programming Language">Go</a> programming language appearing on Hacker News a few times but I didn’t pay much attention to them. Yet another language with nothing special about it or so it looked. It’s changed with Rob Pike’s <a href="http://talks.golang.org/2012/splash.slide#1" title="Go at Google">recent talk</a>.</p>
+				<p>Running Hubot on a Jabber server is fairly simple:</p>
+<ol style="list-style-type: decimal">
+<li>Install node.js;</li>
+<li>Install npm;</li>
+<li>Install redis;</li>
+<li>Set up environment variables:
+<ul>
+<li><code>export HUBOT_XMPP_USERNAME=[JID]</code></li>
+<li><code>export HUBOT_XMPP_PASSWORD=[Password]</code></li>
+<li><code>export HUBOT_XMPP_ROOMS=[Room]</code></li>
+</ul></li>
+<li>Run Hubot: <code>bin/hubot -a xmpp</code></li>
+</ol>
 
 
-				<footer><a rel="full-article" href="/2012/11/05/first-days-with-go/">Read on →</a></footer>
+				
 			</article>
 
                         <div class="pagination">
-                            <a href="/page/2/">← Older</a>
+                            <a href="/page/3/">← Older</a>
                             <a href="/archive">Archive</a>
-                            
+                            <a href="/">Newer →</a>
                         </div>
                     </div>
 
