@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Shirohida</title>
+    <link>http://bobyakov.org/post/</link>
+    <description>Recent content in Posts on Shirohida</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © 2007–2015 Alexey Bobyakov</copyright>
+    <lastBuildDate>Sat, 01 Feb 2014 15:14:00 +0000</lastBuildDate>
+    <atom:link href="http://bobyakov.org/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Oracle, VirtualBox, Docker and Mac OS X</title>
+      <link>http://bobyakov.org/2014/02/01/oracle-virtualbox-docker-osx/</link>
+      <pubDate>Sat, 01 Feb 2014 15:14:00 +0000</pubDate>
+      
+      <guid>http://bobyakov.org/2014/02/01/oracle-virtualbox-docker-osx/</guid>
+      <description>&lt;p&gt;You might have heard of &lt;a href=&#34;http://www.docker.io&#34; title=&#34;Docker&#34;&gt;Docker&lt;/a&gt; by now. It&amp;rsquo;s a young but ambitious project that promises to package up
+your application as a portable and self-sufficient container ready to run in any environment. I already use Docker on my Linux boxes to
+spin several test instances of my web service. Let&amp;rsquo;s see if we can run it on Mac OS X.&lt;/p&gt;
+
+&lt;p&gt;The web service is a SOAP server that uses Oracle database to persist data. Users interact with the service via a web interface.
+The web service and the web interface are packaged as a container that exposes TCP port 80. So we need to set up a Docker server and
+an Oracle database instance. There isn&amp;rsquo;t native Docker server for OS X yet so we will use
+&lt;a href=&#34;https://www.virtualbox.org/wiki/Downloads&#34; title=&#34;VirualBox&#34;&gt;VirtualBox&lt;/a&gt; to run them.&lt;/p&gt;
+
+&lt;p&gt;The easiest way to run an Oracle database on OS X is to use a &lt;a href=&#34;http://www.oracle.com/technetwork/database/enterprise-edition/databaseappdev-vm-161299.html&#34; title=&#34;Oracle VM for developers&#34;&gt;preconfigured virtual machine&lt;/a&gt;.
+Install VirtualBox and import the machine.&lt;/p&gt;
+
+&lt;p&gt;The next step is to install tiny &lt;a href=&#34;https://github.com/steeve/boot2docker&#34; title=&#34;boot2docker&#34;&gt;boot2docker&lt;/a&gt; VM that runs a Docker server:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir boot2docker &amp;amp;&amp;amp; cd boot2docker
+curl https://raw.github.com/steeve/boot2docker/master/boot2docker &amp;gt; boot2docker
+chmod +x boot2docker
+./boot2docker init
+./boot2docker up
+./boot2docker ssh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The last command logs us into the virtual machine. boot2docker doesn&amp;rsquo;t persist containers by default but we can change this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    $ su -
+    $ fdisk /dev/sda
+    n
+    p
+    1
+
+    w
+    $ mkfs.ext4 /dev/sda1
+    $ exit
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now restart the boot2docker VM:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./boot2docker restart
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;At this point we can pull and run docker containers but there are a few problems:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;boot2docker doesn&amp;rsquo;t expose container ports to the host machine;&lt;/li&gt;
+&lt;li&gt;docker containers can&amp;rsquo;t access the Oracle DB.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The first problem is easy. Open VirtualBox GUI, stop the boot2docker VM and set up it to forward ports to their host targets.&lt;/p&gt;
+
+&lt;p&gt;For the other one we will have to add a new network interface to the boot2docker VM and to the Oracle VM. Set up
+both to use internal network mode. We will also have to configure VirtualBox DHCP server. Here is an example how to do it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;VBoxManage dhcpserver add
+    --netname intnet
+    --ip 10.0.3.1
+    --netmask 255.255.255.0
+    --lowerip 10.0.3.2
+    --upperip 10.0.3.100
+    --enable
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We add a DHCP server for internal network called &amp;lsquo;intnet&amp;rsquo; with 10.0.3.1 as the gateway IP. The DHCP server assigns
+clients addresses starting from 10.0.3.2 to 10.0.3.100.&lt;/p&gt;
+
+&lt;p&gt;The boot2docker VM can use a dynamic IP in the internal network. The Oracle VM ought to have a static address so
+boot the VM and use the &lt;code&gt;system-config-network-tui&lt;/code&gt; utility to assign a static IP (for example, 10.0.3.101) to &lt;code&gt;eth0&lt;/code&gt; network interface.&lt;/p&gt;
+
+&lt;p&gt;Now applications in our containers can connect to the database:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;docker run
+    -d
+    -p 8080:80
+    -e DB_HOST=10.0.3.101
+    -e DB_USER=example
+    -e DB_PASSWORD=example
+    example-app-container
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;With port forwarding set up to forward TCP port 8080 to host port 8080 we can access the web app using this URL:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;http://localhost:8080
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>First Days with Go</title>
+      <link>http://bobyakov.org/2012/11/05/first-days-with-go/</link>
+      <pubDate>Mon, 05 Nov 2012 13:34:00 +0000</pubDate>
+      
+      <guid>http://bobyakov.org/2012/11/05/first-days-with-go/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ve seen articles about &lt;a href=&#34;http://golang.org&#34; title=&#34;The Go Programming Language&#34;&gt;Go&lt;/a&gt; programming language appearing on Hacker News
+a few times but I didn&amp;rsquo;t pay much attention to them. Yet another language with
+nothing special about it or so it looked. It&amp;rsquo;s changed with Rob Pike&amp;rsquo;s &lt;a href=&#34;http://talks.golang.org/2012/splash.slide#1&#34; title=&#34;Go at Google&#34;&gt;recent talk&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I decided to try it out in a simple program that I originally wrote in Python.
+The program takes CSV files with &lt;a href=&#34;https://github.com/Claymore/wiki-japan-stat/tree/golang/data&#34;&gt;data&lt;/a&gt; about Japanese population fetched
+from official sites and produces a template for Russian Wikipedia. The program
+also uses an INI-like configuration file. You can see the original source &lt;a href=&#34;https://github.com/Claymore/wiki-japan-stat/blob/master/generator.py&#34;&gt;here&lt;/a&gt;.
+It&amp;rsquo;s fairly straightforward, the only thing I had to do is to make CSV reader
+handle UTF-8 files by introducing &lt;code&gt;unicode_csv_reader&lt;/code&gt; function.&lt;/p&gt;
+
+&lt;p&gt;I wanted the same functionality in a Go program. Reading CSV files seemed the easiest
+task to me so I started with it. Go standard library has a package to deal with
+such files, it&amp;rsquo;s called &lt;code&gt;encoding/csv&lt;/code&gt;. Here is an example of how to use it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;file, err := os.Open(&amp;quot;example.csv&amp;quot;)
+if err != nil {
+	log.Fatalln(&amp;quot;Error:&amp;quot;, err)
+}
+defer file.Close()
+reader := csv.NewReader(file)
+for {
+	record, err := reader.Read()
+	if err == io.EOF {
+		break
+	} else if err != nil {
+		log.Fatalln(&amp;quot;Error:&amp;quot;, err)
+	}
+	fmt.Println(record)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We open the file, command Go to close it when noone uses it anymore, create a
+&lt;code&gt;csv.Reader&lt;/code&gt; object then read and print records line by line until we encounter
+end of file. Things to note: Go functions can return multiple values; you can defer
+execution of a function until the end of the block; Go has basic type inference
+(for example, &lt;code&gt;reader := csv.NewReader(file)&lt;/code&gt; is a shortcut for &lt;code&gt;var reader
+csv.Reader = csv.NewReader(file)&lt;/code&gt;). Go doesn&amp;rsquo;t have exceptions and it&amp;rsquo;s common
+idiom to return errors alongside function values. It makes code somewhat more
+verbose but it also makes clear when error will be handled.&lt;/p&gt;
+
+&lt;p&gt;The next stop was to read an INI-like configuration file. The standard library
+doesn&amp;rsquo;t have a package to read them but it was really easy to implement one
+myself. I took &lt;code&gt;encoding/csv&lt;/code&gt; package &lt;a href=&#34;http://golang.org/src/pkg/encoding/csv/reader.go&#34;&gt;source code&lt;/a&gt; and created my own package
+based on it. You can look at the result here: &lt;a href=&#34;https://github.com/Claymore/go-config&#34;&gt;go-config&lt;/a&gt; at GitHub. Later
+I found out there are three third-party packages that do the same but all of
+them introduce Python&amp;rsquo;s &lt;code&gt;ConfigParser&lt;/code&gt; API that doesn&amp;rsquo;t suit Go very well, in my
+opinion.&lt;/p&gt;
+
+&lt;p&gt;It was indeed fun, easy and straightforward as Rob&amp;rsquo;d claimed in his talk. Go promotes
+writing, documenting, testing and sharing packages: it has tools to automatically
+reformat your source code (&lt;code&gt;go fmt&lt;/code&gt;), builtin testing library (&lt;code&gt;testing&lt;/code&gt; package
+and &lt;code&gt;go test&lt;/code&gt;), document extraction (&lt;code&gt;go doc&lt;/code&gt;) and even to get, build and install
+third-party packages (&lt;code&gt;go get&lt;/code&gt;) out of the box.&lt;/p&gt;
+
+&lt;p&gt;With all pieces in place I&amp;rsquo;d finished the &lt;a href=&#34;https://github.com/Claymore/wiki-japan-stat/blob/golang/generator.go&#34;&gt;program&lt;/a&gt; and it&amp;rsquo;s almost as easy to
+read it as Python version.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Git Configuration Tips</title>
+      <link>http://bobyakov.org/2012/11/05/git-configuration-tips/</link>
+      <pubDate>Mon, 05 Nov 2012 00:07:00 +0000</pubDate>
+      
+      <guid>http://bobyakov.org/2012/11/05/git-configuration-tips/</guid>
+      <description>&lt;p&gt;Probably the first thing you want to do after providing git with your name and email is to color its output.&lt;/p&gt;
+
+&lt;p&gt;Open &lt;code&gt;~/.gitconfig&lt;/code&gt; in your favorite editor and add following lines:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[color]
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you want to cut down on typing you can also use git aliases. Here is list of mine:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[alias]
+	st = status -s
+	ci = commit
+	cim = commit -m
+	ciam = commit -a -m
+	br = branch
+	co = checkout
+	df = diff
+	lg = log -p
+	au = add -u
+	history = log --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&amp;lt;%an&amp;gt;%Creset&#39; --abbrev-commit --date=relative
+	# git svn related commands
+	sup = !git svn fetch &amp;amp;&amp;amp; git svn rebase -l
+	sci = svn dcommit
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>From Blogspot to Octopress/Github</title>
+      <link>http://bobyakov.org/2012/11/04/from-blogspot-to-octopress-slash-github/</link>
+      <pubDate>Sun, 04 Nov 2012 21:53:00 +0000</pubDate>
+      
+      <guid>http://bobyakov.org/2012/11/04/from-blogspot-to-octopress-slash-github/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ve finally moved my blog from Blogspot to Github pages. The blog is now powered by &lt;a href=&#34;http://octopress.org/&#34; title=&#34;Octopress&#34;&gt;Octopress&lt;/a&gt;. Blogspot was convient but for a developer there are several reasons to switch. Octopress generates a static website that can be deployed anywhere so you gain independence from a service provider. Your posts are Markdown files that can be authored in your favorite editor. The blog source is under version control. Another great feature: code syntax highlighting works out of the box.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Hubot &amp; XMPP</title>
+      <link>http://bobyakov.org/2011/10/27/hubot-and-xmpp/</link>
+      <pubDate>Thu, 27 Oct 2011 00:43:00 +0000</pubDate>
+      
+      <guid>http://bobyakov.org/2011/10/27/hubot-and-xmpp/</guid>
+      <description>&lt;p&gt;Running Hubot on a Jabber server is fairly simple.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Install node.js;&lt;/li&gt;
+&lt;li&gt;Install npm;&lt;/li&gt;
+&lt;li&gt;Install redis;&lt;/li&gt;
+&lt;li&gt;Set up environment variables:
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;export HUBOT_XMPP_USERNAME=[JID]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;export HUBOT_XMPP_PASSWORD=[Password]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;export HUBOT_XMPP_ROOMS=[Room]&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Run Hubot: &lt;code&gt;bin/hubot -a xmpp&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Context menu for column headers of .NET ListView</title>
+      <link>http://bobyakov.org/2008/07/13/context-menu-for-column-headers-of-net-listview/</link>
+      <pubDate>Sun, 13 Jul 2008 16:53:00 +0000</pubDate>
+      
+      <guid>http://bobyakov.org/2008/07/13/context-menu-for-column-headers-of-net-listview/</guid>
+      <description>&lt;p&gt;&lt;code&gt;ListView&lt;/code&gt; doesn&amp;rsquo;t provide &lt;code&gt;ColumnHeaderMouseClick&lt;/code&gt; event so I had to find a workaround to display context menu for column headers. There is a &lt;a href=&#34;http://www.codeproject.com/Articles/23330/Handling-Right-Click-Events-in-ListView-Column-Hea&#34; title=&#34;Handling Right-Click Events in ListView Column Headers&#34;&gt;way&lt;/a&gt; to do this by resorting to Windows API but my solution is easier.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s say we&amp;rsquo;ve got a &lt;code&gt;ListView&lt;/code&gt; control called &lt;code&gt;contentsListView&lt;/code&gt; and two menus: &lt;code&gt;generalContextMenu&lt;/code&gt; and &lt;code&gt;headerContextMenu&lt;/code&gt;. &lt;code&gt;generalContextMenu&lt;/code&gt; should be displayed when user right-clicks on an item and headerContextMenu should be displayed when he clicks on a column header.&lt;/p&gt;
+
+&lt;p&gt;Set the list view&amp;rsquo;s property &lt;code&gt;ContextMenuStrip&lt;/code&gt; to &lt;code&gt;generalContextMenu&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;contentListView.ContextMenuStrip = generalContextMenu;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Add handler for &lt;code&gt;Opening&lt;/code&gt; event of &lt;code&gt;generalContextMenu&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;generalContextMenuStrip.Opening += generalContextMenu_Opening;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I have played with debugger a bit and found out that &lt;code&gt;contentListView.GetItemAt&lt;/code&gt; returns first visible item of the list even when we actually click on a column header. So, when we get some value this means we either clicked on an item or on a column header. Any list item is located below the header, so if the item &lt;code&gt;Position.Y&lt;/code&gt; is less than &lt;code&gt;MousePosition.Y&lt;/code&gt; then user clicked on a column header.&lt;/p&gt;
+
+&lt;p&gt;Here is the code for the handler:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;private void generalContextMenu_Opening(object sender, CancelEventArgs e)
+{
+	Point pt = contentListView.PointToClient(new Point(MousePosition.X, MousePosition.Y));
+	ListViewItem item = contentListView.GetItemAt(pt.X, pt.Y);
+
+	// Not an item or a column header
+	if (item == null)
+	{
+		e.Cancel = true;
+		return;
+	}
+
+	// Is it a column header?
+	if (item.Position.Y &amp;gt; pt.Y)
+	{
+		e.Cancel = true;
+		headerContextMenu.Show(MousePosition);
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Windows Vista Credential Providers</title>
+      <link>http://bobyakov.org/2007/07/30/windows-vista-credential-providers/</link>
+      <pubDate>Mon, 30 Jul 2007 13:31:00 +0000</pubDate>
+      
+      <guid>http://bobyakov.org/2007/07/30/windows-vista-credential-providers/</guid>
+      <description>&lt;p&gt;In Windows Vista Microsoft has adopted so called credential providers as a way to log into the system. Your custom &lt;a href=&#34;http://en.wikipedia.org/wiki/Graphical_identification_and_authentication&#34;&gt;GINA&lt;/a&gt; library &lt;a href=&#34;http://support.microsoft.com/kb/925520&#34;&gt;won&amp;rsquo;t work&lt;/a&gt; in Vista so you will have to write a COM component that implements &lt;code&gt;ICredentialProvider&lt;/code&gt; and &lt;code&gt;ICredentialProviderCredential&lt;/code&gt; interfaces. I found it pretty easy to write a custom credential provider (the one that works with electronic keys). There are a &lt;a href=&#34;http://msdn.microsoft.com/en-us/magazine/cc163489.aspx&#34;&gt;good introduction&lt;/a&gt; into the new model, &lt;a href=&#34;http://www.microsoft.com/en-us/download/details.aspx?id=4057&#34;&gt;samples&lt;/a&gt; and &lt;a href=&#34;http://shellrevealed.com/files/folders/code_samples/entry1019.aspx&#34;&gt;technical reference&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,25 +1,53 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url>
-        <loc>http://bobyakov.org/2007/07/30/windows-vista-credential-providers/index.html</loc>
-    </url>
-    <url>
-        <loc>http://bobyakov.org/2008/07/13/context-menu-for-column-headers-of-net-listview/index.html</loc>
-    </url>
-    <url>
-        <loc>http://bobyakov.org/2011/10/27/hubot-and-xmpp/index.html</loc>
-    </url>
-    <url>
-        <loc>http://bobyakov.org/2012/11/04/from-blogspot-to-octopress-slash-github/index.html</loc>
-    </url>
-    <url>
-        <loc>http://bobyakov.org/2012/11/05/first-days-with-go/index.html</loc>
-    </url>
-    <url>
-        <loc>http://bobyakov.org/2012/11/05/git-configuration-tips/index.html</loc>
-    </url>
-    <url>
-        <loc>http://bobyakov.org/2014/02/01/oracle-virtualbox-docker-osx/index.html</loc>
-    </url>
-
+  
+  <url>
+    <loc>http://bobyakov.org/</loc>
+    <lastmod>2014-02-01T15:14:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://bobyakov.org/2014/02/01/oracle-virtualbox-docker-osx/</loc>
+    <lastmod>2014-02-01T15:14:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bobyakov.org/2012/11/05/first-days-with-go/</loc>
+    <lastmod>2012-11-05T13:34:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bobyakov.org/2012/11/05/git-configuration-tips/</loc>
+    <lastmod>2012-11-05T00:07:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bobyakov.org/2012/11/04/from-blogspot-to-octopress-slash-github/</loc>
+    <lastmod>2012-11-04T21:53:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bobyakov.org/2011/10/27/hubot-and-xmpp/</loc>
+    <lastmod>2011-10-27T00:43:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bobyakov.org/2008/07/13/context-menu-for-column-headers-of-net-listview/</loc>
+    <lastmod>2008-07-13T16:53:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bobyakov.org/2007/07/30/windows-vista-credential-providers/</loc>
+    <lastmod>2007-07-30T13:31:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://bobyakov.org/about/</loc>
+  </url>
+  
+  <url>
+    <loc>http://bobyakov.org/archive/</loc>
+  </url>
+  
 </urlset>

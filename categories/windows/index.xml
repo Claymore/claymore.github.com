@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Windows on Shirohida</title>
+    <link>http://bobyakov.org/categories/windows/</link>
+    <description>Recent content in Windows on Shirohida</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © 2007–2015 Alexey Bobyakov</copyright>
+    <lastBuildDate>Mon, 30 Jul 2007 13:31:00 +0000</lastBuildDate>
+    <atom:link href="http://bobyakov.org/categories/windows/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Windows Vista Credential Providers</title>
+      <link>http://bobyakov.org/2007/07/30/windows-vista-credential-providers/</link>
+      <pubDate>Mon, 30 Jul 2007 13:31:00 +0000</pubDate>
+      
+      <guid>http://bobyakov.org/2007/07/30/windows-vista-credential-providers/</guid>
+      <description>&lt;p&gt;In Windows Vista Microsoft has adopted so called credential providers as a way to log into the system. Your custom &lt;a href=&#34;http://en.wikipedia.org/wiki/Graphical_identification_and_authentication&#34;&gt;GINA&lt;/a&gt; library &lt;a href=&#34;http://support.microsoft.com/kb/925520&#34;&gt;won&amp;rsquo;t work&lt;/a&gt; in Vista so you will have to write a COM component that implements &lt;code&gt;ICredentialProvider&lt;/code&gt; and &lt;code&gt;ICredentialProviderCredential&lt;/code&gt; interfaces. I found it pretty easy to write a custom credential provider (the one that works with electronic keys). There are a &lt;a href=&#34;http://msdn.microsoft.com/en-us/magazine/cc163489.aspx&#34;&gt;good introduction&lt;/a&gt; into the new model, &lt;a href=&#34;http://www.microsoft.com/en-us/download/details.aspx?id=4057&#34;&gt;samples&lt;/a&gt; and &lt;a href=&#34;http://shellrevealed.com/files/folders/code_samples/entry1019.aspx&#34;&gt;technical reference&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

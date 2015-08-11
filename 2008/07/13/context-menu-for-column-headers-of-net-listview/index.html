@@ -11,123 +11,129 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="canonical" href="http://bobyakov.org/2008/07/13/context-menu-for-column-headers-of-net-listview/">
     <link href="/favicon.png" rel="icon">
-    <link href="/atom.xml" rel="alternate" title="Shirohida" type="application/atom+xml">
-    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    
+    <link href="/style.css" media="screen, projection" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-    <script src="/javascripts/modernizr-2.0.js"></script>
-    <script src="/javascripts/ender.js"></script>
-    <script src="/javascripts/octopress.js" type="text/javascript"></script>
-<script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-2129201-2']);
-    _gaq.push(['_trackPageview']);
+    <link rel="stylesheet" href="/highlightjs_solarized_dark.css">
+    <script src="/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-2129201-2']);
+        _gaq.push(['_trackPageview']);
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-</script>
-
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
 </head>
 
 <body class="no-sidebar">
-    <header role="banner"><hgroup>
-    <h1><a href="/">Shirohida</a></h1>
-</hgroup>
-</header>
-    <nav role="navigation"><ul class="main-navigation">
-    <li><a href="/about/" title="About">About</a></li>
-    <li><a href="https://github.com/Claymore" title="Github repos">Github repos</a></li>
-    <li><a href="/archive/" title="Archive">Archive</a></li>
-</ul>
-<form action="http://google.com/search" method="get">
-    <fieldset role="search">
-        <input type="hidden" name="q" value="site:bobyakov.org"></input>
-        <input class="search" type="text" name="q" results="0" placeholder="Search"></input>
-    </fieldset>
-</form>
-</nav>
+        <header role="banner">
+        <hgroup>
+        <h1><a href="/">Shirohida</a></h1>
+        </hgroup>
+    </header>
+
+        <nav role="navigation">
+        <ul class="main-navigation">
+            <li><a href="/about/" title="About">About</a></li>
+            <li><a href="https://github.com/Claymore" title="Github repos">Github repos</a></li>
+            <li><a href="/archive/" title="Archive">Archive</a></li>
+        </ul>
+        <form action="http://google.com/search" method="get">
+            <fieldset role="search">
+                <input type="hidden" name="q" value="site:bobyakov.org" />
+                <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+            </fieldset>
+        </form>
+    </nav>
+
+
     <div id="main">
         <div id="content">
             <div>
-<article class="hentry" role="article">
-	<header>
-		<h1 class="entry-title">Context menu for column headers of .NET ListView</h1>
-		<p class="meta"><time pubdate data-updated="true">July 13, 2008</time></p>
-	</header>
-	<div class="entry-content">
-	<p><code>ListView</code> doesn’t provide <code>ColumnHeaderMouseClick</code> event so I had to find a workaround to display context menu for column headers. There is a <a href="http://www.codeproject.com/Articles/23330/Handling-Right-Click-Events-in-ListView-Column-Hea" title="Handling Right-Click Events in ListView Column Headers">way</a> to do this by resorting to Windows API but my solution is easier.</p>
-<!-- more -->
+                <article class="hentry" role="article">
+                    <header>
+                        <h1 class="entry-title">Context menu for column headers of .NET ListView</h1>
+                        <p class="meta"><time datetime="2008-07-13T16:53:00&#43;0000" pubdate data-updated="true">July 13, 2008</time></p>
+                    </header>
+                    <div class="entry-content">
+                        <p><code>ListView</code> doesn&rsquo;t provide <code>ColumnHeaderMouseClick</code> event so I had to find a workaround to display context menu for column headers. There is a <a href="http://www.codeproject.com/Articles/23330/Handling-Right-Click-Events-in-ListView-Column-Hea" title="Handling Right-Click Events in ListView Column Headers">way</a> to do this by resorting to Windows API but my solution is easier.</p>
 
-<p>Let’s say we’ve got a <code>ListView</code> control called <code>contentsListView</code> and two menus: <code>generalContextMenu</code> and <code>headerContextMenu</code>. <code>generalContextMenu</code> should be displayed when user right-clicks on an item and headerContextMenu should be displayed when he clicks on a column header.</p>
-<p>Set the list view’s property <code>ContextMenuStrip</code> to <code>generalContextMenu</code>:</p>
-<pre><code>contentListView.ContextMenuStrip = generalContextMenu;</code></pre>
+<p>Let&rsquo;s say we&rsquo;ve got a <code>ListView</code> control called <code>contentsListView</code> and two menus: <code>generalContextMenu</code> and <code>headerContextMenu</code>. <code>generalContextMenu</code> should be displayed when user right-clicks on an item and headerContextMenu should be displayed when he clicks on a column header.</p>
+
+<p>Set the list view&rsquo;s property <code>ContextMenuStrip</code> to <code>generalContextMenu</code>:</p>
+
+<pre><code>contentListView.ContextMenuStrip = generalContextMenu;
+</code></pre>
+
 <p>Add handler for <code>Opening</code> event of <code>generalContextMenu</code>:</p>
-<pre><code>generalContextMenuStrip.Opening += generalContextMenu_Opening;</code></pre>
+
+<pre><code>generalContextMenuStrip.Opening += generalContextMenu_Opening;
+</code></pre>
+
 <p>I have played with debugger a bit and found out that <code>contentListView.GetItemAt</code> returns first visible item of the list even when we actually click on a column header. So, when we get some value this means we either clicked on an item or on a column header. Any list item is located below the header, so if the item <code>Position.Y</code> is less than <code>MousePosition.Y</code> then user clicked on a column header.</p>
+
 <p>Here is the code for the handler:</p>
-<pre class="sourceCode Cs"><code class="sourceCode cs"><span class="kw">private</span> <span class="dt">void</span> <span class="fu">generalContextMenu_Opening</span>(<span class="dt">object</span> sender, CancelEventArgs e)
+
+<pre><code class="language-cs">private void generalContextMenu_Opening(object sender, CancelEventArgs e)
 {
-	Point pt = contentListView.<span class="fu">PointToClient</span>(<span class="kw">new</span> <span class="fu">Point</span>(MousePosition.<span class="fu">X</span>, MousePosition.<span class="fu">Y</span>));
-	ListViewItem item = contentListView.<span class="fu">GetItemAt</span>(pt.<span class="fu">X</span>, pt.<span class="fu">Y</span>);
+	Point pt = contentListView.PointToClient(new Point(MousePosition.X, MousePosition.Y));
+	ListViewItem item = contentListView.GetItemAt(pt.X, pt.Y);
 
-	<span class="co">// Not an item or a column header</span>
-	<span class="kw">if</span> (item == <span class="kw">null</span>)
+	// Not an item or a column header
+	if (item == null)
 	{
-		e.<span class="fu">Cancel</span> = <span class="kw">true</span>;
-		<span class="kw">return</span>;
+		e.Cancel = true;
+		return;
 	}
 
-	<span class="co">// Is it a column header?</span>
-	<span class="kw">if</span> (item.<span class="fu">Position</span>.<span class="fu">Y</span> &gt; pt.<span class="fu">Y</span>)
+	// Is it a column header?
+	if (item.Position.Y &gt; pt.Y)
 	{
-		e.<span class="fu">Cancel</span> = <span class="kw">true</span>;
-		headerContextMenu.<span class="fu">Show</span>(MousePosition);
+		e.Cancel = true;
+		headerContextMenu.Show(MousePosition);
 	}
-}</code></pre>
-	</div>
-	<footer>
-	<p class="meta">
-		<span class="byline author vcard">Posted by <span class="fn">Alexey Bobyakov</span></span>
-                <time datetime="2008-07-13T00:00:00+0000" pubdate data-updated="true">July 13, 2008</time>
-                <span class="categories"><a href="/categories/-net/">.NET</a></span>
-	</p>
-        <div class="sharing">
-        <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://bobyakov.org/2008/07/13/context-menu-for-column-headers-of-net-listview/" data-via data-counturl="http://bobyakov.org/2008/07/13/context-menu-for-column-headers-of-net-listview/">Tweet</a>
+}
+</code></pre>
 
-        
-        
-        </div>
-<p>
-<a class="basic-alignment right" href="/2011/10/27/hubot-and-xmpp/" title="Hubot &amp; XMPP">Hubot &amp; XMPP →</a>
-<a class="basic-alignment left" href="/2007/07/30/windows-vista-credential-providers/" title="Windows Vista Credential Providers">← Windows Vista Credential Providers</a>
-
-</p>
-	</footer>
-</article>
-</div>
-
+                    </div>
+                    <footer>
+                        <p class="meta">
+                            <span class="byline author vcard">Posted by <span class="fn">Alexey Bobyakov</span></span>
+                            <time datetime="2008-07-13T16:53:00&#43;0000" pubdate data-updated="true">July 13, 2008</time>
+                            
+                            
+                            <span class="categories">
+                                <a href="/categories/dotnet">dotNET</a>
+                            </span>
+                            
+                            
+                            </p>
+                            <div class="sharing"></div>
+                            <span>
+                                
+                                <a class="basic-alignment left" href="/2007/07/30/windows-vista-credential-providers/" title="Windows Vista Credential Providers">← Windows Vista Credential Providers</a>
+                                
+                                
+                                
+                                <a class="basic-alignment right" href="/2011/10/27/hubot-and-xmpp/" title="Hubot &amp; XMPP">Hubot &amp; XMPP →</a>
+                                
+                                
+                            </span>
+                    </footer>
+                </article>
+            </div>
         </div>
     </div>
-    <footer role="contentinfo"><p>
-Copyright © 2014 - Alexey Bobyakov - <span class="credit">Powered by <a href="http://jaspervdj.be/hakyll/">Hakyll</a>, design is based on <a href="https://github.com/rastersize/BlogTheme">Aron Cedercrantz’s theme</a></span></span>
-</p>
+<footer role="contentinfo">
+    Copyright &copy; 2007–2015 Alexey Bobyakov<br />
+    <span class="credit">Powered by <a href="http://gohugo.io">Hugo</a>, design is based on <a href="https://github.com/rastersize/BlogTheme">Cedercrantz’s theme</a></span>
 </footer>
-    
-
-
-<script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-</script>
-
-
 </body>
 </html>
+

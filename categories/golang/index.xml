@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Golang on Shirohida</title>
+    <link>http://bobyakov.org/categories/golang/</link>
+    <description>Recent content in Golang on Shirohida</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © 2007–2015 Alexey Bobyakov</copyright>
+    <lastBuildDate>Mon, 05 Nov 2012 13:34:00 +0000</lastBuildDate>
+    <atom:link href="http://bobyakov.org/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>First Days with Go</title>
+      <link>http://bobyakov.org/2012/11/05/first-days-with-go/</link>
+      <pubDate>Mon, 05 Nov 2012 13:34:00 +0000</pubDate>
+      
+      <guid>http://bobyakov.org/2012/11/05/first-days-with-go/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ve seen articles about &lt;a href=&#34;http://golang.org&#34; title=&#34;The Go Programming Language&#34;&gt;Go&lt;/a&gt; programming language appearing on Hacker News
+a few times but I didn&amp;rsquo;t pay much attention to them. Yet another language with
+nothing special about it or so it looked. It&amp;rsquo;s changed with Rob Pike&amp;rsquo;s &lt;a href=&#34;http://talks.golang.org/2012/splash.slide#1&#34; title=&#34;Go at Google&#34;&gt;recent talk&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I decided to try it out in a simple program that I originally wrote in Python.
+The program takes CSV files with &lt;a href=&#34;https://github.com/Claymore/wiki-japan-stat/tree/golang/data&#34;&gt;data&lt;/a&gt; about Japanese population fetched
+from official sites and produces a template for Russian Wikipedia. The program
+also uses an INI-like configuration file. You can see the original source &lt;a href=&#34;https://github.com/Claymore/wiki-japan-stat/blob/master/generator.py&#34;&gt;here&lt;/a&gt;.
+It&amp;rsquo;s fairly straightforward, the only thing I had to do is to make CSV reader
+handle UTF-8 files by introducing &lt;code&gt;unicode_csv_reader&lt;/code&gt; function.&lt;/p&gt;
+
+&lt;p&gt;I wanted the same functionality in a Go program. Reading CSV files seemed the easiest
+task to me so I started with it. Go standard library has a package to deal with
+such files, it&amp;rsquo;s called &lt;code&gt;encoding/csv&lt;/code&gt;. Here is an example of how to use it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;file, err := os.Open(&amp;quot;example.csv&amp;quot;)
+if err != nil {
+	log.Fatalln(&amp;quot;Error:&amp;quot;, err)
+}
+defer file.Close()
+reader := csv.NewReader(file)
+for {
+	record, err := reader.Read()
+	if err == io.EOF {
+		break
+	} else if err != nil {
+		log.Fatalln(&amp;quot;Error:&amp;quot;, err)
+	}
+	fmt.Println(record)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We open the file, command Go to close it when noone uses it anymore, create a
+&lt;code&gt;csv.Reader&lt;/code&gt; object then read and print records line by line until we encounter
+end of file. Things to note: Go functions can return multiple values; you can defer
+execution of a function until the end of the block; Go has basic type inference
+(for example, &lt;code&gt;reader := csv.NewReader(file)&lt;/code&gt; is a shortcut for &lt;code&gt;var reader
+csv.Reader = csv.NewReader(file)&lt;/code&gt;). Go doesn&amp;rsquo;t have exceptions and it&amp;rsquo;s common
+idiom to return errors alongside function values. It makes code somewhat more
+verbose but it also makes clear when error will be handled.&lt;/p&gt;
+
+&lt;p&gt;The next stop was to read an INI-like configuration file. The standard library
+doesn&amp;rsquo;t have a package to read them but it was really easy to implement one
+myself. I took &lt;code&gt;encoding/csv&lt;/code&gt; package &lt;a href=&#34;http://golang.org/src/pkg/encoding/csv/reader.go&#34;&gt;source code&lt;/a&gt; and created my own package
+based on it. You can look at the result here: &lt;a href=&#34;https://github.com/Claymore/go-config&#34;&gt;go-config&lt;/a&gt; at GitHub. Later
+I found out there are three third-party packages that do the same but all of
+them introduce Python&amp;rsquo;s &lt;code&gt;ConfigParser&lt;/code&gt; API that doesn&amp;rsquo;t suit Go very well, in my
+opinion.&lt;/p&gt;
+
+&lt;p&gt;It was indeed fun, easy and straightforward as Rob&amp;rsquo;d claimed in his talk. Go promotes
+writing, documenting, testing and sharing packages: it has tools to automatically
+reformat your source code (&lt;code&gt;go fmt&lt;/code&gt;), builtin testing library (&lt;code&gt;testing&lt;/code&gt; package
+and &lt;code&gt;go test&lt;/code&gt;), document extraction (&lt;code&gt;go doc&lt;/code&gt;) and even to get, build and install
+third-party packages (&lt;code&gt;go get&lt;/code&gt;) out of the box.&lt;/p&gt;
+
+&lt;p&gt;With all pieces in place I&amp;rsquo;d finished the &lt;a href=&#34;https://github.com/Claymore/wiki-japan-stat/blob/golang/generator.go&#34;&gt;program&lt;/a&gt; and it&amp;rsquo;s almost as easy to
+read it as Python version.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
