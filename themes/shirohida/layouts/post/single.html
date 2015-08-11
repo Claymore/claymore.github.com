@@ -1,0 +1,33 @@
+{{ partial "head.html" . }}
+<body class="no-sidebar">
+{{ partial "banner.html" . }}{{ partial "navigation.html" . }}
+    <div id="main">
+        <div id="content">
+            <div>
+                <article class="hentry" role="article">
+                    <header>
+                        <h1 class="entry-title">{{ .Title }}</h1>
+                        <p class="meta"><time datetime="{{ .Date.Format "2006-01-02T15:04:05-0700" }}" pubdate data-updated="true">{{ .Date.Format "January 2, 2006" }}</time></p>
+                    </header>
+                    <div class="entry-content">
+                        {{ .Content }}
+                    </div>
+                    <footer>
+                        <p class="meta">
+                            <span class="byline author vcard">Posted by <span class="fn">{{ .Site.Author.name }}</span></span>
+                            <time datetime="{{ .Date.Format "2006-01-02T15:04:05-0700" }}" pubdate data-updated="true">{{ .Date.Format "January 2, 2006" }}</time>{{ if .Params.categories }}{{ range .Params.categories }}
+                            <span class="categories">
+                                <a href="/categories/{{ . | urlize }}">{{ . }}</a>
+                            </span>{{ end }}{{ end }}
+                            </p>
+                            <div class="sharing"></div>
+                            <span>{{ if .Next }}{{ if eq .Next.Section "post" }}
+                                <a class="basic-alignment left" href="{{ .Next.RelPermalink }}" title="{{ .Next.Title }}">← {{ .Next.Title }}</a>{{ end }}{{ end }}{{ if .Prev }}{{ if eq .Prev.Section "post" }}
+                                <a class="basic-alignment right" href="{{ .Prev.RelPermalink }}" title="{{ .Prev.Title }}">{{ .Prev.Title }} →</a>{{ end }}{{ end }}
+                            </span>
+                    </footer>
+                </article>
+            </div>
+        </div>
+    </div>
+{{ partial "foot.html" . }}

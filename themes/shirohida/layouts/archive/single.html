@@ -1,0 +1,25 @@
+{{ partial "head.html" . }}
+<body class="no-sidebar">
+{{ partial "banner.html" . }}{{ partial "navigation.html" . }}
+    <div id="main">
+        <div id="content">
+            <div>
+                <article role="article">
+                    <header>
+                        <h1 class="entry-title">Archive</h1>
+                    </header>
+                    <div id="blog-archives">{{ range (where .Site.Pages "Type" "post").GroupByDate "2006" }}
+                        <h2>{{ .Key }}</h2>{{ range .Pages }}
+                        <article>
+                            <h1 class="entry-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h1>
+                            <time datetime="{{ .Date.Format "2006-01-02T15:04:05-0700" }}" pubdate data-updated="true">{{ .Date.Format "Jan 2" }}</time>{{ if .Params.categories }}
+                            <footer>
+                                <span class="categories">posted in {{ range .Params.categories }} <a href="/categories/{{ . | urlize }}">{{ . }}</a>{{ end }}</span>
+                            </footer>{{ end }}
+                        </article>{{ end }}{{ end }}
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+{{ partial "foot.html" . }}

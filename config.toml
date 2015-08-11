@@ -1,0 +1,15 @@
+baseurl = "http://bobyakov.org"
+languageCode = "en"
+title = "Shirohida"
+theme = "shirohida"
+copyright = "Copyright © 2007–2015 Alexey Bobyakov"
+paginate = 5
+
+[author]
+    name = "Alexey Bobyakov"
+
+[permalinks]
+    post = "/:year/:month/:day/:slug/"
+
+[taxonomies]
+    category = "categories"

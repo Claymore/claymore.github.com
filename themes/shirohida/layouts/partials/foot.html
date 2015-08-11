@@ -1,0 +1,12 @@
+    <footer role="contentinfo">
+        {{ .Site.Copyright }}<br />
+        <span class="credit">
+            Powered by <a href="http://gohugo.io">Hugo</a>,
+            design is based on <a href="https://github.com/rastersize/BlogTheme">Cedercrantz’s theme</a>
+        </span>
+    </footer>
+</body>
+</html>{{ if eq .Section "post" }}
+<link rel="stylesheet" href="/highlightjs_solarized_dark.css">
+<script src="/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>{{ end }}

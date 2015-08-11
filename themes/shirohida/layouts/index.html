@@ -1,0 +1,23 @@
+{{ partial "head.html" . }}
+<body class="no-sidebar">
+{{ partial "banner.html" . }}{{ partial "navigation.html" . }}
+    <div id="main">
+        <div id="content">
+            <div class="blog-index">{{ $paginator := .Paginate (where .Data.Pages "Type" "post") }}{{ range $paginator.Pages }}
+                <article>
+                    <header>
+                        <h1 class="entry-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h1>
+                        <p class="meta"><time datetime="{{ .Date.Format "2006-01-02T15:04:05-0700" }}" pubdate data-updated="true">{{ .Date.Format "January 2, 2006" }}</time></p>
+                    </header>
+                    <p>{{ .Summary }}</p>{{ if .Truncated }}
+                    <footer><a rel="full-article" href="{{ .RelPermalink }}">Read on →</a></footer>{{ end }}
+                </article>{{ end }}
+                <div class="pagination">{{ if .Paginator.HasNext }}
+                    <a href="{{ .Paginator.Next.URL }}">← Older</a>{{ end }}
+                    <a href="/archive">Archive</a>{{ if .Paginator.HasPrev }}
+                    <a href="{{ .Paginator.Prev.URL }}">Newer →</a>{{ end }}
+                </div>
+            </div>
+        </div>
+    </div>
+{{ partial "foot.html" . }}
