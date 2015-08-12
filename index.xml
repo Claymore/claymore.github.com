@@ -102,6 +102,31 @@ boot the VM and use the &lt;code&gt;system-config-network-tui&lt;/code&gt; utili
     </item>
     
     <item>
+      <title>About</title>
+      <link>http://bobyakov.org/about/</link>
+      <pubDate>Fri, 21 Jun 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://bobyakov.org/about/</guid>
+      <description>
+
+&lt;p&gt;Hello, I am Alexey Bobyakov, a software developer. I make web services that bring together various telecommunication software systems.&lt;/p&gt;
+
+&lt;h2 id=&#34;contact:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Contact&lt;/h2&gt;
+
+&lt;p&gt;You can reach me via e-mail (alexey at this domain) or &lt;a href=&#34;https://twitter.com/kureimoru&#34; title=&#34;Kureimoru at Twitter&#34;&gt;Twitter&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Archive</title>
+      <link>http://bobyakov.org/archive/</link>
+      <pubDate>Fri, 21 Jun 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://bobyakov.org/archive/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>First Days with Go</title>
       <link>http://bobyakov.org/2012/11/05/first-days-with-go/</link>
       <pubDate>Mon, 05 Nov 2012 13:34:00 +0000</pubDate>
@@ -293,31 +318,6 @@ read it as Python version.&lt;/p&gt;
       <guid>http://bobyakov.org/2007/07/30/windows-vista-credential-providers/</guid>
       <description>&lt;p&gt;In Windows Vista Microsoft has adopted so called credential providers as a way to log into the system. Your custom &lt;a href=&#34;http://en.wikipedia.org/wiki/Graphical_identification_and_authentication&#34;&gt;GINA&lt;/a&gt; library &lt;a href=&#34;http://support.microsoft.com/kb/925520&#34;&gt;won&amp;rsquo;t work&lt;/a&gt; in Vista so you will have to write a COM component that implements &lt;code&gt;ICredentialProvider&lt;/code&gt; and &lt;code&gt;ICredentialProviderCredential&lt;/code&gt; interfaces. I found it pretty easy to write a custom credential provider (the one that works with electronic keys). There are a &lt;a href=&#34;http://msdn.microsoft.com/en-us/magazine/cc163489.aspx&#34;&gt;good introduction&lt;/a&gt; into the new model, &lt;a href=&#34;http://www.microsoft.com/en-us/download/details.aspx?id=4057&#34;&gt;samples&lt;/a&gt; and &lt;a href=&#34;http://shellrevealed.com/files/folders/code_samples/entry1019.aspx&#34;&gt;technical reference&lt;/a&gt;.&lt;/p&gt;
 </description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>http://bobyakov.org/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://bobyakov.org/about/</guid>
-      <description>
-
-&lt;p&gt;Hello, I am Alexey Bobyakov, a software developer. I make web services that bring together various telecommunication software systems.&lt;/p&gt;
-
-&lt;h2 id=&#34;contact:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Contact&lt;/h2&gt;
-
-&lt;p&gt;You can reach me via e-mail (alexey at this domain) or &lt;a href=&#34;https://twitter.com/kureimoru&#34; title=&#34;Kureimoru at Twitter&#34;&gt;Twitter&lt;/a&gt;.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Archive</title>
-      <link>http://bobyakov.org/archive/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://bobyakov.org/archive/</guid>
-      <description></description>
     </item>
     
   </channel>
