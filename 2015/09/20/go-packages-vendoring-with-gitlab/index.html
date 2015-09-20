@@ -4,15 +4,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
     <meta charset="utf-8">
-    <title>Golang - Shirohida</title>
+    <title>Go Packages Vendoring with Gitlab - Shirohida</title>
     <meta name="author" content="Alexey Bobyakov">
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="canonical" href="http://bobyakov.org/categories/golang/">
+    <link rel="canonical" href="http://bobyakov.org/2015/09/20/go-packages-vendoring-with-gitlab/">
     <link href="/favicon.png" rel="icon">
-    <link href="http://bobyakov.org/categories/golang/index.xml" rel="alternate" type="application/rss+xml" title="Shirohida" />
-    <link href="http://bobyakov.org/categories/golang/index.xml" rel="feed" type="application/rss+xml" title="Shirohida" />
     <link href="/style.css" media="screen, projection" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -52,36 +50,42 @@
     <div id="main">
         <div id="content">
             <div>
-                <article role="article">
-                    
+                <article class="hentry" role="article">
                     <header>
-                        <h1 class="entry-title">Category: Golang</h1>
+                        <h1 class="entry-title">Go Packages Vendoring with Gitlab</h1>
+                        <p class="meta"><time datetime="2015-09-20T20:31:00&#43;0000" pubdate data-updated="true">September 20, 2015</time></p>
                     </header>
-                    <div id="blog-archives">
-                        
-                        <h2>2015</h2>
-                        
-                        <article>
-                            <h1 class="entry-title"><a href="/2015/09/20/go-packages-vendoring-with-gitlab/">Go Packages Vendoring with Gitlab</a></h1>
-                            <time datetime="2015-09-20T20:31:00&#43;0000" pubdate data-updated="true">Sep 20</time>
-                            <footer>
-                                <span class="categories">posted in  <a href="/categories/golang">golang</a></span>
-                            </footer>
-                        </article>
-                        
-                        
-                        <h2>2012</h2>
-                        
-                        <article>
-                            <h1 class="entry-title"><a href="/2012/11/05/first-days-with-go/">First Days with Go</a></h1>
-                            <time datetime="2012-11-05T13:34:00&#43;0000" pubdate data-updated="true">Nov 5</time>
-                            <footer>
-                                <span class="categories">posted in  <a href="/categories/golang">golang</a></span>
-                            </footer>
-                        </article>
-                        
-                        
+                    <div class="entry-content">
+                        <p>In a software shop you really want to keep all your external dependecies
+in your local network to get them faster and more reliably. Copying
+external projects into your own repositories is called vendoring. Let&rsquo;s
+vendor a github project into a gitlab project. Here is how to do it.</p>
+
+<p>Let&rsquo;s say you want to use <code>github.com/foo/bar</code> in your own package.
+Create <code>third-party</code> Gitlab group and import <code>github.com/foo/bar</code> to
+<code>third-party/bar</code>. Now you can use it this way:</p>
+
+<pre><code class="language-go">import &quot;your-gitlab.com/third-party/bar.git.git&quot;
+</code></pre>
+
+<p>What&rsquo;s the deal with the <code>.git.git</code> suffix? The second <code>.git</code> suffix
+tells <code>go get</code> that this is a git repository. Bug <code>go get</code> strips it so
+we have to specify the <code>.git</code> suffix twice.</p>
+
                     </div>
+                    <footer>
+                        <p class="meta">
+                            <span class="byline author vcard">Posted by <span class="fn">Alexey Bobyakov</span></span>
+                            <time datetime="2015-09-20T20:31:00&#43;0000" pubdate data-updated="true">September 20, 2015</time>
+                            <span class="categories">
+                                <a href="/categories/golang">golang</a>
+                            </span>
+                            </p>
+                            <div class="sharing"></div>
+                            <span>
+                                <a class="basic-alignment left" href="/2014/02/01/oracle-virtualbox-docker-osx/" title="Oracle, VirtualBox, Docker and Mac OS X">← Oracle, VirtualBox, Docker and Mac OS X</a>
+                            </span>
+                    </footer>
                 </article>
             </div>
         </div>
@@ -95,4 +99,7 @@
     </footer>
 </body>
 </html>
+<link rel="stylesheet" href="/highlightjs_solarized_dark.css">
+<script src="/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 

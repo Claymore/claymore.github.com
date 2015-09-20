@@ -7,8 +7,32 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright © 2007–2015 Alexey Bobyakov</copyright>
-    <lastBuildDate>Sat, 01 Feb 2014 15:14:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 20 Sep 2015 20:31:00 +0000</lastBuildDate>
     <atom:link href="http://bobyakov.org/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Go Packages Vendoring with Gitlab</title>
+      <link>http://bobyakov.org/2015/09/20/go-packages-vendoring-with-gitlab/</link>
+      <pubDate>Sun, 20 Sep 2015 20:31:00 +0000</pubDate>
+      
+      <guid>http://bobyakov.org/2015/09/20/go-packages-vendoring-with-gitlab/</guid>
+      <description>&lt;p&gt;In a software shop you really want to keep all your external dependecies
+in your local network to get them faster and more reliably. Copying
+external projects into your own repositories is called vendoring. Let&amp;rsquo;s
+vendor a github project into a gitlab project. Here is how to do it.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s say you want to use &lt;code&gt;github.com/foo/bar&lt;/code&gt; in your own package.
+Create &lt;code&gt;third-party&lt;/code&gt; Gitlab group and import &lt;code&gt;github.com/foo/bar&lt;/code&gt; to
+&lt;code&gt;third-party/bar&lt;/code&gt;. Now you can use it this way:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;import &amp;quot;your-gitlab.com/third-party/bar.git.git&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;What&amp;rsquo;s the deal with the &lt;code&gt;.git.git&lt;/code&gt; suffix? The second &lt;code&gt;.git&lt;/code&gt; suffix
+tells &lt;code&gt;go get&lt;/code&gt; that this is a git repository. Bug &lt;code&gt;go get&lt;/code&gt; strips it so
+we have to specify the &lt;code&gt;.git&lt;/code&gt; suffix twice.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Oracle, VirtualBox, Docker and Mac OS X</title>
