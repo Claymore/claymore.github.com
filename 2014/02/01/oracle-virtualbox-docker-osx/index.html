@@ -14,17 +14,6 @@
     <link href="/style.css" media="screen, projection" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-    <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-2129201-2']);
-        _gaq.push(['_trackPageview']);
-
-        (function() {
-          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-    </script>
 </head>
 
 <body class="no-sidebar">
@@ -36,7 +25,7 @@
     <nav role="navigation">
         <ul class="main-navigation">
             <li><a href="/about/" title="About">About</a></li>
-            <li><a href="https://github.com/Claymore" title="Github repos">Github repos</a></li>
+            <li><a href="https://github.com/Claymore" title="GitHub">GitHub</a></li>
             <li><a href="/archive/" title="Archive">Archive</a></li>
         </ul>
         <form action="http://google.com/search" method="get">
@@ -59,6 +48,8 @@
                         <p>You might have heard of <a href="http://www.docker.io" title="Docker">Docker</a> by now. It&rsquo;s a young but ambitious project that promises to package up
 your application as a portable and self-sufficient container ready to run in any environment. I already use Docker on my Linux boxes to
 spin several test instances of my web service. Let&rsquo;s see if we can run it on Mac OS X.</p>
+
+<p></p>
 
 <p>The web service is a SOAP server that uses Oracle database to persist data. Users interact with the service via a web interface.
 The web service and the web interface are packaged as a container that exposes TCP port 80. So we need to set up a Docker server and
@@ -138,7 +129,6 @@ boot the VM and use the <code>system-config-network-tui</code> utility to assign
 
 <pre><code>http://localhost:8080
 </code></pre>
-
                     </div>
                     <footer>
                         <p class="meta">
@@ -161,7 +151,7 @@ boot the VM and use the <code>system-config-network-tui</code> utility to assign
         </div>
     </div>
     <footer role="contentinfo">
-        Copyright © 2007–2015 Alexey Bobyakov<br />
+        Copyright © 2007–2018 Alexey Bobyakov<br />
         <span class="credit">
             Powered by <a href="http://gohugo.io">Hugo</a>,
             design is based on <a href="https://github.com/rastersize/BlogTheme">Cedercrantz’s theme</a>

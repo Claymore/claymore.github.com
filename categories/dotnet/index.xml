@@ -6,9 +6,11 @@
     <description>Recent content in Dotnet on Shirohida</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Copyright © 2007–2015 Alexey Bobyakov</copyright>
+    <copyright>Copyright © 2007–2018 Alexey Bobyakov</copyright>
     <lastBuildDate>Sun, 13 Jul 2008 16:53:00 +0000</lastBuildDate>
-    <atom:link href="http://bobyakov.org/categories/dotnet/index.xml" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="http://bobyakov.org/categories/dotnet/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Context menu for column headers of .NET ListView</title>
@@ -18,43 +20,7 @@
       <guid>http://bobyakov.org/2008/07/13/context-menu-for-column-headers-of-net-listview/</guid>
       <description>&lt;p&gt;&lt;code&gt;ListView&lt;/code&gt; doesn&amp;rsquo;t provide &lt;code&gt;ColumnHeaderMouseClick&lt;/code&gt; event so I had to find a workaround to display context menu for column headers. There is a &lt;a href=&#34;http://www.codeproject.com/Articles/23330/Handling-Right-Click-Events-in-ListView-Column-Hea&#34; title=&#34;Handling Right-Click Events in ListView Column Headers&#34;&gt;way&lt;/a&gt; to do this by resorting to Windows API but my solution is easier.&lt;/p&gt;
 
-&lt;p&gt;Let&amp;rsquo;s say we&amp;rsquo;ve got a &lt;code&gt;ListView&lt;/code&gt; control called &lt;code&gt;contentsListView&lt;/code&gt; and two menus: &lt;code&gt;generalContextMenu&lt;/code&gt; and &lt;code&gt;headerContextMenu&lt;/code&gt;. &lt;code&gt;generalContextMenu&lt;/code&gt; should be displayed when user right-clicks on an item and headerContextMenu should be displayed when he clicks on a column header.&lt;/p&gt;
-
-&lt;p&gt;Set the list view&amp;rsquo;s property &lt;code&gt;ContextMenuStrip&lt;/code&gt; to &lt;code&gt;generalContextMenu&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;contentListView.ContextMenuStrip = generalContextMenu;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Add handler for &lt;code&gt;Opening&lt;/code&gt; event of &lt;code&gt;generalContextMenu&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;generalContextMenuStrip.Opening += generalContextMenu_Opening;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;I have played with debugger a bit and found out that &lt;code&gt;contentListView.GetItemAt&lt;/code&gt; returns first visible item of the list even when we actually click on a column header. So, when we get some value this means we either clicked on an item or on a column header. Any list item is located below the header, so if the item &lt;code&gt;Position.Y&lt;/code&gt; is less than &lt;code&gt;MousePosition.Y&lt;/code&gt; then user clicked on a column header.&lt;/p&gt;
-
-&lt;p&gt;Here is the code for the handler:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;private void generalContextMenu_Opening(object sender, CancelEventArgs e)
-{
-	Point pt = contentListView.PointToClient(new Point(MousePosition.X, MousePosition.Y));
-	ListViewItem item = contentListView.GetItemAt(pt.X, pt.Y);
-
-	// Not an item or a column header
-	if (item == null)
-	{
-		e.Cancel = true;
-		return;
-	}
-
-	// Is it a column header?
-	if (item.Position.Y &amp;gt; pt.Y)
-	{
-		e.Cancel = true;
-		headerContextMenu.Show(MousePosition);
-	}
-}
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

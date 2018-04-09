@@ -6,9 +6,11 @@
     <description>Recent content in Git on Shirohida</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Copyright © 2007–2015 Alexey Bobyakov</copyright>
+    <copyright>Copyright © 2007–2018 Alexey Bobyakov</copyright>
     <lastBuildDate>Mon, 05 Nov 2012 00:07:00 +0000</lastBuildDate>
-    <atom:link href="http://bobyakov.org/categories/git/index.xml" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="http://bobyakov.org/categories/git/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Git Configuration Tips</title>
@@ -18,33 +20,7 @@
       <guid>http://bobyakov.org/2012/11/05/git-configuration-tips/</guid>
       <description>&lt;p&gt;Probably the first thing you want to do after providing git with your name and email is to color its output.&lt;/p&gt;
 
-&lt;p&gt;Open &lt;code&gt;~/.gitconfig&lt;/code&gt; in your favorite editor and add following lines:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[color]
-	branch = auto
-	diff = auto
-	interactive = auto
-	status = auto
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If you want to cut down on typing you can also use git aliases. Here is list of mine:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[alias]
-	st = status -s
-	ci = commit
-	cim = commit -m
-	ciam = commit -a -m
-	br = branch
-	co = checkout
-	df = diff
-	lg = log -p
-	au = add -u
-	history = log --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&amp;lt;%an&amp;gt;%Creset&#39; --abbrev-commit --date=relative
-	# git svn related commands
-	sup = !git svn fetch &amp;amp;&amp;amp; git svn rebase -l
-	sci = svn dcommit
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>
