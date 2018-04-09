@@ -8,7 +8,10 @@
                     <header>
                         <h1 class="entry-title">Archive</h1>
                     </header>
-                    <div id="blog-archives">{{ range (where .Site.Pages "Type" "post").GroupByDate "2006" }}
+                    {{ $v1 := where .Site.Pages "Section" "post"}}
+                    {{ $v2 := where .Site.Pages ".Title" "ne" "Posts" }}
+                    {{ $filtered := $v1 | intersect $v2 }}
+                    <div id="blog-archives">{{ range $filtered.GroupByDate "2006" }}
                         <h2>{{ .Key }}</h2>{{ range .Pages }}
                         <article>
                             <h1 class="entry-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h1>
