@@ -21,9 +21,9 @@
                             </span>{{ end }}{{ end }}
                             </p>
                             <div class="sharing"></div>
-                            <span>{{ if .Next }}{{ if eq .Next.Section "post" }}
-                                <a class="basic-alignment left" href="{{ .Next.RelPermalink }}" title="{{ .Next.Title }}">← {{ .Next.Title }}</a>{{ end }}{{ end }}{{ if .Prev }}{{ if eq .Prev.Section "post" }}
-                                <a class="basic-alignment right" href="{{ .Prev.RelPermalink }}" title="{{ .Prev.Title }}">{{ .Prev.Title }} →</a>{{ end }}{{ end }}
+                            <span>{{ if .PrevPage }}{{ if eq .PrevPage.Section "post" }}
+                                <a class="basic-alignment left" href="{{ .PrevPage.RelPermalink }}" title="{{ .PrevPage.Title }}">← {{ .PrevPage.Title }}</a>{{ end }}{{ end }}{{ if .NextPage }}{{ if eq .NextPage.Section "post" }}
+                                <a class="basic-alignment right" href="{{ .NextPage.RelPermalink }}" title="{{ .NextPage.Title }}">{{ .NextPage.Title }} →</a>{{ end }}{{ end }}
                             </span>
                     </footer>
                 </article>
