@@ -1,25 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Archives on Shirohida</title>
-    <link>http://bobyakov.org/archive/</link>
-    <description>Recent content in Archives on Shirohida</description>
+    <title>Archive on Shirohida</title>
+    <link>https://bobyakov.org/archive/</link>
+    <description>Recent content in Archive on Shirohida</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Copyright © 2007–2018 Alexey Bobyakov</copyright>
+    <copyright>Copyright © 2007–2019 Alexey Bobyakov</copyright>
     <lastBuildDate>Fri, 21 Jun 2013 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://bobyakov.org/archive/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://bobyakov.org/archive/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Archive</title>
-      <link>http://bobyakov.org/archive/</link>
-      <pubDate>Fri, 21 Jun 2013 00:00:00 +0000</pubDate>
-      
-      <guid>http://bobyakov.org/archive/</guid>
-      <description></description>
-    </item>
     
   </channel>
 </rss>

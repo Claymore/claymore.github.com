@@ -2,76 +2,76 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Shirohida</title>
-    <link>http://bobyakov.org/categories/</link>
+    <link>https://bobyakov.org/categories/</link>
     <description>Recent content in Categories on Shirohida</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Copyright © 2007–2018 Alexey Bobyakov</copyright>
+    <copyright>Copyright © 2007–2019 Alexey Bobyakov</copyright>
     <lastBuildDate>Sun, 04 Nov 2012 21:53:00 +0000</lastBuildDate>
     
-	<atom:link href="http://bobyakov.org/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://bobyakov.org/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Blog</title>
-      <link>http://bobyakov.org/categories/blog/</link>
+      <link>https://bobyakov.org/categories/blog/</link>
       <pubDate>Sun, 04 Nov 2012 21:53:00 +0000</pubDate>
       
-      <guid>http://bobyakov.org/categories/blog/</guid>
+      <guid>https://bobyakov.org/categories/blog/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Docker</title>
-      <link>http://bobyakov.org/categories/docker/</link>
+      <link>https://bobyakov.org/categories/docker/</link>
       <pubDate>Sat, 01 Feb 2014 15:14:00 +0000</pubDate>
       
-      <guid>http://bobyakov.org/categories/docker/</guid>
+      <guid>https://bobyakov.org/categories/docker/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Dotnet</title>
-      <link>http://bobyakov.org/categories/dotnet/</link>
+      <link>https://bobyakov.org/categories/dotnet/</link>
       <pubDate>Sun, 13 Jul 2008 16:53:00 +0000</pubDate>
       
-      <guid>http://bobyakov.org/categories/dotnet/</guid>
+      <guid>https://bobyakov.org/categories/dotnet/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Git</title>
-      <link>http://bobyakov.org/categories/git/</link>
+      <link>https://bobyakov.org/categories/git/</link>
       <pubDate>Mon, 05 Nov 2012 00:07:00 +0000</pubDate>
       
-      <guid>http://bobyakov.org/categories/git/</guid>
+      <guid>https://bobyakov.org/categories/git/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Golang</title>
-      <link>http://bobyakov.org/categories/golang/</link>
+      <link>https://bobyakov.org/categories/golang/</link>
       <pubDate>Sun, 20 Sep 2015 20:31:00 +0000</pubDate>
       
-      <guid>http://bobyakov.org/categories/golang/</guid>
+      <guid>https://bobyakov.org/categories/golang/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Osx</title>
-      <link>http://bobyakov.org/categories/osx/</link>
+      <link>https://bobyakov.org/categories/osx/</link>
       <pubDate>Sat, 01 Feb 2014 15:14:00 +0000</pubDate>
       
-      <guid>http://bobyakov.org/categories/osx/</guid>
+      <guid>https://bobyakov.org/categories/osx/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Windows</title>
-      <link>http://bobyakov.org/categories/windows/</link>
+      <link>https://bobyakov.org/categories/windows/</link>
       <pubDate>Mon, 30 Jul 2007 13:31:00 +0000</pubDate>
       
-      <guid>http://bobyakov.org/categories/windows/</guid>
+      <guid>https://bobyakov.org/categories/windows/</guid>
       <description></description>
     </item>
     

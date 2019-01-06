@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Windows on Shirohida</title>
-    <link>http://bobyakov.org/categories/windows/</link>
+    <link>https://bobyakov.org/categories/windows/</link>
     <description>Recent content in Windows on Shirohida</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Copyright © 2007–2018 Alexey Bobyakov</copyright>
+    <copyright>Copyright © 2007–2019 Alexey Bobyakov</copyright>
     <lastBuildDate>Mon, 30 Jul 2007 13:31:00 +0000</lastBuildDate>
     
-	<atom:link href="http://bobyakov.org/categories/windows/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://bobyakov.org/categories/windows/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Windows Vista Credential Providers</title>
-      <link>http://bobyakov.org/2007/07/30/windows-vista-credential-providers/</link>
+      <link>https://bobyakov.org/2007/07/30/windows-vista-credential-providers/</link>
       <pubDate>Mon, 30 Jul 2007 13:31:00 +0000</pubDate>
       
-      <guid>http://bobyakov.org/2007/07/30/windows-vista-credential-providers/</guid>
+      <guid>https://bobyakov.org/2007/07/30/windows-vista-credential-providers/</guid>
       <description>In Windows Vista Microsoft has adopted so called credential providers as a way to log into the system. Your custom GINA library won&amp;rsquo;t work in Vista so you will have to write a COM component that implements ICredentialProvider and ICredentialProviderCredential interfaces. I found it pretty easy to write a custom credential provider (the one that works with electronic keys). There are a good introduction into the new model, samples and technical reference.</description>
     </item>
     

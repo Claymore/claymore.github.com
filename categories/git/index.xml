@@ -2,25 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Git on Shirohida</title>
-    <link>http://bobyakov.org/categories/git/</link>
+    <link>https://bobyakov.org/categories/git/</link>
     <description>Recent content in Git on Shirohida</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Copyright © 2007–2018 Alexey Bobyakov</copyright>
+    <copyright>Copyright © 2007–2019 Alexey Bobyakov</copyright>
     <lastBuildDate>Mon, 05 Nov 2012 00:07:00 +0000</lastBuildDate>
     
-	<atom:link href="http://bobyakov.org/categories/git/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://bobyakov.org/categories/git/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Git Configuration Tips</title>
-      <link>http://bobyakov.org/2012/11/05/git-configuration-tips/</link>
+      <link>https://bobyakov.org/2012/11/05/git-configuration-tips/</link>
       <pubDate>Mon, 05 Nov 2012 00:07:00 +0000</pubDate>
       
-      <guid>http://bobyakov.org/2012/11/05/git-configuration-tips/</guid>
-      <description>&lt;p&gt;Probably the first thing you want to do after providing git with your name and email is to color its output.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://bobyakov.org/2012/11/05/git-configuration-tips/</guid>
+      <description>&lt;p&gt;Probably the first thing you want to do after providing git with your name and email is to color its output.&lt;/p&gt;</description>
     </item>
     
   </channel>

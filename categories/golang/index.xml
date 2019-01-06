@@ -2,41 +2,37 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Golang on Shirohida</title>
-    <link>http://bobyakov.org/categories/golang/</link>
+    <link>https://bobyakov.org/categories/golang/</link>
     <description>Recent content in Golang on Shirohida</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Copyright © 2007–2018 Alexey Bobyakov</copyright>
+    <copyright>Copyright © 2007–2019 Alexey Bobyakov</copyright>
     <lastBuildDate>Sun, 20 Sep 2015 20:31:00 +0000</lastBuildDate>
     
-	<atom:link href="http://bobyakov.org/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://bobyakov.org/categories/golang/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Go Packages Vendoring with Gitlab</title>
-      <link>http://bobyakov.org/2015/09/20/go-packages-vendoring-with-gitlab/</link>
+      <link>https://bobyakov.org/2015/09/20/go-packages-vendoring-with-gitlab/</link>
       <pubDate>Sun, 20 Sep 2015 20:31:00 +0000</pubDate>
       
-      <guid>http://bobyakov.org/2015/09/20/go-packages-vendoring-with-gitlab/</guid>
+      <guid>https://bobyakov.org/2015/09/20/go-packages-vendoring-with-gitlab/</guid>
       <description>&lt;p&gt;In a software shop you really want to keep all your external dependecies
 in your local network to get them faster and more reliably. Copying
 external projects into your own repositories is called vendoring. Let&amp;rsquo;s
-vendor a github project into a gitlab project. Here is how to do it.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+vendor a github project into a gitlab project. Here is how to do it.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>First Days with Go</title>
-      <link>http://bobyakov.org/2012/11/05/first-days-with-go/</link>
+      <link>https://bobyakov.org/2012/11/05/first-days-with-go/</link>
       <pubDate>Mon, 05 Nov 2012 13:34:00 +0000</pubDate>
       
-      <guid>http://bobyakov.org/2012/11/05/first-days-with-go/</guid>
+      <guid>https://bobyakov.org/2012/11/05/first-days-with-go/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve seen articles about &lt;a href=&#34;http://golang.org&#34; title=&#34;The Go Programming Language&#34;&gt;Go&lt;/a&gt; programming language appearing on Hacker News
 a few times but I didn&amp;rsquo;t pay much attention to them. Yet another language with
-nothing special about it or so it looked. It&amp;rsquo;s changed with Rob Pike&amp;rsquo;s &lt;a href=&#34;http://talks.golang.org/2012/splash.slide#1&#34; title=&#34;Go at Google&#34;&gt;recent talk&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+nothing special about it or so it looked. It&amp;rsquo;s changed with Rob Pike&amp;rsquo;s &lt;a href=&#34;http://talks.golang.org/2012/splash.slide#1&#34; title=&#34;Go at Google&#34;&gt;recent talk&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
     
   </channel>

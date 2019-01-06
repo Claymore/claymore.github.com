@@ -2,104 +2,92 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Shirohida</title>
-    <link>http://bobyakov.org/post/</link>
+    <link>https://bobyakov.org/post/</link>
     <description>Recent content in Posts on Shirohida</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Copyright © 2007–2018 Alexey Bobyakov</copyright>
+    <copyright>Copyright © 2007–2019 Alexey Bobyakov</copyright>
     <lastBuildDate>Sun, 20 Sep 2015 20:31:00 +0000</lastBuildDate>
     
-	<atom:link href="http://bobyakov.org/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://bobyakov.org/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Go Packages Vendoring with Gitlab</title>
-      <link>http://bobyakov.org/2015/09/20/go-packages-vendoring-with-gitlab/</link>
+      <link>https://bobyakov.org/2015/09/20/go-packages-vendoring-with-gitlab/</link>
       <pubDate>Sun, 20 Sep 2015 20:31:00 +0000</pubDate>
       
-      <guid>http://bobyakov.org/2015/09/20/go-packages-vendoring-with-gitlab/</guid>
+      <guid>https://bobyakov.org/2015/09/20/go-packages-vendoring-with-gitlab/</guid>
       <description>&lt;p&gt;In a software shop you really want to keep all your external dependecies
 in your local network to get them faster and more reliably. Copying
 external projects into your own repositories is called vendoring. Let&amp;rsquo;s
-vendor a github project into a gitlab project. Here is how to do it.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+vendor a github project into a gitlab project. Here is how to do it.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Oracle, VirtualBox, Docker and Mac OS X</title>
-      <link>http://bobyakov.org/2014/02/01/oracle-virtualbox-docker-osx/</link>
+      <link>https://bobyakov.org/2014/02/01/oracle-virtualbox-docker-osx/</link>
       <pubDate>Sat, 01 Feb 2014 15:14:00 +0000</pubDate>
       
-      <guid>http://bobyakov.org/2014/02/01/oracle-virtualbox-docker-osx/</guid>
+      <guid>https://bobyakov.org/2014/02/01/oracle-virtualbox-docker-osx/</guid>
       <description>&lt;p&gt;You might have heard of &lt;a href=&#34;http://www.docker.io&#34; title=&#34;Docker&#34;&gt;Docker&lt;/a&gt; by now. It&amp;rsquo;s a young but ambitious project that promises to package up
 your application as a portable and self-sufficient container ready to run in any environment. I already use Docker on my Linux boxes to
-spin several test instances of my web service. Let&amp;rsquo;s see if we can run it on Mac OS X.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+spin several test instances of my web service. Let&amp;rsquo;s see if we can run it on Mac OS X.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>First Days with Go</title>
-      <link>http://bobyakov.org/2012/11/05/first-days-with-go/</link>
+      <link>https://bobyakov.org/2012/11/05/first-days-with-go/</link>
       <pubDate>Mon, 05 Nov 2012 13:34:00 +0000</pubDate>
       
-      <guid>http://bobyakov.org/2012/11/05/first-days-with-go/</guid>
+      <guid>https://bobyakov.org/2012/11/05/first-days-with-go/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve seen articles about &lt;a href=&#34;http://golang.org&#34; title=&#34;The Go Programming Language&#34;&gt;Go&lt;/a&gt; programming language appearing on Hacker News
 a few times but I didn&amp;rsquo;t pay much attention to them. Yet another language with
-nothing special about it or so it looked. It&amp;rsquo;s changed with Rob Pike&amp;rsquo;s &lt;a href=&#34;http://talks.golang.org/2012/splash.slide#1&#34; title=&#34;Go at Google&#34;&gt;recent talk&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+nothing special about it or so it looked. It&amp;rsquo;s changed with Rob Pike&amp;rsquo;s &lt;a href=&#34;http://talks.golang.org/2012/splash.slide#1&#34; title=&#34;Go at Google&#34;&gt;recent talk&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Git Configuration Tips</title>
-      <link>http://bobyakov.org/2012/11/05/git-configuration-tips/</link>
+      <link>https://bobyakov.org/2012/11/05/git-configuration-tips/</link>
       <pubDate>Mon, 05 Nov 2012 00:07:00 +0000</pubDate>
       
-      <guid>http://bobyakov.org/2012/11/05/git-configuration-tips/</guid>
-      <description>&lt;p&gt;Probably the first thing you want to do after providing git with your name and email is to color its output.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://bobyakov.org/2012/11/05/git-configuration-tips/</guid>
+      <description>&lt;p&gt;Probably the first thing you want to do after providing git with your name and email is to color its output.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>From Blogspot to Octopress/Github</title>
-      <link>http://bobyakov.org/2012/11/04/from-blogspot-to-octopress-slash-github/</link>
+      <link>https://bobyakov.org/2012/11/04/from-blogspot-to-octopress-slash-github/</link>
       <pubDate>Sun, 04 Nov 2012 21:53:00 +0000</pubDate>
       
-      <guid>http://bobyakov.org/2012/11/04/from-blogspot-to-octopress-slash-github/</guid>
+      <guid>https://bobyakov.org/2012/11/04/from-blogspot-to-octopress-slash-github/</guid>
       <description>I&amp;rsquo;ve finally moved my blog from Blogspot to Github pages. The blog is now powered by Octopress. Blogspot was convient but for a developer there are several reasons to switch. Octopress generates a static website that can be deployed anywhere so you gain independence from a service provider. Your posts are Markdown files that can be authored in your favorite editor. The blog source is under version control. Another great feature: code syntax highlighting works out of the box.</description>
     </item>
     
     <item>
       <title>Hubot &amp; XMPP</title>
-      <link>http://bobyakov.org/2011/10/27/hubot-and-xmpp/</link>
+      <link>https://bobyakov.org/2011/10/27/hubot-and-xmpp/</link>
       <pubDate>Thu, 27 Oct 2011 00:43:00 +0000</pubDate>
       
-      <guid>http://bobyakov.org/2011/10/27/hubot-and-xmpp/</guid>
-      <description>&lt;p&gt;Running Hubot on a Jabber server is fairly simple.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://bobyakov.org/2011/10/27/hubot-and-xmpp/</guid>
+      <description>&lt;p&gt;Running Hubot on a Jabber server is fairly simple.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Context menu for column headers of .NET ListView</title>
-      <link>http://bobyakov.org/2008/07/13/context-menu-for-column-headers-of-net-listview/</link>
+      <link>https://bobyakov.org/2008/07/13/context-menu-for-column-headers-of-net-listview/</link>
       <pubDate>Sun, 13 Jul 2008 16:53:00 +0000</pubDate>
       
-      <guid>http://bobyakov.org/2008/07/13/context-menu-for-column-headers-of-net-listview/</guid>
-      <description>&lt;p&gt;&lt;code&gt;ListView&lt;/code&gt; doesn&amp;rsquo;t provide &lt;code&gt;ColumnHeaderMouseClick&lt;/code&gt; event so I had to find a workaround to display context menu for column headers. There is a &lt;a href=&#34;http://www.codeproject.com/Articles/23330/Handling-Right-Click-Events-in-ListView-Column-Hea&#34; title=&#34;Handling Right-Click Events in ListView Column Headers&#34;&gt;way&lt;/a&gt; to do this by resorting to Windows API but my solution is easier.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://bobyakov.org/2008/07/13/context-menu-for-column-headers-of-net-listview/</guid>
+      <description>&lt;p&gt;&lt;code&gt;ListView&lt;/code&gt; doesn&amp;rsquo;t provide &lt;code&gt;ColumnHeaderMouseClick&lt;/code&gt; event so I had to find a workaround to display context menu for column headers. There is a &lt;a href=&#34;http://www.codeproject.com/Articles/23330/Handling-Right-Click-Events-in-ListView-Column-Hea&#34; title=&#34;Handling Right-Click Events in ListView Column Headers&#34;&gt;way&lt;/a&gt; to do this by resorting to Windows API but my solution is easier.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Windows Vista Credential Providers</title>
-      <link>http://bobyakov.org/2007/07/30/windows-vista-credential-providers/</link>
+      <link>https://bobyakov.org/2007/07/30/windows-vista-credential-providers/</link>
       <pubDate>Mon, 30 Jul 2007 13:31:00 +0000</pubDate>
       
-      <guid>http://bobyakov.org/2007/07/30/windows-vista-credential-providers/</guid>
+      <guid>https://bobyakov.org/2007/07/30/windows-vista-credential-providers/</guid>
       <description>In Windows Vista Microsoft has adopted so called credential providers as a way to log into the system. Your custom GINA library won&amp;rsquo;t work in Vista so you will have to write a COM component that implements ICredentialProvider and ICredentialProviderCredential interfaces. I found it pretty easy to write a custom credential provider (the one that works with electronic keys). There are a good introduction into the new model, samples and technical reference.</description>
     </item>
     

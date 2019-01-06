@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blog on Shirohida</title>
-    <link>http://bobyakov.org/categories/blog/</link>
+    <link>https://bobyakov.org/categories/blog/</link>
     <description>Recent content in Blog on Shirohida</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Copyright © 2007–2018 Alexey Bobyakov</copyright>
+    <copyright>Copyright © 2007–2019 Alexey Bobyakov</copyright>
     <lastBuildDate>Sun, 04 Nov 2012 21:53:00 +0000</lastBuildDate>
     
-	<atom:link href="http://bobyakov.org/categories/blog/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://bobyakov.org/categories/blog/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>From Blogspot to Octopress/Github</title>
-      <link>http://bobyakov.org/2012/11/04/from-blogspot-to-octopress-slash-github/</link>
+      <link>https://bobyakov.org/2012/11/04/from-blogspot-to-octopress-slash-github/</link>
       <pubDate>Sun, 04 Nov 2012 21:53:00 +0000</pubDate>
       
-      <guid>http://bobyakov.org/2012/11/04/from-blogspot-to-octopress-slash-github/</guid>
+      <guid>https://bobyakov.org/2012/11/04/from-blogspot-to-octopress-slash-github/</guid>
       <description>I&amp;rsquo;ve finally moved my blog from Blogspot to Github pages. The blog is now powered by Octopress. Blogspot was convient but for a developer there are several reasons to switch. Octopress generates a static website that can be deployed anywhere so you gain independence from a service provider. Your posts are Markdown files that can be authored in your favorite editor. The blog source is under version control. Another great feature: code syntax highlighting works out of the box.</description>
     </item>
     

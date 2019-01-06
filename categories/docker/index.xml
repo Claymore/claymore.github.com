@@ -2,27 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Docker on Shirohida</title>
-    <link>http://bobyakov.org/categories/docker/</link>
+    <link>https://bobyakov.org/categories/docker/</link>
     <description>Recent content in Docker on Shirohida</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Copyright © 2007–2018 Alexey Bobyakov</copyright>
+    <copyright>Copyright © 2007–2019 Alexey Bobyakov</copyright>
     <lastBuildDate>Sat, 01 Feb 2014 15:14:00 +0000</lastBuildDate>
     
-	<atom:link href="http://bobyakov.org/categories/docker/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://bobyakov.org/categories/docker/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Oracle, VirtualBox, Docker and Mac OS X</title>
-      <link>http://bobyakov.org/2014/02/01/oracle-virtualbox-docker-osx/</link>
+      <link>https://bobyakov.org/2014/02/01/oracle-virtualbox-docker-osx/</link>
       <pubDate>Sat, 01 Feb 2014 15:14:00 +0000</pubDate>
       
-      <guid>http://bobyakov.org/2014/02/01/oracle-virtualbox-docker-osx/</guid>
+      <guid>https://bobyakov.org/2014/02/01/oracle-virtualbox-docker-osx/</guid>
       <description>&lt;p&gt;You might have heard of &lt;a href=&#34;http://www.docker.io&#34; title=&#34;Docker&#34;&gt;Docker&lt;/a&gt; by now. It&amp;rsquo;s a young but ambitious project that promises to package up
 your application as a portable and self-sufficient container ready to run in any environment. I already use Docker on my Linux boxes to
-spin several test instances of my web service. Let&amp;rsquo;s see if we can run it on Mac OS X.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+spin several test instances of my web service. Let&amp;rsquo;s see if we can run it on Mac OS X.&lt;/p&gt;</description>
     </item>
     
   </channel>
