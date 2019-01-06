@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title>Why I Like the Fish Shell - Shirohida</title>
+    <meta name="author" content="Alexey Bobyakov">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="canonical" href="https://bobyakov.org/2019/01/06/why-i-like-the-fish-shell/">
+    <link href="/favicon.png" rel="icon">
+    <link href="/style.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+</head>
+
+<body class="no-sidebar">
+    <header role="banner">
+        <hgroup>
+            <h1><a href="/">Shirohida</a></h1>
+        </hgroup>
+    </header>
+    <nav role="navigation">
+        <ul class="main-navigation">
+            <li><a href="/about/" title="About">About</a></li>
+            <li><a href="https://github.com/Claymore" title="GitHub">GitHub</a></li>
+            <li><a href="/archive/" title="Archive">Archive</a></li>
+        </ul>
+        <form action="http://google.com/search" method="get">
+            <fieldset role="search">
+                <input type="hidden" name="q" value="site:bobyakov.org" />
+                <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+            </fieldset>
+        </form>
+    </nav>
+
+    <div id="main">
+        <div id="content">
+            <div>
+                <article class="hentry" role="article">
+                    <header>
+                        <h1 class="entry-title">Why I Like the Fish Shell</h1>
+                        <p class="meta"><time datetime="2019-01-06T11:00:00&#43;0000" pubdate data-updated="true">January 6, 2019</time></p>
+                    </header>
+                    <div class="entry-content">
+                        <p>I&rsquo;ve tried to use <a href="https://fishshell.com">the fish shell</a> and it was unexpectedly fun! First of all, it&rsquo;s fast! I haven&rsquo;t realized how slow <code>zsh</code> can be. Fish doesn&rsquo;t require a complex set up, it works pretty well out of the box. Its <a href="https://fishshell.com/docs/current/tutorial.html">tutorial</a> is easy to follow and the documentation is compact and to the point. I am also fond of its <a href="https://fishshell.com/docs/current/design.html">design doc</a>. Fish strives to be user-friendly and to have a small set of orthogonal features.</p>
+
+<p>Fish has an unusual configuration wizard: <code>fish_config</code>. It starts a web-server and allows you to choose a theme or set up a prompt with a web-page. Try it out!</p>
+
+<p>Fish config file is located at <code>~/.config/fish/config.fish</code>.</p>
+
+<p>You don&rsquo;t have to set up variables in the configuration file, though. Use <a href="https://fishshell.com/docs/current/index.html#variables-universal">universal variables</a> instead. For example, this command sets and exports universal variable <code>$EDITOR</code>:</p>
+
+<pre><code class="language-sh">set -xU EDITOR /opt/homebrew/bin/vim
+</code></pre>
+
+<p>You can append directories to <code>$PATH</code> this way:</p>
+
+<pre><code class="language-sh">set -U fish_user_paths /opt/homebrew/bin $fish_user_paths
+</code></pre>
+
+<p>This command removes <code>/opt/homebrew/bin</code> from <code>$fish_user_paths</code>:</p>
+
+<pre><code class="language-sh">set -U fish_user_paths (string match -v /opt/homebrew/bin $fish_user_paths)
+</code></pre>
+
+<p>Universal variables are saved in <code>~/.config/fish/fish_variables</code>. Don&rsquo;t edit the file by hand, use <code>set -U</code> instead.</p>
+
+<p>The first thing I&rsquo;ve tried to do in fish is to re-create my zsh prompt. It was easier than I thought! You can define your own version of the <code>fish_prompt</code> function:</p>
+
+<pre><code class="language-sh">mkdir -p ~/.config/fish/functions
+$EDITOR ~/.config/fish/functions/fish_prompt.fish
+</code></pre>
+
+<pre><code class="language-sh"># ~/.config/fish/functions/fish_prompt.fish
+function fish_prompt
+    set -l color_username d488f9
+    set -l color_hostname cb4b16
+    set -l color_cwd 94fd3a
+
+    printf &quot;%s%s%s at %s%s%s in %s%s%s&quot; \
+        (set_color $color_username) $USER (set_color normal) \
+        (set_color $color_hostname) $hostname (set_color normal) \
+        (set_color $color_cwd) (prompt_pwd) (set_color normal)
+
+    __fish_git_prompt &quot; is working on (%s)&quot;
+
+    printf &quot;\n~&gt; &quot;
+end
+</code></pre>
+
+<p>Let&rsquo;s go through the function body:</p>
+
+<ul>
+<li><code>set -l</code> sets a local variable.</li>
+<li><code>set_color</code> returns a special string that colors everything after it with the given color. <code>(set_color normal)</code> resets colors back to default.</li>
+<li><code>$USER</code> holds your username.</li>
+<li><code>$hostname</code> holds your hostname.</li>
+<li><code>prompt_cwd</code> returns your current working directory.</li>
+<li>It took me a while to find <code>__fish_git_prompt</code>. It prints various information about your git repository. <code>is working on (%s)</code> will be printed only if you are inside a git repo. <code>__fish_git_prompt</code> is documented <a href="https://github.com/fish-shell/fish-shell/blob/master/share/functions/__fish_git_prompt.fish">here</a>.</li>
+</ul>
+
+<p>My version of <code>fish_prompt</code> is a multiline prompt and it looks roughly like this:</p>
+
+<pre><code class="language-sh">claymore at himeji in ~/.config/fish is working on (spacemacs|✚)
+~&gt; 
+</code></pre>
+
+<p>Obligatory link to my fish settings: <a href="https://github.com/Claymore/dotfiles/tree/spacemacs/fish">fish</a>.</p>
+                    </div>
+                    <footer>
+                        <p class="meta">
+                            <span class="byline author vcard">Posted by <span class="fn">Alexey Bobyakov</span></span>
+                            <time datetime="2019-01-06T11:00:00&#43;0000" pubdate data-updated="true">January 6, 2019</time>
+                            </p>
+                            <div class="sharing"></div>
+                            <span>
+                                <a class="basic-alignment left" href="/2015/09/20/go-packages-vendoring-with-gitlab/" title="Go Packages Vendoring with Gitlab">← Go Packages Vendoring with Gitlab</a>
+                            </span>
+                    </footer>
+                </article>
+            </div>
+        </div>
+    </div>
+    <footer role="contentinfo">
+        Copyright © 2007–2019 Alexey Bobyakov<br />
+        <span class="credit">
+            Powered by <a href="http://gohugo.io">Hugo</a>,
+            design is based on <a href="https://github.com/rastersize/BlogTheme">Cedercrantz’s theme</a>
+        </span>
+    </footer>
+</body>
+</html>
+<link rel="stylesheet" href="/highlightjs_solarized_dark.css">
+<script src="/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
