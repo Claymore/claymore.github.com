@@ -1,8 +1,8 @@
-baseurl = "http://bobyakov.org"
+baseurl = "https://bobyakov.org"
 languageCode = "en"
 title = "Shirohida"
 theme = "shirohida"
-copyright = "Copyright © 2007–2018 Alexey Bobyakov"
+copyright = "Copyright © 2007–2019 Alexey Bobyakov"
 paginate = 5
 
 [author]
